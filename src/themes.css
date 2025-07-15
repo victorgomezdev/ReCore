@@ -1,0 +1,62 @@
+:root {
+  /* Color para fondos */
+  --background: #fff;
+  /* Color para fondos contraste */
+  --background-contrast: #000;
+  /* Color para texto con colores y así */
+  --primary-color: #000;
+  /* Color para texto */
+  --text-color: #000;
+  /* Color para texto-contraste */
+  --text-color: green;
+  /* Color para los inputs */
+  --input-background: #ffffff;
+
+}
+
+[data-theme="light"] {
+  /* Color para fondos */
+  --background: #c4e0ec;
+  /* Color para fondos contraste */
+  --background-contrast: #fff;
+  /* Color para texto con colores y así */
+  --primary-color: #0dc9c6;
+  /* Color para bordes y edmas */
+  --secondary-color: #637081;
+  /* Color para texto */
+  --text-color: #000;
+  /* Color para los inputs */
+  --input-background: #ffffff;
+  --input-color: #000000;
+}
+
+[data-theme="dark"] {
+  /* Color para fondos */
+  --background: #303436;
+  /* Color para fondos contraste */
+  --background-contrast: #000000;
+  /* Color para texto con colores y así */
+  --primary-color: #0dc9c6;
+  /* Color para bordes y edmas */
+  --secondary-color: #637081;
+  /* Color para texto */
+  --text-color: #ffffff;
+  /* Color para los inputs */
+  --input-background: #ffffff;
+  --input-color: #000000;
+}
+
+[data-theme="custom1"] {
+  /* Color para fondos */
+  --background: #303436;
+  /* Color para fondos contraste */
+  --background-contrast: #000000;
+  /* Color para texto con colores y así */
+  --primary-color: #ffffff;
+  /* Color para texto */
+  --text-color: #ffffff;
+  /* Color para texto-contraste */
+  --text-color-contrast: #000000;
+  /* Color para los inputs */
+  --input-background: #ffffff;
+}
