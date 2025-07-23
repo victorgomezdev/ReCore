@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
 import Navbar from './Components/Navbar/Navbar'
 import './themes.css';
 import { ThemeProvider } from './ThemeContext';
+import SearchBar from './Components/SearchBar/SearchBar';
 
 const App = () => {
 
@@ -11,7 +11,7 @@ const App = () => {
         <Navbar />
         <div className={`container-body`}>
           <section className="search-section">
-            {/* Buscador */}
+            <SearchBar></SearchBar>
           </section>
 
           <section className="categories-section">

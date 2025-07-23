@@ -15,34 +15,24 @@
 }
 
 [data-theme="light"] {
-  /* Color para fondos */
   --background: #c4e0ec;
-  /* Color para fondos contraste */
   --background-contrast: #fff;
-  /* Color para texto con colores y así */
   --primary-color: #0dc9c6;
-  /* Color para bordes y edmas */
   --secondary-color: #637081;
-  /* Color para texto */
   --text-color: #000;
-  /* Color para los inputs */
+  --text-color-secondary: #fff;
   --input-background: #ffffff;
   --input-color: #000000;
+  /*TODO: Color para iconos*/
 }
 
 [data-theme="dark"] {
-  /* Color para fondos */
   --background: #303436;
-  /* Color para fondos contraste */
   --background-contrast: #000000;
-  /* Color para texto con colores y así */
   --primary-color: #0dc9c6;
-  /* Color para bordes y edmas */
   --secondary-color: #637081;
-  /* Color para texto */
   --text-color: #ffffff;
-  /* Color para los inputs */
-  --input-background: #ffffff;
+  --text-color-secondary: #000000 --input-background: #ffffff;
   --input-color: #000000;
 }
 
