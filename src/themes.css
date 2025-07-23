@@ -23,6 +23,7 @@
   --text-color-secondary: #fff;
   --input-background: #ffffff;
   --input-color: #000000;
+  --box-shadow: rgb(10, 175, 140);
   /*TODO: Color para iconos*/
 }
 
@@ -34,6 +35,7 @@
   --text-color: #ffffff;
   --text-color-secondary: #000000 --input-background: #ffffff;
   --input-color: #000000;
+  --box-shadow: rgb(5, 122, 97);
 }
 
 [data-theme="custom1"] {
