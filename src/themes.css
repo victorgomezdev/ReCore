@@ -23,19 +23,19 @@
   --text-color-secondary: #fff;
   --input-background: #ffffff;
   --input-color: #000000;
-  --box-shadow: rgb(10, 175, 140);
+  --shadow-color: #F19953;
   /*TODO: Color para iconos*/
 }
 
 [data-theme="dark"] {
-  --background: #303436;
-  --background-contrast: #000000;
-  --primary-color: #0dc9c6;
+  --background: #131B23;
+  --background-contrast: #5a4337;
+  --primary-color: #F19953;
   --secondary-color: #637081;
   --text-color: #ffffff;
   --text-color-secondary: #000000 --input-background: #ffffff;
   --input-color: #000000;
-  --box-shadow: rgb(5, 122, 97);
+  --shadow-color: #F19953;
 }
 
 [data-theme="custom1"] {
