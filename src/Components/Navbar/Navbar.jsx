@@ -1,8 +1,6 @@
 import './Navbar.css';
 import logo_light from '../../assets/logo-black.png';
 import logo_dark from '../../assets/logo-white.png';
-import search_icon_light from '../../assets/search-b.png';
-import search_icon_dark from '../../assets/search-w.png';
 import Boton from '../Inputs/InputButton/InputButton.jsx'
 import toggle_light from '../../assets/day.png';
 import toggle_dark from '../../assets/night.png';

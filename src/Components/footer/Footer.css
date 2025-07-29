@@ -1,0 +1,44 @@
+.footer{
+	position: fixed;
+	bottom: 0;
+	padding: 10px 20px;
+	background-color: var(--primary-color);
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.logo-footer{
+	display: flex;
+	flex-direction: column;
+	color: var(--text-color);
+}
+
+.redes-footer{
+	font-size: 1.3rem;
+	color: var(--text-color);
+	display: flex;
+	justify-content: space-between;
+	gap: 10px;
+}
+
+.red-footer{
+	padding: 10px;
+	background-color: var(--secondary-color);
+	border-radius: 7px;
+}
+
+@media (max-width: 985px) {
+	.footer{
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		gap: 10px;
+	}
+	
+	.redes-footer{
+		width: 100%;
+		justify-content: center;
+	}
+}

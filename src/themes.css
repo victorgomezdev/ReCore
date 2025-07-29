@@ -24,7 +24,7 @@
   --input-background: #ffffff;
   --input-color: #000000;
   --shadow-color: #F19953;
-  /*TODO: Color para iconos*/
+  --icono-color: #c8ff00;
 }
 
 [data-theme="dark"] {
@@ -36,6 +36,7 @@
   --text-color-secondary: #000000 --input-background: #ffffff;
   --input-color: #000000;
   --shadow-color: #F19953;
+  --icono-color: #c8ff00;
 }
 
 [data-theme="custom1"] {
