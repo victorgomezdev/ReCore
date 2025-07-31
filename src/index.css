@@ -28,6 +28,7 @@ input::placeholder{
 
 .container-body {
   margin-top: 70px;
+  margin-bottom: 70px;
   background: var(--background);
   color: var(--text-color);
 }

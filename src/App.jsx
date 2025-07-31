@@ -3,6 +3,7 @@ import './themes.css';
 import { ThemeProvider } from './ThemeContext';
 import SearchBar from './Components/SearchBar/SearchBar';
 import CategoriesBox from './Components/categories/categories';
+import ArticlesBox from './Components/articles/articles';
 import Footer from './Components/footer/Footer';
 
 const App = () => {
@@ -22,9 +23,10 @@ const App = () => {
           </section>
 
           <section className="recommendations-section">
-            {/* Productos recomendados */}
+            <ArticlesBox></ArticlesBox>
           </section>
         </div>
+        {/* Footer */}
         <Footer></Footer>
       </div>
     </ThemeProvider>
