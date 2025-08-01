@@ -36,11 +36,15 @@
 
 @media (max-width: 985px) {
 	.contenedor-categorias {
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	flex-wrap: nowrap;
-	overflow-x: auto;
-	white-space: nowrap;
-}
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		white-space: nowrap;
+	}
+	
+	.contenedor-categorias-titulo{
+		font-size: 1.5rem;
+	}
 }

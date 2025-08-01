@@ -1,4 +1,4 @@
-import InputForm from '../Inputs/InputForm/InputForm';
+import InputForm from '../Inputs/InputText/InputText';
 import './searchBar.css';
 import { FaSearch } from "react-icons/fa";
 

@@ -1,9 +1,12 @@
 import './InputButton.css'
 
-const Boton = ({ text = "Botón", onClick }) => {
+const Boton = ({ text = "Botón", onClick, width = 'auto', icon }) => {
   return (
-    <button className="button-25" role="button" onClick={onClick}>
-      {text}
+    <button style={{ width }} className="button-25" role="button" onClick={onClick}>
+      <div className="button-25-contenido">
+        {text}
+        {icon}
+      </div>
     </button>
   );
 };

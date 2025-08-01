@@ -16,7 +16,7 @@
 
 [data-theme="light"] {
   --background: #c4e0ec;
-  --background-contrast: #fff;
+  --background-contrast: rgb(255, 255, 255);
   --primary-color: #0dc9c6;
   --secondary-color: #637081;
   --text-color: #000;
@@ -25,11 +25,12 @@
   --input-color: #000000;
   --shadow-color: #F19953;
   --icono-color: #c8ff00;
+  --background-transparency: rgba(255, 255, 255, 0.5);
 }
 
 [data-theme="dark"] {
   --background: #131B23;
-  --background-contrast: #5a4337;
+  --background-contrast: rgb(90, 67, 55);
   --primary-color: #F19953;
   --secondary-color: #637081;
   --text-color: #ffffff;
@@ -37,6 +38,7 @@
   --input-color: #000000;
   --shadow-color: #F19953;
   --icono-color: #c8ff00;
+  --background-transparency: rgba(90, 67, 55, 0.5);
 }
 
 [data-theme="custom1"] {

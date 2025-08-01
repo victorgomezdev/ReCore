@@ -3,28 +3,27 @@
 	top: 0;
 	left: 0;
 	width: 100vw;
-	height: 90vh;
+	height: 91vh;
 	background-image: url('../../assets/login.jpg');
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
-	filter: blur(5px);
+	filter: blur(3px);
 	z-index: -1;
 }
 
 .login-page {
 	position: relative;
 	width: 100%;
-	height: 90vh;
+	height: 91vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	color: var(--text-color);
-	z-index: 1;
 }
 
 .login-box {
-	background: var(--background-contrast-transparency);
+	background: var(--background-transparency);
 	padding: 2rem;
 	border-radius: 7px;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -33,6 +32,7 @@
 	justify-content: space-evenly;
 	gap: 20px;
 	align-items: center;
+	z-index: 0;
 }
 
 .login-box-titulo{
