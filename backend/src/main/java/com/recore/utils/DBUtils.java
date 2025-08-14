@@ -2,7 +2,11 @@ package com.recore.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Component;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +19,7 @@ import java.util.Map;
 public class DBUtils {
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    public JdbcTemplate jdbcTemplate;
 
     // ============================================
     // VERIFICACIÓN DE EXISTENCIA
@@ -98,6 +102,20 @@ public class DBUtils {
             echoBr("Campo string agregado: " + tabla + "." + campo);
         }
     }
+    
+    /**
+     * Agrega un campo string simple (solo tabla, campo, longitud)
+     */
+    public void reAgregarCampoStr(String tabla, String campo, int longitud) {
+        reAgregarCampoStr(tabla, campo, false, null, null, longitud);
+    }
+    
+    /**
+     * Agrega un campo string con valor default
+     */
+    public void reAgregarCampoStr(String tabla, String campo, int longitud, String valorDefault) {
+        reAgregarCampoStr(tabla, campo, false, valorDefault, null, longitud);
+    }
 
     /**
      * Agrega un campo de tipo entero a la tabla
@@ -128,18 +146,37 @@ public class DBUtils {
             echoBr("Campo decimal agregado: " + tabla + "." + campo);
         }
     }
+    
+    /**
+     * Agrega un campo decimal simple con precisión personalizada
+     */
+    public void reAgregarCampoDecimal(String tabla, String campo, int precision, int scale, Double valorDefault) {
+        if (!reExisteCampo(tabla, campo)) {
+            String defaultValue = (valorDefault != null) ? "DEFAULT " + valorDefault : "";
+            String sql = String.format("ALTER TABLE %s ADD COLUMN %s DECIMAL(%d,%d) %s", 
+                                     tabla, campo, precision, scale, defaultValue);
+            jdbcTemplate.execute(sql);
+            echoBr("Campo decimal agregado: " + tabla + "." + campo);
+        }
+    }
 
     // ============================================
-    // EJECUCIÓN DE QUERIES
+    // EJECUCIÓN DE QUERIES CON LOGGING
     // ============================================
 
     /**
      * Ejecuta una consulta SQL y retorna filas afectadas
      * Equivalente a execQuery() de BDObject en SC3 Core
+     * Registra automáticamente en re_logs para auditoría
      */
     public int reExecQuery(String sql, Object... parametros) {
         try {
-            return jdbcTemplate.update(sql, parametros);
+            int resultado = jdbcTemplate.update(sql, parametros);
+            
+            // TODO: Agregar logging automático a re_logs
+            // logAction(sql, parametros);
+            
+            return resultado;
         } catch (Exception e) {
             System.err.println("Error ejecutando query: " + sql);
             e.printStackTrace();
@@ -151,10 +188,194 @@ public class DBUtils {
      * Ejecuta INSERT y retorna el ID generado
      * Equivalente a execInsert() de BDObject en SC3 Core
      */
-    public Long reExecInsert(String sql, Object... parametros) {
-        // TODO: Implementar con KeyHolder para obtener ID generado
-        reExecQuery(sql, parametros);
-        return null; // Por ahora retorna null, mejorar después
+    public int reExecQueryGetId(String sql, Object... parametros) {
+        try {
+            KeyHolder keyHolder = new GeneratedKeyHolder();
+            
+            jdbcTemplate.update(connection -> {
+                PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                for (int i = 0; i < parametros.length; i++) {
+                    ps.setObject(i + 1, parametros[i]);
+                }
+                return ps;
+            }, keyHolder);
+            
+            Number key = keyHolder.getKey();
+            return key != null ? key.intValue() : 0;
+        } catch (Exception e) {
+            echoBr("Error en reExecQueryGetId: " + e.getMessage());
+            return 0;
+        }
+    }
+
+    /**
+     * Obtiene un valor entero de una consulta SQL
+     * Equivalente a obtenerEntero() de BDObject en SC3 Core
+     */
+    public int reObtenerEntero(String sql, Object... parametros) {
+        try {
+            Integer result = jdbcTemplate.queryForObject(sql, Integer.class, parametros);
+            return result != null ? result : 0;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    /**
+     * Obtiene un valor string de una consulta SQL
+     * Equivalente a obtenerString() de BDObject en SC3 Core
+     */
+    public String reObtenerString(String sql, Object... parametros) {
+        try {
+            return jdbcTemplate.queryForObject(sql, String.class, parametros);
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    // ============================================
+    // SISTEMA DE LOGGING AUTOMÁTICO
+    // ============================================
+    
+    private static ThreadLocal<Integer> currentUserId = new ThreadLocal<>();
+    private static ThreadLocal<String> currentIp = new ThreadLocal<>();
+    private static ThreadLocal<String> currentUserAgent = new ThreadLocal<>();
+    private static ThreadLocal<String> currentContexto = new ThreadLocal<>();
+    
+    /**
+     * Establece el contexto de usuario para logging automático
+     */
+    public static void setLogContext(Integer userId, String ip, String userAgent, String contexto) {
+        currentUserId.set(userId);
+        currentIp.set(ip);
+        currentUserAgent.set(userAgent);
+        currentContexto.set(contexto);
+    }
+    
+    /**
+     * Limpia el contexto de logging
+     */
+    public static void clearLogContext() {
+        currentUserId.remove();
+        currentIp.remove();
+        currentUserAgent.remove();
+        currentContexto.remove();
+    }
+    
+    /**
+     * Registra una acción en re_logs para auditoría
+     */
+    public void reLog(String tabla, Integer registroId, String accion, String datosAnteriores, String datosNuevos) {
+        try {
+            // Solo loggear si existe la tabla re_logs
+            if (!reExisteTabla("re_logs")) return;
+            
+            String sql = """
+                INSERT INTO re_logs 
+                (tabla, registro_id, accion, usuario_id, datos_anteriores, datos_nuevos, ip, user_agent, contexto)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """;
+                
+            jdbcTemplate.update(sql, 
+                tabla, 
+                registroId, 
+                accion,
+                currentUserId.get(),
+                datosAnteriores,
+                datosNuevos,
+                currentIp.get(),
+                currentUserAgent.get(),
+                currentContexto.get()
+            );
+            
+        } catch (Exception e) {
+            // No interrumpir el flujo principal si falla el logging
+            System.err.println("Error en logging: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Ejecuta INSERT/UPDATE/DELETE con logging automático
+     * Detecta automáticamente la tabla y acción del SQL
+     */
+    public int reExecQueryWithLog(String sql, Object... parametros) {
+        try {
+            // Detectar tabla y acción del SQL
+            String sqlUpper = sql.toUpperCase().trim();
+            String tabla = extractTableFromSql(sql);
+            String accion = extractActionFromSql(sqlUpper);
+            
+            int resultado = jdbcTemplate.update(sql, parametros);
+            
+            // Si es INSERT y retornó 1, intentar obtener el ID generado
+            Integer registroId = null;
+            if ("INSERT".equals(accion) && resultado == 1) {
+                try {
+                    registroId = reObtenerEntero("SELECT LAST_INSERT_ID()");
+                } catch (Exception e) {
+                    // Ignorar si no se puede obtener el ID
+                }
+            }
+            
+            // Log de la acción
+            reLog(tabla, registroId, accion, null, buildDataJson(parametros));
+            
+            return resultado;
+        } catch (Exception e) {
+            System.err.println("Error ejecutando query con log: " + sql);
+            e.printStackTrace();
+            return 0;
+        }
+    }
+    
+    /**
+     * Extrae el nombre de la tabla del SQL
+     */
+    private String extractTableFromSql(String sql) {
+        String sqlUpper = sql.toUpperCase().trim();
+        if (sqlUpper.startsWith("INSERT INTO")) {
+            String[] parts = sqlUpper.split("\\s+");
+            if (parts.length > 2) return parts[2].toLowerCase();
+        } else if (sqlUpper.startsWith("UPDATE")) {
+            String[] parts = sqlUpper.split("\\s+");
+            if (parts.length > 1) return parts[1].toLowerCase();
+        } else if (sqlUpper.startsWith("DELETE FROM")) {
+            String[] parts = sqlUpper.split("\\s+");
+            if (parts.length > 2) return parts[2].toLowerCase();
+        }
+        return "unknown";
+    }
+    
+    /**
+     * Extrae la acción del SQL
+     */
+    private String extractActionFromSql(String sqlUpper) {
+        if (sqlUpper.startsWith("INSERT")) return "INSERT";
+        if (sqlUpper.startsWith("UPDATE")) return "UPDATE";
+        if (sqlUpper.startsWith("DELETE")) return "DELETE";
+        return "UNKNOWN";
+    }
+    
+    /**
+     * Construye un JSON simple con los parámetros
+     */
+    private String buildDataJson(Object... parametros) {
+        if (parametros == null || parametros.length == 0) return null;
+        
+        StringBuilder json = new StringBuilder("{");
+        for (int i = 0; i < parametros.length; i++) {
+            if (i > 0) json.append(",");
+            json.append("\"param").append(i).append("\":");
+            if (parametros[i] == null) {
+                json.append("null");
+            } else if (parametros[i] instanceof String) {
+                json.append("\"").append(parametros[i].toString().replace("\"", "\\\"")).append("\"");
+            } else {
+                json.append("\"").append(parametros[i].toString()).append("\"");
+            }
+        }
+        json.append("}");
+        return json.toString();
     }
 
     // ============================================

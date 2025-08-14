@@ -19,6 +19,9 @@ public class CoreModule {
 
     @Autowired
     private DBUtils db;
+    
+    @Autowired
+    private PersonasModule personasModule;
 
     /**
      * Inicializa y actualiza las tablas del módulo Core
@@ -56,6 +59,16 @@ public class CoreModule {
         // ============================================
         crearTablaPermisos();
         
+        // ============================================
+        // TABLA: re_logs (Auditoría centralizada)
+        // ============================================
+        crearTablaLogs();
+        
+        // ============================================
+        // MÓDULO: PersonasModule (Registro y Login)
+        // ============================================
+        personasModule.reUpdateVersionPersonas2025();
+        
         System.out.println("[ReCore] CoreModule actualizado correctamente");
     }
 
@@ -70,11 +83,10 @@ public class CoreModule {
             String sql = """
                 CREATE TABLE re_roles (
                     id INT AUTO_INCREMENT PRIMARY KEY,
-                    nombre VARCHAR(50) NOT NULL UNIQUE COMMENT 'Nombre del rol',
+                    codigo VARCHAR(50) NOT NULL UNIQUE COMMENT 'Código único del rol',
+                    nombre VARCHAR(50) NOT NULL COMMENT 'Nombre del rol',
                     descripcion VARCHAR(200) COMMENT 'Descripción del rol',
-                    activo TINYINT(1) DEFAULT 1 COMMENT 'Si el rol está activo',
-                    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    fecha_modificacion DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                    activo TINYINT(1) DEFAULT 1 COMMENT 'Si el rol está activo'
                 ) ENGINE=InnoDB COMMENT='Catálogo de roles - Reemplaza boolean fields de SC3'
                 """;
             
@@ -110,9 +122,7 @@ public class CoreModule {
                     nombre VARCHAR(100) NOT NULL UNIQUE COMMENT 'Nombre del perfil',
                     descripcion VARCHAR(200) COMMENT 'Descripción del perfil',
                     activo TINYINT(1) DEFAULT 1 COMMENT 'Si está activo',
-                    es_administrador TINYINT(1) DEFAULT 0 COMMENT 'Si tiene permisos de administrador',
-                    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    fecha_modificacion DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                    es_administrador TINYINT(1) DEFAULT 0 COMMENT 'Si tiene permisos de administrador'
                 ) ENGINE=InnoDB COMMENT='Perfiles de usuario - Equivalente a sc_perfiles'
                 """;
             
@@ -152,9 +162,7 @@ public class CoreModule {
                     page_size INT DEFAULT 20 COMMENT 'Tamaño de página',
                     icon VARCHAR(100) COMMENT 'Icono FontAwesome',
                     active TINYINT(1) DEFAULT 1 COMMENT 'Si está activa',
-                    module_name VARCHAR(50) COMMENT 'Módulo al que pertenece',
-                    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    fecha_modificacion DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                    module_name VARCHAR(50) COMMENT 'Módulo al que pertenece'
                 ) ENGINE=InnoDB COMMENT='Metadatos de consultas - Equivalente a sc_querys'
                 """;
             
@@ -215,8 +223,6 @@ public class CoreModule {
                     activo TINYINT(1) DEFAULT 1 COMMENT 'Si está activo',
                     ultimo_login DATETIME COMMENT 'Fecha del último login',
                     intentos_fallidos INT DEFAULT 0 COMMENT 'Intentos fallidos',
-                    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    fecha_modificacion DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                     FOREIGN KEY (idperfil) REFERENCES re_perfiles(id),
                     INDEX idx_usuario (usuario),
                     INDEX idx_email (email)
@@ -255,5 +261,44 @@ public class CoreModule {
             db.reExecQuery(sql);
             System.out.println("[ReCore] Tabla re_permisos creada");
         }
+    }
+
+    /**
+     * Crea la tabla re_logs para auditoría centralizada del sistema
+     * Equivalente a sc_logs de SC3 Core - registra todas las modificaciones
+     */
+    private void crearTablaLogs() {
+        String tabla = "re_logs";
+        
+        if (!db.reExisteTabla(tabla)) {
+            String sql = """
+                CREATE TABLE re_logs (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    tabla VARCHAR(100) NOT NULL COMMENT 'Tabla afectada',
+                    registro_id INT COMMENT 'ID del registro afectado',
+                    accion VARCHAR(20) NOT NULL COMMENT 'INSERT, UPDATE, DELETE',
+                    usuario_id INT COMMENT 'Usuario que realizó la acción',
+                    datos_anteriores JSON COMMENT 'Valores antes del cambio (UPDATE/DELETE)',
+                    datos_nuevos JSON COMMENT 'Valores después del cambio (INSERT/UPDATE)',
+                    ip VARCHAR(45) COMMENT 'IP del usuario',
+                    user_agent TEXT COMMENT 'Navegador/cliente usado',
+                    fecha DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Fecha y hora de la acción',
+                    contexto VARCHAR(100) COMMENT 'Contexto adicional (ej: API, admin, import)',
+                    INDEX idx_tabla (tabla),
+                    INDEX idx_registro (registro_id),
+                    INDEX idx_accion (accion),
+                    INDEX idx_usuario (usuario_id),
+                    INDEX idx_fecha (fecha),
+                    INDEX idx_tabla_registro (tabla, registro_id)
+                ) ENGINE=InnoDB COMMENT='Auditoría centralizada - equivalente a sc_logs'
+                """;
+            
+            db.reExecQuery(sql);
+            System.out.println("[ReCore] Tabla re_logs creada");
+        }
+
+        // Agregar campos adicionales si no existen
+        db.reAgregarCampoStr("re_logs", "modulo", 50); // ej: "core", "hotel", "pos"
+        db.reAgregarCampoStr("re_logs", "session_id", 100);
     }
 }
