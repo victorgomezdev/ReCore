@@ -1,12 +1,68 @@
-# React + Vite
+# ReCore - Sistema de Reservas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**ReCore** es una aplicación web para gestión de reservas desarrollada con **Java Spring Boot** (backend) y **React** (frontend).
 
-Currently, two official plugins are available:
+## 🚀 Características principales
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Sistema de autenticación de usuarios
+- Gestión de productos y categorías
+- Sistema de reservas con calendario
+- Panel de administración
+- Búsqueda y filtrado de productos
+- Galería de imágenes
+- Sistema de favoritos
+- Puntuación y reseñas
 
-## Expanding the ESLint configuration
+## 🛠️ Tecnologías
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Frontend
+- **React** 19.1.0
+- **React Scripts** 5.0.1
+- **React Icons** 5.5.0
+
+### Backend  
+- **Java Spring Boot**
+- **PostgreSQL/MySQL** (Base de datos)
+
+## 📦 Instalación
+
+### Frontend
+```bash
+npm install
+npm start          # Servidor de desarrollo
+npm run build     # Build de producción
+npm test          # Ejecutar tests
+```
+
+### Backend
+```bash
+# Navegar a la carpeta backend
+cd backend
+./mvnw spring-boot:run  # Ejecutar aplicación Spring Boot
+```
+
+## 📂 Estructura del proyecto
+
+```
+ReCore/
+├── src/                 # Código fuente React
+├── public/              # Archivos públicos
+├── backend/             # API Java Spring Boot
+├── database/            # Scripts de base de datos
+├── docs/                # Documentación del proyecto
+└── install/             # Archivos de instalación PHP (legacy)
+```
+
+## 🎯 Sprints de desarrollo
+
+El proyecto está organizado en 4 sprints principales:
+- **Sprint 1**: Estructura básica y CRUD de productos
+- **Sprint 2**: Autenticación y gestión de usuarios  
+- **Sprint 3**: Búsquedas, favoritos y políticas
+- **Sprint 4**: Sistema completo de reservas
+
+Ver documentación detallada en `docs/DESARROLLO.md`
+
+## 📄 Licencia
+
+ISC License
