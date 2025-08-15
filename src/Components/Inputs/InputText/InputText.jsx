@@ -1,6 +1,6 @@
 import './InputText.css';
 
-const InputText = ({ label, placeholder, icon, name = "input" }) => {
+const InputText = ({ label, placeholder, icon, name = "input", type = "text" }) => {
 	return (
 		<div>
 			<div className="form-group">
@@ -10,7 +10,7 @@ const InputText = ({ label, placeholder, icon, name = "input" }) => {
 				<div className="input-icon-wrapper">
 
 					<input
-						type="text"
+						type={type}
 						className="form-field"
 						placeholder={placeholder}
 						name={name}

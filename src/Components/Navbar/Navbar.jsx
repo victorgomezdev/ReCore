@@ -5,14 +5,15 @@ import Boton from '../Inputs/InputButton/InputButton.jsx'
 import toggle_light from '../../assets/day.png';
 import toggle_dark from '../../assets/night.png';
 import { TiThMenu } from "react-icons/ti";
-import { useState } from 'react';
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ThemeContext } from "../../ThemeContext.jsx";
 
 const Navbar = () => {
 
 	// Menu
 	const [menu_open, setMenu_open] = useState(false);
+	const navigate = useNavigate();
 
 	const toggle_menu = () => {
 		menu_open ? setMenu_open(false) : setMenu_open(true);
@@ -26,6 +27,16 @@ const Navbar = () => {
 	const handleThemeChange = (newTheme) => {
 		theme == 'light' ? setTheme('dark') : setTheme('light');
 	};
+
+	// Navegación
+	const handleLoginClick = () => {
+		navigate('/login');
+	}
+
+	const handleRegisterClick = () => {
+		// Preparamos para cuando tengamos la ruta de registro
+		navigate('/register');
+	}
 
 	return (
 		<div className='navbar'>
@@ -45,8 +56,8 @@ const Navbar = () => {
 					<input type="text" placeholder='Buscar' />
 				</div> */}
 				
-				<Boton text="Crear cuenta"></Boton>
-				<Boton text="Iniciar sesión"></Boton>
+				<Boton text="Crear cuenta" onClick={handleRegisterClick}></Boton>
+				<Boton text="Iniciar sesión" onClick={handleLoginClick}></Boton>
 
 
 				<img onClick={() => { handleThemeChange() }} src={theme == 'light' ? toggle_dark : toggle_light} alt="" className='toggle-icon' />

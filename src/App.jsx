@@ -1,34 +1,19 @@
-import Navbar from './Components/Navbar/Navbar'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './themes.css';
 import { ThemeProvider } from './ThemeContext';
-import SearchBar from './Components/SearchBar/SearchBar';
-import CategoriesBox from './Components/categories/categories';
-import ArticlesBox from './Components/articles/articles';
-import Footer from './Components/footer/Footer';
+import HomePage from './pages/Home/Home';
+import LoginPage from './pages/Login/Login';
 
 const App = () => {
-
   return (
     <ThemeProvider>
-      <div className='container'>
-        <Navbar />
-        <div className={`container-body`}>
-          <section className="search-section">
-            <SearchBar></SearchBar>
-          </section>
-
-          <section className="categories-section">
-            {/* Categorías */}
-            <CategoriesBox ></CategoriesBox>
-          </section>
-
-          <section className="recommendations-section">
-            <ArticlesBox></ArticlesBox>
-          </section>
-        </div>
-        {/* Footer */}
-        <Footer></Footer>
-      </div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<div style={{padding: '20px', textAlign: 'center'}}>Página de Registro (En desarrollo)</div>} />
+        </Routes>
+      </Router>
     </ThemeProvider>
   )
 }
