@@ -22,7 +22,6 @@ const Navbar = () => {
 	// Theme
 	const { theme, setTheme } = useContext(ThemeContext);
 
-	//TODO: Hacer que el elegir sea entre diferentes modos
 	//Separar en un componente todo lo relacionado con el botón theme
 	const handleThemeChange = (newTheme) => {
 		theme == 'light' ? setTheme('dark') : setTheme('light');

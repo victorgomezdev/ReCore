@@ -26,3 +26,8 @@ dist-ssr
 # Install directory
 install/
 backend/target/
+
+documentacion/DEPLOY.md
+
+# Conversaciones de desarrollo
+docs/charla-copilot.txt

@@ -1,17 +1,17 @@
-import './InputText.css';
+import './InputTextFlat.css';
 
-const InputText = ({ label, placeholder, icon, name = "input", type = "text", onchange = null }) => {
+const InputTextFlat = ({ label, placeholder, icon, name = "input", type = "text", onchange = null }) => {
 	return (
 		<div>
-			<div className="form-group">
-				<label htmlFor={name} className="form-label">
+			<div className="form-group-flat">
+				<label htmlFor={name} className="form-label-flat">
 					{label}
 				</label>
 				<div className="input-icon-wrapper">
 
 					<input
 						type={type}
-						className="form-field"
+						className="form-field-flat"
 						placeholder={placeholder}
 						name={name}
 						id={name}
@@ -25,4 +25,4 @@ const InputText = ({ label, placeholder, icon, name = "input", type = "text", on
 	);
 };
 
-export default InputText;
+export default InputTextFlat;

@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Mozilla+Headline:wdth,wght@81.7,200..700&display=swap');
+
+*{
+	font-size: 1rem;
+	font-family: "Mozilla Headline", sans-serif;
+	font-weight: 200;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.logo {
+	padding: 20px;
+}
+
+.admin-panel {
+	color: var(--text-color);
+	display: flex;
+	justify-content: flex-start;
+}
+
+.menu-lateral-tools {
+	display: flex;
+	align-items: center;
+	margin: 10px 0px;
+}
+
+
+.toggle-icon {
+	width: 25px;
+}
+
+.menu-lateral ul {
+	display: flex;
+	flex-direction: column;
+}
+
+.menu-lateral ul li {
+	min-width: 200px;
+	list-style: none;
+	padding: 10px;
+	cursor: pointer;
+	background-color: var(--primary-color);
+	margin: 1px;
+	text-align: left;
+}
+
+.toggle-container {
+	text-align: center;
+}

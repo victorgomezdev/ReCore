@@ -1,9 +1,4 @@
-/* Remove body padding for login page */
-body.login-page-body {
-	padding-top: 0;
-}
-
-.login-background {
+.register-background {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -17,26 +12,26 @@ body.login-page-body {
 	z-index: -1;
 }
 
-.login-page {
+.register-page{
 	position: relative;
 	width: 100%;
-	min-height: 100vh;
-	padding: 100px 0 100px 0; 
+	min-height: calc(100vh - 160px);
+	padding: 20px 0 40px 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	color: var(--text-color);
 }
 
-.login-box {
+.register-box{
 	background: var(--background-transparency);
-	padding: 1.5rem;
+	padding: 1.2rem;
 	border-radius: 7px;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
-	gap: 15px;
+	gap: 12px;
 	align-items: center;
 	width: 90vw;
 	max-width: 400px;
@@ -46,29 +41,54 @@ body.login-page-body {
 
 /* Tablet y desktop */
 @media (min-width: 768px) {
-	.login-box {
-		padding: 2rem;
-		gap: 20px;
+	.register-box {
+		padding: 1.8rem;
+		gap: 16px;
 		width: 400px;
+		max-height: none;
+		overflow-y: visible;
 	}
 }
 
 /* Pantallas muy grandes */
 @media (min-width: 1440px) {
-	.login-box {
+	.register-box {
 		width: 450px;
-		padding: 2.5rem;
+		padding: 2rem;
+		gap: 18px;
 	}
 }
 
-.login-box-titulo{
-	font-size: 1.5rem;
+.register-box-titulo{
+	font-size: 1.2rem;
 	text-align: center;
+	margin-bottom: 0.5rem;
+}
+
+.register-box-subtitulo{
+	font-size: 0.9rem;
+	text-align: center;
+	margin-bottom: 0.5rem;
+	opacity: 0.9;
 }
 
 /* Responsive typography */
 @media (min-width: 768px) {
-	.login-box-titulo {
-		font-size: 2rem;
+	.register-box-titulo {
+		font-size: 1.6rem;
+	}
+	
+	.register-box-subtitulo {
+		font-size: 1rem;
+	}
+}
+
+@media (min-width: 1440px) {
+	.register-box-titulo {
+		font-size: 1.8rem;
+	}
+	
+	.register-box-subtitulo {
+		font-size: 1.1rem;
 	}
 }

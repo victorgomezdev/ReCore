@@ -1,0 +1,124 @@
+Planning
+Sprint 4
+Agregaria una historia de usuario para integrar el boton de administración al header que sea solo visible para administradores.DB 
+
+Meta del Sprint
+Desarrollar la funcionalidad de Reserva de Productos
+-Meta de Sprint 1 .DB
+-
+
+User Stories
+01
+
+#30: Reservas: Seleccionar fecha
+Como usuario, quiero poder realizar búsquedas por fecha para encontrar productos que coincidan con mis intereses.
+Alta
+
+Criterios de aceptación
+Que el usuario pueda acceder fácilmente a la sección de reservas desde el detalle del producto.
+Al dar clic en el botón de reserva en página de detalle de producto debe chequear si la persona usuaria está logueada.
+Como usuario registrado (logueado) redirigir a la página de reserva del producto a reservar.
+Si el usuario no está registrado se redirige al bloque login.
+El login debe contener un texto en su parte superior que indique que el login es obligatorio y que en caso de no estar registrada, la persona usuaria deberá registrarse.
+Permitir al usuario, buscar productos disponibles para la fecha deseada.
+Que se muestre una lista de aquellos productos que coinciden la fecha deseada.
+Como usuario autenticado, se podrá  seleccionar un rango de fechas para la reserva.
+Al seleccionar un rango de fechas en el calendario,  el mismo debe imprimirse en el texto del formulario relacionado con la fecha.
+La reserva que se está creando, no puede incluir fechas no disponibles dentro del rango.
+
+#31: Reservas: Visualizar detalles
+Como usuario autenticado, quiero poder visualizar una página de reservas con el detalle del producto para poder reservarlo.
+Alta
+
+Criterios de aceptación
+
+El detalle del producto debe tener toda la información relacionada a éste (título, ubicación, imágenes, descripción, información destacada, detalles, etc.
+Se debe visualizar los datos del usuario que se encuentra efectuando la reserva. (Nombre, apellido, correo electrónico, posibilidad de ampliar… )
+Se debe visualizar el periodo de fechas seleccionado por el usuario (que sea válido)
+Botón de submit para confirmar la reserva
+
+
+#32: Realizar reserva
+Como usuario autenticado, quiero poder realizar reservas para poder utilizar los productos.
+Alta
+
+Criterios de aceptación
+
+Que el usuario pueda seleccionar el producto de interés
+Que se pueda mostrar la selección de rangos de fechas deseadas para el producto
+Que se visualice en el registro de la reserva los datos no obligatorios del formulario
+ Después de realizar la reserva, el sistema debe mostrar una página de confirmación que indique que la reserva se ha realizado con éxito.
+ Si hay algún error en el proceso de reserva, el sistema debe mostrar un mensaje de error específico para que el usuario sepa qué salió mal y cómo solucionarlo.
+
+
+#33: Acceder a historial
+Como usuario autenticado, quiero poder visualizar mis reservas anteriores para conocer mi historial.
+Media
+
+Criterios de aceptación
+El usuario autenticado puede acceder a una sección específica en la que se muestran sus reservas anteriores.
+Las reservas se muestran en una lista clara y ordenada por fecha o por otro criterio relevante para el negocio.
+Cada reserva incluye información relevante, como el nombre del producto reservado, la fecha de reserva, la fecha de uso del producto, entre otros
+
+
+
+#34: Whatsapp: Iniciar chat
+Como usuario, quiero poder comunicarme con el proveedor del producto a través de whatsapp para poder consultarle si tengo alguna duda.
+Baja
+¿Prioridad alta?.DB
+
+Criterios de aceptación
+Integración de WhatsApp: La funcionalidad debe estar integrada con la plataforma de WhatsApp, permitiendo a los usuarios comunicarse directamente desde la aplicación.
+Botón o Enlace Visible: Debe haber un botón o enlace claramente visible en la interfaz de usuario que indique la opción de comunicarse a través de WhatsApp. 
+    1. El ícono de Whatsapp  correspondiente debe estar ubicado en el lado derecho de la pantalla.
+    2. Además de estar en el lado derecho, debe ubicarse en la parte inferior de la pantalla.
+    3. La ubicación debe ser consistente y visualmente efectiva en diversas resoluciones de pantalla.
+Compatibilidad de Dispositivos: La funcionalidad debe ser compatible con diferentes dispositivos, como teléfonos móviles y tabletas.
+Autenticación de Usuario:Para acceder a esta función no es necesario que el usuario este registrado. 
+Notificación de Éxito: Después de enviar un mensaje a través de WhatsApp, el usuario debe recibir una notificación o confirmación de que el mensaje fue enviado correctamente.
+Manejo de Errores: Si hay algún error al intentar comunicarse a través de WhatsApp (por ejemplo, el número no es válido o no hay conexión), la aplicación debe manejar estos errores de manera adecuada y proporcionar mensajes informativos al usuario.
+Privacidad y Seguridad: Garantizar la privacidad y seguridad de la información al utilizar WhatsApp como canal de comunicación. ( se podría agregar a la políticas US 26 Si es que no se tuvo en cuenta la privacidad del usuario)
+¿Otro panel de backoffice o dentro del admin de propiedades? .DB
+
+#35: Notificación: Confirmar reserva por correo
+Como usuario registrado, quiero recibir un correo electrónico con los datos de mi reserva luego de su ejecución para validarlos y encontrarlos fácilmente.
+Baja
+¿Prioridad alta? No aplica en distintos rubros ¿o si? .DB
+
+Criterios de aceptación
+Después de la ejecución de una reserva, el usuario registrado debe recibir un correo electrónico automáticamente.
+El correo electrónico debe contener los detalles de la reserva, como el nombre del producto reservado, la fecha y hora de la reserva, y la información de contacto del proveedor.
+El correo electrónico debe ser enviado a la dirección de correo electrónico proporcionada por el usuario durante el registro.
+El correo electrónico debe ser enviado en un plazo razonable después de la ejecución de la reserva, preferiblemente dentro de las 24 horas posteriores.
+El correo electrónico debe ser claro y fácil de entender, con una presentación clara de la información y un diseño adecuado para su visualización en una variedad de dispositivos.
+
+Entregables
+02
+
+Documentación / bitácora
+01
+#ScrumMaster #Gestión
+Entregar documentación que contenga:
+Definición del proyecto: Solución que van a desarrollar.
+Scrum master
+éste es el rol que estás ocupando
+
+Planificación y ejecución de los tests
+02
+#Testing/QA  
+Planear casos de prueba basados en las historias de usuarios que existen en el Sprint.
+Ejecutar los casos de prueba.
+TL Testing
+éste es el rol que estás ocupando
+
+Actualizar repositorio 
+03
+#Desarrollo #Front #Back #BBDD #Infra
+TL Frontend
+TL Backend
+TL Infra
+TL BBDD
+estas ocupando todos éstos roles en este momento
+Todo el código debe estar en el repositorio público a entregar al finalizar el desafío.
+
+¡Muchas gracias!

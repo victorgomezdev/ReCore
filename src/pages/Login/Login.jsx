@@ -1,6 +1,5 @@
 import './Login.css'
 import '../../themes.css';
-import { ThemeProvider } from '../../ThemeContext.jsx';
 import Navbar from '../../Components/Navbar/Navbar.jsx';
 import InputForm from "../../Components/Inputs/InputText/InputText.jsx";
 import InputButton from '../../Components/Inputs/InputButton/InputButton.jsx'
@@ -14,10 +13,7 @@ const LoginPage = () => {
 		e.preventDefault();
 		
 		const formData = new FormData(e.target);
-		const loginData = {
-			email: formData.get('email'),
-			password: formData.get('password')
-		};
+		const loginData = Object.fromEntries(formData);
 		
 		const result = await window.FormMiddleware.submit('/api/auth/login', loginData);
 		
@@ -29,7 +25,7 @@ const LoginPage = () => {
 	};
 	
 	return (
-		<ThemeProvider>
+		<>
 			<Navbar />
 			<div className='container'>
 				<div className="container-body">
@@ -38,8 +34,11 @@ const LoginPage = () => {
 						<form className="login-box" onSubmit={handleLogin}>
 							<span className='login-box-titulo'>Bienvenido!</span>
 							<span>Por favor ingrese sus datos</span>
+							
 							<InputForm label={"Email"} placeholder={"EJ: pepito@sanchez.com"} name="email" type="email" />
+							
 							<InputForm label={"Contraseña"} placeholder={"********"} name="password" type="password" />
+							
 							<InputButton width="auto" text="Iniciar sesión" icon={<IoLogIn />} type="submit"></InputButton>
 							<InputButtonSecundario width="auto" text="Registrarse"></InputButtonSecundario>
 						</form>
@@ -47,7 +46,7 @@ const LoginPage = () => {
 				</div>
 			</div>
 			<Footer />
-		</ThemeProvider>
+		</>
 	);
 };
 

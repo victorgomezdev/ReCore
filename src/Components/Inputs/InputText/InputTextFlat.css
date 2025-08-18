@@ -1,9 +1,9 @@
-.form-group{
+.form-group-flat {
 	display: flex;
 	flex-direction: column;
 }
 
-.input-icon-wrapper{
+.input-icon-wrapper {
 	display: flex;
 	background-color: white;
 	padding: 5px;
@@ -11,7 +11,7 @@
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
-.input-icon{
+.input-icon {
 	color: var(--text-color);
 	padding: 10px;
 	background-color: var(--secondary-color);
@@ -23,26 +23,23 @@
 }
 
 
-& label{
+.form-label-flat {
 	color: var(--text-color);
 	font-size: 0.8rem;
 	margin-bottom: 3px;
 }
 
-& input{
+.form-field-flat {
 	width: 100%;
 	color: black;
-	padding: 10px;
+	padding: 5px;
 	font-size: 1rem;
 	border: none;
 	background: transparent;
 	box-sizing: border-box;
 }
-& input[type="password"] {
-	font-family: Verdana, sans-serif;
-	font-size: 1.1rem;
-}
-& input:focus{
+
+& input:focus {
 	outline: none;
-	
+
 }
