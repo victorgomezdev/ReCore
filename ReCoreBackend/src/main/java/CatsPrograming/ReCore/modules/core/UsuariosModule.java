@@ -52,7 +52,7 @@ public class UsuariosModule {
                 String sql = """
                         CREATE TABLE re_usuarios (
                             id INT AUTO_INCREMENT PRIMARY KEY,
-                            persona_id INT,
+                            idpersona INT,
                             email VARCHAR(255) UNIQUE NOT NULL,
                             password_hash VARCHAR(255) NOT NULL,
                             activo BOOLEAN DEFAULT TRUE,
@@ -67,11 +67,10 @@ public class UsuariosModule {
                         """;
                 db.execQuery(sql);
 
-                // Crear índices por separado (compatible con H2)
-
+                // Crea índices por separado (Compatible con H2)
                 db.execQuery("CREATE INDEX idx_usuario_email ON re_usuarios (email)");
                 db.execQuery("CREATE INDEX idx_usuario_activo ON re_usuarios (activo)");
-                db.execQuery("CREATE INDEX idx_usuario_persona ON re_usuarios (persona_id)");
+                db.execQuery("CREATE INDEX idx_usuario_persona ON re_usuarios (idpersona)");
 
                 db.generateFieldsInfo("re_usuarios", 0);
 
@@ -93,7 +92,7 @@ public class UsuariosModule {
                             id INT AUTO_INCREMENT PRIMARY KEY,
                             codigo VARCHAR(50) UNIQUE NOT NULL,
                             nombre VARCHAR(100) NOT NULL,
-                            descripcion TEXT,
+                            descripcion VARCHAR(255) NOT NULL,
                             activo BOOLEAN DEFAULT TRUE,
                             fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                         )
@@ -117,20 +116,20 @@ public class UsuariosModule {
                 String sql = """
                         CREATE TABLE re_usuarios_roles (
                             id INT AUTO_INCREMENT PRIMARY KEY,
-                            usuario_id INT NOT NULL,
-                            rol_id INT NOT NULL,
+                            idusuario INT NOT NULL,
+                            idrol INT NOT NULL,
                             fecha_asignacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                             asignado_por INT,
                             activo BOOLEAN DEFAULT TRUE,
-                            notas TEXT
+                            notas VARCHAR(255)
                         )
                         """;
                 db.execQuery(sql);
                 db.generateFieldsInfo("re_usuarios_roles", 0);
                 // Crear indices por separado (compatible con H2)
-                db.execQuery("ALTER TABLE re_usuarios_roles ADD FOREIGN KEY (usuario_id) REFERENCES re_usuarios(id)");
-                db.execQuery("ALTER TABLE re_usuarios_roles ADD FOREIGN KEY (rol_id) REFERENCES re_roles(id)");
-                db.execQuery("CREATE UNIQUE INDEX unique_usuario_rol ON re_usuarios_roles (usuario_id, rol_id)");
+                db.execQuery("ALTER TABLE re_usuarios_roles ADD FOREIGN KEY (idusuario) REFERENCES re_usuarios(id)");
+                db.execQuery("ALTER TABLE re_usuarios_roles ADD FOREIGN KEY (idrol) REFERENCES re_roles(id)");
+                db.execQuery("CREATE UNIQUE INDEX unique_usuario_rol ON re_usuarios_roles (idusuario, idrol)");
             } catch (Exception e) {
                 System.out.println("[ReCore] Constraints ya existen: " + e.getMessage());
             }
@@ -192,7 +191,7 @@ public class UsuariosModule {
                 if (rolAdminId > 0) {
                     String insertRol = """
                             INSERT INTO re_usuarios_roles
-                            (usuario_id, rol_id, asignado_por, notas)
+                            (idusuario, idrol, asignado_por, notas)
                             VALUES
                             (?, ?, 1, 'Usuario administrador por defecto del sistema')
                             """;
@@ -212,10 +211,10 @@ public class UsuariosModule {
     public int validarLogin(String email, String password) {
         try {
             String sql = """
-                    SELECT u.id as usuario_id, u.password_hash, u.activo, u.bloqueado_hasta, u.intentos_login,
-                           p.id as persona_id, p.nombre, p.apellido
+                    SELECT u.id as idusuario, u.password_hash, u.activo, u.bloqueado_hasta, u.intentos_login,
+                           p.id as idpersona, p.nombre, p.apellido
                     FROM re_usuarios u
-                    LEFT JOIN re_personas p ON u.persona_id = p.id
+                    LEFT JOIN re_personas p ON u.idpersona = p.id
                     WHERE u.email = ?
                     """;
 
@@ -227,7 +226,7 @@ public class UsuariosModule {
             }
 
             Map<String, Object> usuario = resultados.get(0);
-            int usuarioId = (Integer) usuario.get("usuario_id");
+            int usuarioId = (Integer) usuario.get("idusuario");
             String passwordHash = (String) usuario.get("password_hash");
             boolean activo = (Boolean) usuario.get("activo");
             Object bloqueadoHasta = usuario.get("bloqueado_hasta");
@@ -322,7 +321,7 @@ public class UsuariosModule {
             String passwordHash = passwordEncoder.encode(password);
             String sql = """
                     INSERT INTO re_usuarios
-                    (persona_id, email, password_hash, activo)
+                    (idpersona, email, password_hash, activo)
                     VALUES
                     (?, ?, ?, TRUE)
                     """;
@@ -355,7 +354,7 @@ public class UsuariosModule {
             if (rolId > 0) {
                 String insertRol = """
                         INSERT INTO re_usuarios_roles
-                        (usuario_id, rol_id, asignado_por, notas)
+                        (idusuario, idrol, asignado_por, notas)
                         VALUES
                         (?, ?, 1, 'Rol asignado por insertarRolAUsuario')
                         """;

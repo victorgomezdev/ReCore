@@ -1,7 +1,7 @@
 package CatsPrograming.ReCore.config;
 
 import CatsPrograming.ReCore.modules.core.PersonasModule;
-import CatsPrograming.ReCore.modules.core.QuerysModule;
+import CatsPrograming.ReCore.modules.core.QueriesModule;
 import CatsPrograming.ReCore.modules.core.UsuariosModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,7 +21,7 @@ public class DatabaseInitializer implements CommandLineRunner {
     private UsuariosModule usuariosModule;
 
     @Autowired
-    private QuerysModule querysModule;
+    private QueriesModule querysModule;
 
     @Override
     public void run(String... args) throws Exception {

@@ -27,12 +27,54 @@ public class DBUtils {
     /**
      * Ejecuta una consulta SQL sin retorno
      */
-    public void execQuery(String sql, Object... params) {
+    public int execQuery(String sql, Object... params) {
         try {
-            jdbcTemplate.update(sql, params);
+            return jdbcTemplate.update(sql, params);
         } catch (Exception e) {
             System.err.println("Error en execQuery: " + e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Asocia una query (por nombre de tabla) a un menú (por nombre), creando el
+     * menú si no existe.
+     * Actualiza el campo idmenu en re_queries.
+     * 
+     * @param nombreTabla nombre de la tabla asociada a la query (campo tabla en
+     *                    re_queries)
+     * @param nombreMenu  nombre del menú (campo nombre en re_menus)
+     */
+    public void agregarQueryAMenu(String nombreTabla, String nombreMenu) {
+        try {
+            // Busca idquery por nombreTabla
+            String sqlQuery = "SELECT id FROM re_queries WHERE tabla = ?";
+            Map<String, Object> queryRow = execQueryResult(sqlQuery, nombreTabla);
+            if (queryRow == null || !queryRow.containsKey("id")) {
+                System.err.println("[ReCore] No se encontró la query para la tabla: " + nombreTabla);
+                return;
+            }
+            int idQuery = ((Number) queryRow.get("id")).intValue();
+
+            // Busca idmenu por nombreMenu
+            String sqlMenu = "SELECT id FROM re_menus WHERE nombre = ?";
+            Map<String, Object> menuRow = execQueryResult(sqlMenu, nombreMenu);
+            int idMenu;
+            if (menuRow != null && menuRow.containsKey("id")) {
+                idMenu = ((Number) menuRow.get("id")).intValue();
+            } else {
+                // Crea menú si no existe
+                String sqlInsertMenu = "INSERT INTO re_menus (nombre) VALUES (?)";
+                idMenu = execQueryGetId(sqlInsertMenu, nombreMenu);
+                System.out.println("[ReCore] Menú creado: " + nombreMenu + " (id: " + idMenu + ")");
+            }
+
+            // Actualiza idmenu en re_queries
+            String sqlUpdate = "UPDATE re_queries SET idmenu = ? WHERE idquery = ?";
+            execQuery(sqlUpdate, idMenu, idQuery);
+            System.out.println("[ReCore] Query '" + nombreTabla + "' asociada al menú '" + nombreMenu + "'.");
+        } catch (Exception e) {
+            System.err.println("[ReCore] Error: " + e.getMessage());
         }
     }
 
@@ -229,7 +271,7 @@ public class DBUtils {
 
     /**
      * Sincroniza la metadata de los campos de una tabla en la tabla
-     * re_querys_fields.
+     * re_queries_fields.
      * Requiere el id de la query (idquery) y el nombre de la tabla física.
      * Elimina la metadata previa y la regenera a partir de INFORMATION_SCHEMA.
      */
@@ -248,12 +290,12 @@ public class DBUtils {
             return;
         }
 
-        // Eliminar metadata previa de la tabla en re_querys_fields
-        String sqlDelete = "DELETE FROM re_querys_fields WHERE idquery = ?";
+        // Eliminar metadata previa de la tabla en re_queries_fields
+        String sqlDelete = "DELETE FROM re_queries_fields WHERE idquery = ?";
         execQuery(sqlDelete, idQuery);
 
         // Insertar metadata básica de cada campo
-        String sqlInsert = "INSERT INTO re_querys_fields (idquery, field, show_name, is_required, is_editable, visible) VALUES (?, ?, ?, 0, 1, 1)";
+        String sqlInsert = "INSERT INTO re_queries_fields (idquery, field, show_name, is_required, is_editable, visible) VALUES (?, ?, ?, 0, 1, 1)";
         for (Map<String, Object> campo : campos) {
             String nombreCampo = (String) campo.get("COLUMN_NAME");
             // Por defecto, show_name igual al nombre físico (puedes luego editarlo en UI)

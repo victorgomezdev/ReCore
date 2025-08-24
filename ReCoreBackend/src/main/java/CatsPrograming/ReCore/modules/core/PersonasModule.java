@@ -43,11 +43,11 @@ public class PersonasModule {
                             apellido VARCHAR(100) NOT NULL,
                             email VARCHAR(255),
                             telefono VARCHAR(20),
-                            direccion TEXT,
+                            direccion VARCHAR(255),
                             fecha_nacimiento DATE,
                             dni VARCHAR(20) UNIQUE,
                             fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                            notas TEXT
+                            notas VARCHAR(255)
                         )
                         """;
                 db.execQuery(sql);

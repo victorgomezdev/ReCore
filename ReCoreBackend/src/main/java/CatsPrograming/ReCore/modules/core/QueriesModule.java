@@ -11,7 +11,7 @@ import CatsPrograming.ReCore.utils.DBUtils;
  * y sus respectivos campo y menúes
  */
 @Component
-public class QuerysModule {
+public class QueriesModule {
 	@Autowired
 	private DBUtils db;
 
@@ -52,13 +52,13 @@ public class QuerysModule {
 	}
 
 	/**
-	 * Crea la tabla re_querys para gestionar tablas de manera dinámica
+	 * Crea la tabla re_queries para gestionar tablas de manera dinámica
 	 */
 	private void crearTablaQuerys() {
-		if (!db.existeTabla("re_querys")) {
+		if (!db.existeTabla("re_queries")) {
 			try {
 				String sql = """
-						    CREATE TABLE re_querys (
+						    CREATE TABLE re_queries (
 						        id INT AUTO_INCREMENT PRIMARY KEY,
 						        idmenu INT,
 						        table VARCHAR(60) NOT NULL,
@@ -74,26 +74,26 @@ public class QuerysModule {
 						    )
 						""";
 				db.execQuery(sql);
-				db.generateFieldsInfo("re_querys", 0);
+				db.generateFieldsInfo("re_queries", 0);
 				// Crear índices por separado (compatible con H2)
-				db.execQuery("CREATE INDEX idx_re_querys_table ON re_querys (table)");
-				db.execQuery("CREATE INDEX idx_re_querys_queryname ON re_querys (query_name)");
+				db.execQuery("CREATE INDEX idx_re_queries_table ON re_queries (table)");
+				db.execQuery("CREATE INDEX idx_re_queries_queryname ON re_queries (query_name)");
 				// Agregar foreign key de idmenu a re_menus(id)
-				db.addForeignKey("re_querys", "idmenu", "re_menus", "id", false, false);
+				db.addForeignKey("re_queries", "idmenu", "re_menus", "id", false, false);
 			} catch (Exception e) {
-				System.err.println("[ReCore] Error al crear índices de la tabla re_querys: " + e.getMessage());
+				System.err.println("[ReCore] Error al crear índices de la tabla re_queries: " + e.getMessage());
 			}
 
-			System.out.println("[ReCore] Tabla re_querys creada");
+			System.out.println("[ReCore] Tabla re_queries creada");
 
 		}
 	}
 
 	private void crearTablaFields() {
-		if (!db.existeTabla("re_querys_fields")) {
+		if (!db.existeTabla("re_queries_fields")) {
 			try {
 				String sql = """
-						    CREATE TABLE re_querys_fields (
+						    CREATE TABLE re_queries_fields (
 						        id INT AUTO_INCREMENT PRIMARY KEY,
 								idquery INT NOT NULL,
 								field VARCHAR(60) NOT NULL,
@@ -111,13 +111,13 @@ public class QuerysModule {
 						    )
 						""";
 				db.execQuery(sql);
-				db.addForeignKey("re_querys_fields", "idquery", "re_querys", "id", false, false);
-				db.generateFieldsInfo("re_querys_fields", 0);
+				db.addForeignKey("re_queries_fields", "idquery", "re_queries", "id", false, false);
+				db.generateFieldsInfo("re_queries_fields", 0);
 			} catch (Exception e) {
-				System.err.println("[ReCore] Error al crear índices de la tabla re_querys_fields: " + e.getMessage());
+				System.err.println("[ReCore] Error al crear índices de la tabla re_queries_fields: " + e.getMessage());
 			}
 
-			System.out.println("[ReCore] Tabla re_querys_fields creada");
+			System.out.println("[ReCore] Tabla re_queries_fields creada");
 		}
 	}
 }
