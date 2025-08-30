@@ -1,7 +1,7 @@
 import './AdminPanel.css'
 import logo_light from '../../assets/logo-black.png';
 import logo_dark from '../../assets/logo-white.png';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { ThemeContext } from "../../ThemeContext.jsx";
 import toggle_light from '../../assets/day.png';
 import toggle_dark from '../../assets/night.png';
@@ -11,13 +11,23 @@ import InputTextFlat from "../../Components/Inputs/InputText/InputTextFlat.jsx";
 
 const AdminPanel = () => {
 
-	const menuItems = [
-		{ label: "Dashboard", icon: "🏠", path: "/admin/dashboard" },
-		{ label: "Usuarios", icon: "👤", path: "/admin/usuarios" },
-		{ label: "Productos", icon: "📦", path: "/admin/productos" },
-		{ label: "Ventas", icon: "💰", path: "/admin/ventas" },
-		{ label: "Reportes", icon: "📊", path: "/admin/reportes" }
-	];
+	//TODO: Empezar a traer de querys.
+	//TODO: Implementar función para crear menu si no existe, al agregar tabla a menu.
+
+		// Menú dinámico desde backend
+		const [menuItems, setMenuItems] = useState([]);
+		useEffect(() => {
+			fetch('/api/core/getMenu')
+				.then(res => res.json())
+				.then(data => {
+					if (data.success && Array.isArray(data.data)) {
+						setMenuItems(data.data);
+					} else {
+						setMenuItems([]);
+					}
+				})
+				.catch(() => setMenuItems([]));
+		}, []);
 
 	// Theme
 	const { theme, setTheme } = useContext(ThemeContext);
@@ -43,9 +53,18 @@ const AdminPanel = () => {
 					</div>
 
 					<ul>
-						{menuItems.map(item => (
-							<li key={item.path}>
-								<span>{item.icon}</span> {item.label}
+						{menuItems.map(menu => (
+							<li key={menu.id}>
+								<span>{menu.icon}</span> {menu.nombre}
+								{Array.isArray(menu.tablas) && menu.tablas.length > 0 && (
+									<ul>
+										{menu.tablas.map(tabla => (
+											<li key={tabla.id}>
+												<span>{tabla.icon}</span> {tabla.query_name}
+											</li>
+										))}
+									</ul>
+								)}
 							</li>
 						))}
 					</ul>

@@ -3,7 +3,7 @@ package CatsPrograming.ReCore.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import CatsPrograming.ReCore.modules.core.UsuariosModule;
+import CatsPrograming.ReCore.modules.core.UsuarioModule;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -11,7 +11,7 @@ import CatsPrograming.ReCore.modules.core.UsuariosModule;
 public class AuthController {
 
     @Autowired
-    private UsuariosModule usuariosModule;
+    private UsuarioModule usuariosModule;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {

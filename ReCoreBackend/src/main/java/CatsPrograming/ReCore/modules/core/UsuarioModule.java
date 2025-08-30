@@ -1,9 +1,11 @@
 package CatsPrograming.ReCore.modules.core;
 
-import CatsPrograming.ReCore.utils.DBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import CatsPrograming.ReCore.dao.DBUtils;
+
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +14,7 @@ import java.util.Map;
  * Gestiona autenticación y acceso al sistema
  */
 @Component
-public class UsuariosModule {
+public class UsuarioModule {
 
     @Autowired
     private DBUtils db;
@@ -127,8 +129,8 @@ public class UsuariosModule {
                 db.execQuery(sql);
                 db.generateFieldsInfo("re_usuarios_roles", 0);
                 // Crear indices por separado (compatible con H2)
-                db.execQuery("ALTER TABLE re_usuarios_roles ADD FOREIGN KEY (idusuario) REFERENCES re_usuarios(id)");
-                db.execQuery("ALTER TABLE re_usuarios_roles ADD FOREIGN KEY (idrol) REFERENCES re_roles(id)");
+                db.addForeignKey("re_usuarios_roles", "idusuario", "re_usuarios", "id", false, false);
+                db.addForeignKey("re_usuarios_roles", "idrol", "re_roles", "id", false, false);
                 db.execQuery("CREATE UNIQUE INDEX unique_usuario_rol ON re_usuarios_roles (idusuario, idrol)");
             } catch (Exception e) {
                 System.out.println("[ReCore] Constraints ya existen: " + e.getMessage());
@@ -144,7 +146,7 @@ public class UsuariosModule {
     private void insertarRolesBasicos() {
         try {
             String checkSql = "SELECT COUNT(*) FROM re_roles";
-            int rolesCount = db.obtenerEntero(checkSql);
+            int rolesCount = db.getEntero(checkSql);
 
             if (rolesCount == 0) {
                 String[] roles = {
@@ -170,7 +172,7 @@ public class UsuariosModule {
      */
     private void crearUsuarioAdministrador() {
         String checkSql = "SELECT COUNT(*) FROM re_usuarios WHERE email = 'admin@recore.com'";
-        int adminCount = db.obtenerEntero(checkSql);
+        int adminCount = db.getEntero(checkSql);
 
         // Asignar rol de administrador
         if (adminCount == 0) {
@@ -183,10 +185,10 @@ public class UsuariosModule {
                         VALUES
                         ('admin@recore.com', ?, TRUE)
                         """;
-                int usuarioId = db.execQueryGetId(insertUsuario, password);
+                int usuarioId = db.insertAndGetID(insertUsuario, password);
 
                 String getRolAdminSql = "SELECT id FROM re_roles WHERE codigo = 'admin'";
-                int rolAdminId = db.obtenerEntero(getRolAdminSql);
+                int rolAdminId = db.getEntero(getRolAdminSql);
 
                 if (rolAdminId > 0) {
                     String insertRol = """
@@ -300,7 +302,7 @@ public class UsuariosModule {
     public int emailExistente(String email) {
         try {
             String sql = "SELECT COUNT(*) FROM re_usuarios WHERE email = ?";
-            return db.obtenerEntero(sql, email);
+            return db.getEntero(sql, email);
         } catch (Exception e) {
             System.err.println("Error en emailExistente: " + e.getMessage());
             return 0;
@@ -326,7 +328,7 @@ public class UsuariosModule {
                     (?, ?, ?, TRUE)
                     """;
 
-            int usuarioId = db.execQueryGetId(sql, personaId, email, passwordHash);
+            int usuarioId = db.insertAndGetID(sql, personaId, email, passwordHash);
             System.out.println("[ReCore] Usuario creado: " + email + " | ID: " + usuarioId);
 
             // Ahora asigna el rol "cliente" por defecto
@@ -350,7 +352,7 @@ public class UsuariosModule {
     public void insertarRolAUsuario(int usuarioId, String nombreRol) {
         try {
             String getRolSql = "SELECT id FROM re_roles WHERE codigo = ?";
-            int rolId = db.obtenerEntero(getRolSql, nombreRol);
+            int rolId = db.getEntero(getRolSql, nombreRol);
             if (rolId > 0) {
                 String insertRol = """
                         INSERT INTO re_usuarios_roles

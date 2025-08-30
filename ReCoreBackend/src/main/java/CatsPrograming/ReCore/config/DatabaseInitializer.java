@@ -1,8 +1,8 @@
 package CatsPrograming.ReCore.config;
 
-import CatsPrograming.ReCore.modules.core.PersonasModule;
+import CatsPrograming.ReCore.modules.Personas.PersonaModule;
 import CatsPrograming.ReCore.modules.core.QueriesModule;
-import CatsPrograming.ReCore.modules.core.UsuariosModule;
+import CatsPrograming.ReCore.modules.core.UsuarioModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component;
 public class DatabaseInitializer implements CommandLineRunner {
 
     @Autowired
-    private PersonasModule personasModule;
+    private PersonaModule personasModule;
 
     @Autowired
-    private UsuariosModule usuariosModule;
+    private UsuarioModule usuariosModule;
 
     @Autowired
     private QueriesModule querysModule;

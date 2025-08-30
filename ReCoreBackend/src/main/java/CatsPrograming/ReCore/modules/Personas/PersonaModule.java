@@ -1,20 +1,21 @@
-package CatsPrograming.ReCore.modules.core;
+package CatsPrograming.ReCore.modules.Personas;
 
-import CatsPrograming.ReCore.utils.DBUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import CatsPrograming.ReCore.dao.DBUtils;
 
 /**
  * PersonasModule - SOLO maneja datos personales
  * Los usuarios (credenciales) se manejan en UsuariosModule
  */
 @Service
-public class PersonasModule {
+public class PersonaModule {
 
     @Autowired
     private DBUtils db;
 
-    public PersonasModule() {
+    public PersonaModule() {
         System.out.println("[ReCore] PersonasModule iniciado - Solo maneja datos personales");
     }
 
@@ -41,18 +42,19 @@ public class PersonasModule {
                             id INT AUTO_INCREMENT PRIMARY KEY,
                             nombre VARCHAR(100) NOT NULL,
                             apellido VARCHAR(100) NOT NULL,
+                            dni VARCHAR(15) UNIQUE,
+                            cuit VARCHAR(15) UNIQUE,
                             email VARCHAR(255),
                             telefono VARCHAR(20),
                             direccion VARCHAR(255),
                             fecha_nacimiento DATE,
-                            dni VARCHAR(20) UNIQUE,
                             fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                             notas VARCHAR(255)
                         )
                         """;
                 db.execQuery(sql);
                 db.generateFieldsInfo("re_personas", 0);
-                
+
                 // Crear índices por separado (compatible con H2)
                 db.execQuery("CREATE INDEX idx_persona_email ON re_personas (email)");
                 db.execQuery("CREATE INDEX idx_dni ON re_personas (dni)");
@@ -78,38 +80,12 @@ public class PersonasModule {
                     (?, ?, ?, ?, ?, ?)
                     """;
 
-            int personaId = db.execQueryGetId(sql, nombre, apellido, email, telefono, direccion, dni);
+            int personaId = db.insertAndGetID(sql, nombre, apellido, email, telefono, direccion, dni);
             System.out.println("[ReCore] Persona creada: " + nombre + " " + apellido + " | ID: " + personaId);
             return personaId;
 
         } catch (Exception e) {
             System.err.println("Error creando persona: " + e.getMessage());
-            return 0;
-        }
-    }
-
-    /**
-     * Buscar persona por DNI
-     */
-    public int buscarPersonaPorDni(String dni) {
-        try {
-            String sql = "SELECT id FROM re_personas WHERE dni = ?";
-            return db.obtenerEntero(sql, dni);
-        } catch (Exception e) {
-            System.err.println("Error buscando persona: " + e.getMessage());
-            return 0;
-        }
-    }
-
-    /**
-     * Verificar si email existe en personas
-     */
-    public int emailExisteEnPersonas(String email) {
-        try {
-            String sql = "SELECT COUNT(*) FROM re_personas WHERE email = ?";
-            return db.obtenerEntero(sql, email);
-        } catch (Exception e) {
-            System.err.println("Error verificando email: " + e.getMessage());
             return 0;
         }
     }

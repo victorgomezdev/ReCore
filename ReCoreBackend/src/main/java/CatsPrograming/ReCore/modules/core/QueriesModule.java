@@ -2,9 +2,13 @@ package CatsPrograming.ReCore.modules.core;
 
 import org.springframework.stereotype.Component;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import CatsPrograming.ReCore.dao.DBUtils;
 
-import CatsPrograming.ReCore.utils.DBUtils;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Módulo para gestionar las tablas de la base de datos
@@ -119,5 +123,26 @@ public class QueriesModule {
 
 			System.out.println("[ReCore] Tabla re_queries_fields creada");
 		}
+	}
+
+	public List<Map<String, Object>> obtenerMenu() {
+		List<Map<String, Object>> resultado = new ArrayList<>();
+		try {
+			// Obtener todos los menús activos ordenados
+			String sqlMenus = "SELECT id, nombre, icon, color, orden FROM re_menus WHERE activo = 1 ORDER BY orden";
+			List<Map<String, Object>> menus = db.getList(sqlMenus);
+
+			// Para cada menú, obtener sus queries (tablas asociadas)
+			for (Map<String, Object> menu : menus) {
+				Integer idMenu = (Integer) menu.get("id");
+				String sqlTablas = "SELECT id, table, query_name, query_description, icon FROM re_queries WHERE idmenu = ?";
+				List<Map<String, Object>> tablas = db.getList(sqlTablas, idMenu);
+				menu.put("tablas", tablas);
+				resultado.add(menu);
+			}
+		} catch (Exception e) {
+			System.err.println("[ReCore] Error al obtener menús con tablas: " + e.getMessage());
+		}
+		return resultado;
 	}
 }

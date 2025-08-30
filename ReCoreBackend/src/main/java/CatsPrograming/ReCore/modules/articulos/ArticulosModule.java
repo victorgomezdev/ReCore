@@ -5,8 +5,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import CatsPrograming.ReCore.utils.DBUtils;
+import org.springframework.stereotype.Component;
 
+import CatsPrograming.ReCore.dao.DBUtils;
+
+@Component
 public class ArticulosModule {
 
 	@Autowired
@@ -85,7 +88,7 @@ public class ArticulosModule {
 
 	private boolean verificarArticuloExistente(String nombre, int idcategoria) {
 		String sql = "SELECT COUNT(*) FROM re_articulos WHERE nombre = ? AND idcategoria = ?";
-		int count = db.obtenerEntero(sql, nombre, idcategoria);
+		int count = db.getEntero(sql, nombre, idcategoria);
 		return count > 0;
 	}
 
@@ -101,7 +104,7 @@ public class ArticulosModule {
 					INSERT INTO re_articulos (nombre, idcategoria, descripcion, precio, activo)
 					VALUES (?, ?, ?, ?, ?)
 					""";
-			return db.execQueryGetId(sql, nombre, idcategoria, descripcion, precio, activo);
+			return db.insertAndGetID(sql, nombre, idcategoria, descripcion, precio, activo);
 		} catch (Exception e) {
 			System.err.println("[ReCore] Error al crear artículo: " + e.getMessage());
 			return 0;
@@ -137,7 +140,7 @@ public class ArticulosModule {
 	public Map<String, Object> getArticuloPorId(int id) {
 		String sql = "SELECT a.*, c.nombre AS categoria_nombre, c.descripcion AS categoria_descripcion FROM re_articulos a "
 				+ "LEFT JOIN re_categorias c ON a.idcategoria = c.id WHERE a.id = ?";
-		return db.execQueryResult(sql, id);
+		return db.getResult(sql, id);
 	}
 
 	public java.util.List<java.util.Map<String, Object>> getArticulos(Integer idcategoria, Boolean activo,
@@ -164,6 +167,6 @@ public class ArticulosModule {
 			params.add("%" + descripcion + "%");
 		}
 		sql.append(" ORDER BY a.id DESC");
-		return db.execQueryList(sql.toString(), params.toArray());
+		return db.getList(sql.toString(), params.toArray());
 	}
 }

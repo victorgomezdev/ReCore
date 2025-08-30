@@ -3,10 +3,15 @@ package CatsPrograming.ReCore.dao;
 import java.util.List;
 
 public interface IDao<T> {
+	void insert(T type);
 
-    T save(T t);
-    T findById(Integer id);
-    void update(T t);
-    void delete(Integer id);
-    List<T> findAll();
+	boolean update(T type);
+
+	boolean delete(int id);
+
+	T getById(int id);
+
+	List<T> getAll();
+
+	List<T> getWhere(String where);
 }
