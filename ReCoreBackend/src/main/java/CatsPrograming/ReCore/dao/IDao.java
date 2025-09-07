@@ -3,7 +3,7 @@ package CatsPrograming.ReCore.dao;
 import java.util.List;
 
 public interface IDao<T> {
-	void insert(T type);
+	boolean insert(T type);
 
 	boolean update(T type);
 

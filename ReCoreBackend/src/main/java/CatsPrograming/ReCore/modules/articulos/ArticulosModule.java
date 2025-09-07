@@ -16,14 +16,14 @@ public class ArticulosModule {
 	private DBUtils db;
 
 	public void init() {
-		System.out.println("[ReCore] Iniciando módulo de artículos");
-
 		try {
-			// Crear tablas de artículos
+			// Crear tablas en orden correcto (primero las principales, luego las de
+			// relación)
 			crearTablaCategorias();
 			crearTablaArticulos();
+			crearTablaCategoriasArticulos();
 		} catch (Exception e) {
-			System.err.println("[ReCore] Error en inicialización de artículos: " + e.getMessage());
+			// Error en inicialización
 		}
 	}
 
@@ -31,25 +31,24 @@ public class ArticulosModule {
 		if (!db.existeTabla("re_categorias")) {
 			try {
 				String sql = """
-							CREATE TABLE re_categorias (
-								id INT AUTO_INCREMENT PRIMARY KEY,
-								nombre VARCHAR(60) NOT NULL UNIQUE,
-								descripcion VARCHAR(255) NOT NULL,
-								activo TINYINT(1) NOT NULL
-							)
+						CREATE TABLE re_categorias (
+							id INT AUTO_INCREMENT PRIMARY KEY,
+							nombre VARCHAR(60) NOT NULL UNIQUE,
+							descripcion VARCHAR(255) NOT NULL,
+							activo TINYINT NOT NULL
+						)
 						""";
-
 				db.execQuery(sql);
 
 				// Crea índices por separado (Compatible con H2)
 				db.execQuery("CREATE INDEX idx_categoria_nombre ON re_categorias (nombre)");
 				db.execQuery("CREATE INDEX idx_categoria_activo ON re_categorias (activo)");
 
-				db.generateFieldsInfo("re_categorias", 0);
+				// db.generateFieldsInfo("re_categorias", 0); // Comentado para evitar FK
+				// violation
 
-				System.out.println("[ReCore] Tabla re_categorias creada");
 			} catch (Exception e) {
-				System.err.println("[ReCore] Error al crear tabla re_categorias: " + e.getMessage());
+				// Error al crear tabla
 			}
 		}
 	}
@@ -58,56 +57,108 @@ public class ArticulosModule {
 		if (!db.existeTabla("re_articulos")) {
 			try {
 				String sql = """
-							CREATE TABLE re_articulos (
-								id INT AUTO_INCREMENT PRIMARY KEY,
-								nombre VARCHAR(100) NOT NULL UNIQUE,
-								idcategoria INT NOT NULL,
-								descripcion VARCHAR(255) NOT NULL,
-								precio DECIMAL(10, 6) NOT NULL,
-								activo TINYINT(1) NOT NULL
-							)
+						CREATE TABLE re_articulos (
+							id INT AUTO_INCREMENT PRIMARY KEY,
+							nombre VARCHAR(100) NOT NULL UNIQUE,
+							descripcion VARCHAR(255) NOT NULL,
+							precio DECIMAL(10, 6) NOT NULL,
+							activo TINYINT NOT NULL
+						)
 						""";
-
 				db.execQuery(sql);
 
 				// Crea índices por separado (Compatible con H2)
 				db.execQuery("CREATE INDEX idx_articulo_nombre ON re_articulos (nombre)");
-				db.execQuery("CREATE INDEX idx_articulo_categoria ON re_articulos (idcategoria)");
 				db.execQuery("CREATE INDEX idx_articulo_descripcion ON re_articulos (descripcion)");
 				db.execQuery("CREATE INDEX idx_articulo_precio ON re_articulos (precio)");
 				db.execQuery("CREATE INDEX idx_articulo_activo ON re_articulos (activo)");
 
-				db.generateFieldsInfo("re_articulos", 0);
-				db.addForeignKey("re_articulos", "idcategoria", "re_categorias", "id", false, false);
-				System.out.println("[ReCore] Tabla re_articulos creada");
+				// db.generateFieldsInfo("re_articulos", 0); // Comentado para evitar FK
+				// violation
 			} catch (Exception e) {
-				System.err.println("[ReCore] Error al crear tabla re_articulos: " + e.getMessage());
+				// Error al crear tabla
 			}
 		}
 	}
 
-	private boolean verificarArticuloExistente(String nombre, int idcategoria) {
-		String sql = "SELECT COUNT(*) FROM re_articulos WHERE nombre = ? AND idcategoria = ?";
-		int count = db.getEntero(sql, nombre, idcategoria);
+	private void crearTablaCategoriasArticulos() {
+		if (!db.existeTabla("re_categorias_articulos")) {
+			try {
+				String sql = """
+						CREATE TABLE re_categorias_articulos (
+							id INT AUTO_INCREMENT PRIMARY KEY,
+							idcategoria INT NOT NULL,
+							idarticulo INT NOT NULL,
+							activo TINYINT NOT NULL DEFAULT 1,
+							UNIQUE(idcategoria, idarticulo)
+						)
+						""";
+				db.execQuery(sql);
+
+				// Crea índices por separado (Compatible con H2)
+				db.execQuery("CREATE INDEX idx_categoria_articulo_categoria ON re_categorias_articulos (idcategoria)");
+				db.execQuery("CREATE INDEX idx_categoria_articulo_articulo ON re_categorias_articulos (idarticulo)");
+				db.execQuery("CREATE INDEX idx_categoria_articulo_activo ON re_categorias_articulos (activo)");
+
+				// Crear foreign keys
+				db.addForeignKey("re_categorias_articulos", "idcategoria", "re_categorias", "id", false, false);
+				db.addForeignKey("re_categorias_articulos", "idarticulo", "re_articulos", "id", false, false);
+
+			} catch (Exception e) {
+				// Error al crear tabla
+			}
+		}
+	}
+
+	private boolean verificarArticuloExistente(String nombre) {
+		String sql = "SELECT COUNT(*) FROM re_articulos WHERE nombre = ?";
+		int count = db.getEntero(sql, nombre);
 		return count > 0;
 	}
 
-	public int crearArticulo(String nombre, int idcategoria, String descripcion, BigDecimal precio,
-			boolean activo) {
+	public int crearArticulo(String nombre, String descripcion, BigDecimal precio, boolean activo) {
 		try {
-			if (verificarArticuloExistente(nombre, idcategoria)) {
-				System.err.println("[ReCore] El artículo ya existe: " + nombre);
+			if (verificarArticuloExistente(nombre)) {
 				return 0;
 			}
 
 			String sql = """
-					INSERT INTO re_articulos (nombre, idcategoria, descripcion, precio, activo)
-					VALUES (?, ?, ?, ?, ?)
+					INSERT INTO re_articulos (nombre, descripcion, precio, activo)
+					VALUES (?, ?, ?, ?)
 					""";
-			return db.insertAndGetID(sql, nombre, idcategoria, descripcion, precio, activo);
+			return db.insertAndGetID(sql, nombre, descripcion, precio, activo);
 		} catch (Exception e) {
-			System.err.println("[ReCore] Error al crear artículo: " + e.getMessage());
 			return 0;
+		}
+	}
+
+	public boolean asignarCategoriaAArticulo(int idArticulo, int idCategoria) {
+		try {
+			// Verificar si ya existe la relación
+			String checkSql = "SELECT COUNT(*) FROM re_categorias_articulos WHERE idarticulo = ? AND idcategoria = ?";
+			int count = db.getEntero(checkSql, idArticulo, idCategoria);
+			if (count > 0) {
+				return false;
+			}
+
+			String sql = """
+					INSERT INTO re_categorias_articulos (idarticulo, idcategoria, activo)
+					VALUES (?, ?, 1)
+					""";
+			int rowsAffected = db.execQuery(sql, idArticulo, idCategoria);
+			return rowsAffected > 0;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public boolean removerCategoriaDeArticulo(int idArticulo, int idCategoria) {
+		try {
+			String sql = "DELETE FROM re_categorias_articulos WHERE idarticulo = ? AND idcategoria = ?";
+			int rowsAffected = db.execQuery(sql, idArticulo, idCategoria);
+			return rowsAffected > 0;
+		} catch (Exception e) {
+			return false;
 		}
 	}
 
@@ -117,43 +168,57 @@ public class ArticulosModule {
 			int rowsAffected = db.execQuery(sql, id);
 			return rowsAffected > 0;
 		} catch (Exception e) {
-			System.err.println("[ReCore] Error al eliminar artículo: " + e.getMessage());
 			return false;
 		}
 	}
 
-	public boolean actualizarArticulo(int id, String nombre, int idcategoria, String descripcion,
+	public boolean actualizarArticulo(int id, String nombre, String descripcion,
 			BigDecimal precio, boolean activo) {
 		try {
 			String sql = """
-					UPDATE re_articulos SET nombre = ?, idcategoria = ?, descripcion = ?, precio = ?, activo = ?
+					UPDATE re_articulos SET nombre = ?, descripcion = ?, precio = ?, activo = ?
 					WHERE id = ?
 					""";
-			int rowsAffected = db.execQuery(sql, nombre, idcategoria, descripcion, precio, activo, id);
+			int rowsAffected = db.execQuery(sql, nombre, descripcion, precio, activo, id);
 			return rowsAffected > 0;
 		} catch (Exception e) {
-			System.err.println("[ReCore] Error al actualizar artículo: " + e.getMessage());
 			return false;
 		}
 	}
 
 	public Map<String, Object> getArticuloPorId(int id) {
-		String sql = "SELECT a.*, c.nombre AS categoria_nombre, c.descripcion AS categoria_descripcion FROM re_articulos a "
-				+ "LEFT JOIN re_categorias c ON a.idcategoria = c.id WHERE a.id = ?";
+		String sql = "SELECT * FROM re_articulos WHERE id = ?";
 		return db.getResult(sql, id);
+	}
+
+	public java.util.List<java.util.Map<String, Object>> getCategoriasPorArticulo(int idArticulo) {
+		String sql = """
+				SELECT c.* FROM re_categorias c
+				INNER JOIN re_categorias_articulos ca ON c.id = ca.idcategoria
+				WHERE ca.idarticulo = ? AND ca.activo = 1
+				ORDER BY c.nombre
+				""";
+		return db.getList(sql, idArticulo);
 	}
 
 	public java.util.List<java.util.Map<String, Object>> getArticulos(Integer idcategoria, Boolean activo,
 			String nombre, String descripcion) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(
-				"SELECT a.*, c.nombre AS categoria_nombre, c.descripcion AS categoria_descripcion FROM re_articulos a ");
-		sql.append("LEFT JOIN re_categorias c ON a.idcategoria = c.id WHERE 1=1 ");
 		java.util.List<Object> params = new java.util.ArrayList<>();
+
 		if (idcategoria != null) {
-			sql.append(" AND a.idcategoria = ?");
+			// Si se filtra por categoría, usar JOIN con la tabla intermedia
+			sql.append("""
+					SELECT DISTINCT a.* FROM re_articulos a
+					INNER JOIN re_categorias_articulos ca ON a.id = ca.idarticulo
+					WHERE ca.idcategoria = ? AND ca.activo = 1
+					""");
 			params.add(idcategoria);
+		} else {
+			// Si no se filtra por categoría, consultar solo artículos
+			sql.append("SELECT a.* FROM re_articulos a WHERE 1=1 ");
 		}
+
 		if (activo != null) {
 			sql.append(" AND a.activo = ?");
 			params.add(activo ? 1 : 0);
@@ -169,4 +234,5 @@ public class ArticulosModule {
 		sql.append(" ORDER BY a.id DESC");
 		return db.getList(sql.toString(), params.toArray());
 	}
+
 }

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import CatsPrograming.ReCore.modules.core.QueriesModule;
+import CatsPrograming.ReCore.services.Core.MenuService;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +19,7 @@ import java.util.Map;
 public class CoreController {
 
 	@Autowired
-	private QueriesModule queriesModule;
+	private MenuService menuService;
 
 	/**
 	 * Obtiene todos los menús y sus tablas asociadas
@@ -27,7 +27,7 @@ public class CoreController {
 	 */
 	@GetMapping("/getMenu")
 	public ResponseEntity<?> getMenu() {
-		List<Map<String, Object>> data = queriesModule.obtenerMenu();
+		List<Map<String, Object>> data = menuService.obtenerMenu();
 		if (data != null && !data.isEmpty()) {
 			return ResponseEntity.ok(new GetMenuResponse(true, "OK", data));
 		} else {

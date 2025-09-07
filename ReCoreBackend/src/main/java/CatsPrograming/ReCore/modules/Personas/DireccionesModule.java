@@ -38,7 +38,8 @@ public class DireccionesModule {
 						)
 						""";
 				db.execQuery(sql);
-				db.generateFieldsInfo("re_direcciones", 0);
+				// db.generateFieldsInfo("re_direcciones", 0); // Comentado para evitar FK
+				// violation
 
 				// Crear índices por separado (compatible con H2)
 				db.execQuery("CREATE INDEX idx_direccion_persona ON re_direcciones (idpersona)");

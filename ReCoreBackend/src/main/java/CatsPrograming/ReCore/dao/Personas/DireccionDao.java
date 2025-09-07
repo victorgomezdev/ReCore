@@ -1,6 +1,7 @@
 package CatsPrograming.ReCore.dao.Personas;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -28,20 +29,21 @@ public class DireccionDao implements IDao<Direccion> {
 
 	private static final String SQL_DELETE = "DELETE FROM re_direcciones WHERE id = ?";
 
-	private static final String SQL_get_ALL = "SELECT * FROM re_direcciones";
+	private static final String SQL_SELECT_ALL = "SELECT * FROM re_direcciones";
 
-	private static final String SQL_get_WHERE = "SELECT * FROM re_direcciones WHERE ";
+	private static final String SQL_SELECT_WHERE = "SELECT * FROM re_direcciones WHERE ";
 
 	@Override
-	public void insert(Direccion direccion) {
+	public boolean insert(Direccion direccion) {
 		try {
 			db.execQuery(SQL_INSERT, direccion.getIdpersona(), direccion.getCalle(), direccion.getNumero(),
 					direccion.getCiudad(), direccion.getProvincia(), direccion.getCodigoPostal(),
 					direccion.getGeoReferencia());
+			return true;
 		} catch (Exception e) {
 			db.log("re_direcciones", 0, "InsertDireccion", null, null);
-		} finally {
 		}
+		return false;
 	}
 
 	@Override
@@ -90,7 +92,7 @@ public class DireccionDao implements IDao<Direccion> {
 	@Override
 	public List<Direccion> getAll() {
 		try {
-			List<Map<String, Object>> results = db.getList(SQL_get_ALL);
+			List<Map<String, Object>> results = db.getList(SQL_SELECT_ALL);
 			List<Direccion> direcciones = new java.util.ArrayList<>();
 			for (Map<String, Object> row : results) {
 				direcciones.add(new Direccion(row));
@@ -98,7 +100,7 @@ public class DireccionDao implements IDao<Direccion> {
 			return direcciones;
 		} catch (Exception e) {
 			db.log("re_direcciones", 0, "getAll", null, null);
-			return java.util.Collections.emptyList();
+			return Collections.emptyList();
 		}
 	}
 
@@ -108,24 +110,24 @@ public class DireccionDao implements IDao<Direccion> {
 			return getAll();
 		}
 
-		Map<String, Object> clause = DBUtils.buildWhereClause(SQL_get_WHERE, where);
+		Map<String, Object> clause = DBUtils.buildWhereClause(SQL_SELECT_WHERE, where);
 
 		try {
 			List<Map<String, Object>> results = db.getList(clause.get("sql").toString(), clause.get("params"));
-			List<Direccion> direcciones = new java.util.ArrayList<>();
+			List<Direccion> direcciones = new ArrayList<>();
 			for (Map<String, Object> row : results) {
 				direcciones.add(new Direccion(row));
 			}
 			return direcciones;
 		} catch (Exception e) {
 			db.log("re_direcciones", 0, "getWhere", null, null);
-			return java.util.Collections.emptyList();
+			return Collections.emptyList();
 		}
 	}
 
 	public List<Direccion> getAllByPersona(Integer idpersona) {
 		if (idpersona == null) {
-			return java.util.Collections.emptyList();
+			return Collections.emptyList();
 		}
 
 		String sql = "SELECT * FROM re_direcciones WHERE idpersona = ?";
@@ -138,7 +140,7 @@ public class DireccionDao implements IDao<Direccion> {
 			return direcciones;
 		} catch (Exception e) {
 			db.log("re_direcciones", 0, "getAllByPersona", null, null);
-			return java.util.Collections.emptyList();
+			return Collections.emptyList();
 		}
 	}
 }

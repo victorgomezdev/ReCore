@@ -3,7 +3,7 @@ package CatsPrograming.ReCore.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import CatsPrograming.ReCore.modules.core.UsuarioModule;
+import CatsPrograming.ReCore.services.Core.UsuarioService;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -11,12 +11,12 @@ import CatsPrograming.ReCore.modules.core.UsuarioModule;
 public class AuthController {
 
     @Autowired
-    private UsuarioModule usuariosModule;
+    private UsuarioService usuarioService;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
 
-        int usuarioId = usuariosModule.validarLogin(request.getEmail(), request.getPassword());
+        int usuarioId = usuarioService.validarLogin(request.getEmail(), request.getPassword());
 
         if (usuarioId > 0) {
             // Token simple para prueba inicial
@@ -121,7 +121,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
-        int idusuario = usuariosModule.crearUsuario(request.getEmail(), request.getPassword(), null);
+        int idusuario = usuarioService.crearUsuario(request.getEmail(), request.getPassword(), null);
         if (idusuario > 0) {
             RegisterResponse response = new RegisterResponse();
             response.setSuccess(true);

@@ -74,7 +74,8 @@ public class UsuarioModule {
                 db.execQuery("CREATE INDEX idx_usuario_activo ON re_usuarios (activo)");
                 db.execQuery("CREATE INDEX idx_usuario_persona ON re_usuarios (idpersona)");
 
-                db.generateFieldsInfo("re_usuarios", 0);
+                // db.generateFieldsInfo("re_usuarios", 0); // Comentado para evitar FK
+                // violation
 
                 System.out.println("[ReCore] Tabla re_usuarios creada");
             } catch (Exception e) {
@@ -100,7 +101,7 @@ public class UsuarioModule {
                         )
                         """;
                 db.execQuery(sql);
-                db.generateFieldsInfo("re_roles", 0);
+                // db.generateFieldsInfo("re_roles", 0); // Comentado para evitar FK violation
 
                 System.out.println("[ReCore] Tabla re_roles creada");
             } catch (Exception e) {
@@ -127,7 +128,8 @@ public class UsuarioModule {
                         )
                         """;
                 db.execQuery(sql);
-                db.generateFieldsInfo("re_usuarios_roles", 0);
+                // db.generateFieldsInfo("re_usuarios_roles", 0); // Comentado para evitar FK
+                // violation
                 // Crear indices por separado (compatible con H2)
                 db.addForeignKey("re_usuarios_roles", "idusuario", "re_usuarios", "id", false, false);
                 db.addForeignKey("re_usuarios_roles", "idrol", "re_roles", "id", false, false);
@@ -295,6 +297,8 @@ public class UsuarioModule {
             db.execQuery(sql, nuevosIntentos, usuarioId);
         }
     }
+
+    // TODO: Llevar todo esto a un service
 
     /**
      * Verifica si un email ya existe en la tabla de usuarios

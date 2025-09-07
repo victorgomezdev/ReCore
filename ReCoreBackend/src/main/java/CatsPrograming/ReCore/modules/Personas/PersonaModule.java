@@ -53,7 +53,8 @@ public class PersonaModule {
                         )
                         """;
                 db.execQuery(sql);
-                db.generateFieldsInfo("re_personas", 0);
+                // db.generateFieldsInfo("re_personas", 0); // Comentado para evitar FK
+                // violation
 
                 // Crear índices por separado (compatible con H2)
                 db.execQuery("CREATE INDEX idx_persona_email ON re_personas (email)");

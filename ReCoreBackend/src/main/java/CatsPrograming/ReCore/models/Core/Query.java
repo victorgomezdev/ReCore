@@ -45,6 +45,21 @@ public class Query {
 		this.checksum = checksum;
 	}
 
+	public Query(java.util.Map<String, Object> map) {
+		this.id = (Integer) map.get("id");
+		this.menu = (Menu) map.get("menu");
+		this.table = (String) map.get("table");
+		this.queryName = (String) map.get("queryName");
+		this.queryDescription = (String) map.get("queryDescription");
+		this.fields = (String) map.get("fields");
+		this.canInsert = map.get("canInsert") != null && (Boolean) map.get("canInsert");
+		this.canEdit = map.get("canEdit") != null && (Boolean) map.get("canEdit");
+		this.canDelete = map.get("canDelete") != null && (Boolean) map.get("canDelete");
+		this.debil = map.get("debil") != null && (Boolean) map.get("debil");
+		this.icon = (String) map.get("icon");
+		this.checksum = (Integer) map.get("checksum");
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -53,7 +68,7 @@ public class Query {
 		this.id = id;
 	}
 
-	public Menu getMenu() {
+	public Menu getIdMenu() {
 		return menu;
 	}
 
@@ -93,7 +108,7 @@ public class Query {
 		this.fields = fields;
 	}
 
-	public boolean isCanInsert() {
+	public boolean getCanInsert() {
 		return canInsert;
 	}
 
@@ -101,7 +116,7 @@ public class Query {
 		this.canInsert = canInsert;
 	}
 
-	public boolean isCanEdit() {
+	public boolean getCanEdit() {
 		return canEdit;
 	}
 
@@ -109,7 +124,7 @@ public class Query {
 		this.canEdit = canEdit;
 	}
 
-	public boolean isCanDelete() {
+	public boolean getCanDelete() {
 		return canDelete;
 	}
 
@@ -117,7 +132,7 @@ public class Query {
 		this.canDelete = canDelete;
 	}
 
-	public boolean isDebil() {
+	public boolean getDebil() {
 		return debil;
 	}
 

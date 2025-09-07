@@ -28,7 +28,7 @@ public class PersonaDao implements IDao<Persona> {
 	@Autowired
 	DBUtils db;
 
-	private static final String SQL_INSERT = "INSERT INTO re_personas" +
+	private static final String SQL_INSERT = "INSERT INTO re_personas " +
 			"(nombre, apellido, dni, cuit, email, telefono, fecha_nacimiento, fecha_registro, notas) VALUES " +
 			"(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -46,14 +46,16 @@ public class PersonaDao implements IDao<Persona> {
 	private static final String SQL_FIND_BY_DNI = "SELECT * FROM re_personas WHERE dni = ?";
 
 	@Override
-	public void insert(Persona persona) {
+	public boolean insert(Persona persona) {
 		try {
 			db.execQuery(SQL_INSERT, persona.getNombre(), persona.getApellido(), persona.getDni(), persona.getCuit(),
 					persona.getEmail(), persona.getTelefono(), persona.getFechaNacimiento(), persona.getFechaRegistro(),
 					persona.getNotas());
+			return true;
 		} catch (Exception e) {
 			db.log("re_personas", 0, "InsertPersona", null, null);
 		}
+		return false;
 	}
 
 	@Override
@@ -136,7 +138,7 @@ public class PersonaDao implements IDao<Persona> {
 	/**
 	 * Buscar persona por DNI
 	 */
-	public Persona buscarPersonaPorDni(String dni) {
+	public Persona getPersonaByDni(String dni) {
 		try {
 			Map<String, Object> result = db.getResult(SQL_FIND_BY_DNI, dni);
 			if (result != null) {

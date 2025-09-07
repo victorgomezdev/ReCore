@@ -1,5 +1,7 @@
 package CatsPrograming.ReCore.models.Core;
 
+import java.util.Map;
+
 public class Menu {
 	private Integer id;
 	private String nombre;
@@ -25,6 +27,15 @@ public class Menu {
 		this.color = color;
 	}
 
+	public Menu(Map<String, Object> row) {
+		this.id = (Integer) row.get("id");
+		this.nombre = (String) row.get("nombre");
+		this.activo = (Boolean) row.get("activo");
+		this.orden = (Integer) row.get("orden");
+		this.icon = (String) row.get("icon");
+		this.color = (String) row.get("color");
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -33,7 +44,7 @@ public class Menu {
 		return nombre;
 	}
 
-	public boolean isActivo() {
+	public boolean getActivo() {
 		return activo;
 	}
 

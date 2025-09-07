@@ -53,6 +53,23 @@ public class QueryFields {
 		this.ancho = ancho;
 	}
 
+	public QueryFields(java.util.Map<String, Object> map, Query query) {
+		this.id = map.get("id") != null ? ((Number) map.get("id")).intValue() : null;
+		this.query = query;
+		this.field = (String) map.get("field");
+		this.showName = (String) map.get("show_name");
+		this.isRequired = map.get("is_required") != null && ((Number) map.get("is_required")).intValue() == 1;
+		this.passwordField = map.get("password_field") != null && ((Number) map.get("password_field")).intValue() == 1;
+		this.colorField = map.get("color_field") != null && ((Number) map.get("color_field")).intValue() == 1;
+		this.richText = map.get("rich_text") != null && ((Number) map.get("rich_text")).intValue() == 1;
+		this.isEditable = map.get("is_editable") != null && ((Number) map.get("is_editable")).intValue() == 1;
+		this.visible = map.get("visible") != null && ((Number) map.get("visible")).intValue() == 1;
+		this.ocultarVacio = map.get("ocultar_vacio") != null && ((Number) map.get("ocultar_vacio")).intValue() == 1;
+		this.grupo = (String) map.get("grupo");
+		this.fieldHelp = (String) map.get("field_help");
+		this.ancho = map.get("ancho") != null ? ((Number) map.get("ancho")).intValue() : null;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -85,7 +102,7 @@ public class QueryFields {
 		this.showName = showName;
 	}
 
-	public boolean isRequired() {
+	public boolean getRequired() {
 		return isRequired;
 	}
 
@@ -93,7 +110,7 @@ public class QueryFields {
 		this.isRequired = isRequired;
 	}
 
-	public boolean isPasswordField() {
+	public boolean getPasswordField() {
 		return passwordField;
 	}
 
@@ -101,7 +118,7 @@ public class QueryFields {
 		this.passwordField = passwordField;
 	}
 
-	public boolean isColorField() {
+	public boolean getColorField() {
 		return colorField;
 	}
 
@@ -109,7 +126,7 @@ public class QueryFields {
 		this.colorField = colorField;
 	}
 
-	public boolean isRichText() {
+	public boolean getRichText() {
 		return richText;
 	}
 
@@ -117,7 +134,7 @@ public class QueryFields {
 		this.richText = richText;
 	}
 
-	public boolean isEditable() {
+	public boolean getIsEditable() {
 		return isEditable;
 	}
 
@@ -125,7 +142,7 @@ public class QueryFields {
 		this.isEditable = isEditable;
 	}
 
-	public boolean isVisible() {
+	public boolean getVisible() {
 		return visible;
 	}
 
@@ -133,7 +150,7 @@ public class QueryFields {
 		this.visible = visible;
 	}
 
-	public boolean isOcultarVacio() {
+	public boolean getOcultarVacio() {
 		return ocultarVacio;
 	}
 
