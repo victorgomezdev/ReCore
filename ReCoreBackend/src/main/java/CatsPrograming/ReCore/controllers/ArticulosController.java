@@ -338,9 +338,9 @@ public class ArticulosController {
 
 	@PostMapping("/asignarCategorias/{idArticulo}")
 	public ResponseEntity<?> asignarCategoriasAArticulo(@PathVariable int idArticulo,
-			@RequestBody List<Integer> idsCategorias) {
+			@RequestBody List<Integer> idCategorias) {
 		try {
-			boolean asignado = articulosService.asignarCategoriasAArticulo(idArticulo, idsCategorias);
+			boolean asignado = articulosService.asignarCategoriasAArticulo(idArticulo, idCategorias);
 			if (asignado) {
 				return ResponseEntity.ok(new AsignarCategoriasResponse(true, "Categorías asignadas correctamente"));
 			} else {

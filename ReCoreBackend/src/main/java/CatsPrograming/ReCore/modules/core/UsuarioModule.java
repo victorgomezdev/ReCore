@@ -48,38 +48,35 @@ public class UsuarioModule {
      * Crea la tabla re_usuarios para credenciales y acceso al sistema
      */
     private void crearTablaUsuarios() {
-        if (!db.existeTabla("re_usuarios")) {
+        String sql = """
+                CREATE TABLE re_usuarios (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    idpersona INT,
+                    email VARCHAR(255) UNIQUE NOT NULL,
+                    password_hash VARCHAR(255) NOT NULL,
+                    activo BOOLEAN DEFAULT TRUE,
+                    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    fecha_ultimo_login TIMESTAMP,
+                    intentos_login INT DEFAULT 0,
+                    bloqueado_hasta TIMESTAMP,
+                    token_verificacion VARCHAR(255),
+                    token_reset_password VARCHAR(255),
+                    fecha_expira_token TIMESTAMP
+                )
+                """;
 
+        if (db.crearTabla("re_usuarios", sql)) {
             try {
-                String sql = """
-                        CREATE TABLE re_usuarios (
-                            id INT AUTO_INCREMENT PRIMARY KEY,
-                            idpersona INT,
-                            email VARCHAR(255) UNIQUE NOT NULL,
-                            password_hash VARCHAR(255) NOT NULL,
-                            activo BOOLEAN DEFAULT TRUE,
-                            fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                            fecha_ultimo_login TIMESTAMP,
-                            intentos_login INT DEFAULT 0,
-                            bloqueado_hasta TIMESTAMP,
-                            token_verificacion VARCHAR(255),
-                            token_reset_password VARCHAR(255),
-                            fecha_expira_token TIMESTAMP
-                        )
-                        """;
-                db.execQuery(sql);
-
                 // Crea índices por separado (Compatible con H2)
                 db.execQuery("CREATE INDEX idx_usuario_email ON re_usuarios (email)");
                 db.execQuery("CREATE INDEX idx_usuario_activo ON re_usuarios (activo)");
                 db.execQuery("CREATE INDEX idx_usuario_persona ON re_usuarios (idpersona)");
 
-                // db.generateFieldsInfo("re_usuarios", 0); // Comentado para evitar FK
-                // violation
-
+                // Generar metadata de campos
+                db.generateFieldsInfo("re_usuarios");
                 System.out.println("[ReCore] Tabla re_usuarios creada");
             } catch (Exception e) {
-                System.out.println("[ReCore] Error al crear índices de la tabla re_usuarios: " + e.getMessage());
+                System.err.println("[ReCore] Error al procesar metadata de re_usuarios: " + e.getMessage());
             }
         }
     }
@@ -88,24 +85,24 @@ public class UsuarioModule {
      * Crea la tabla re_roles
      */
     private void crearTablaRoles() {
-        if (!db.existeTabla("re_roles")) {
-            try {
-                String sql = """
-                        CREATE TABLE re_roles (
-                            id INT AUTO_INCREMENT PRIMARY KEY,
-                            codigo VARCHAR(50) UNIQUE NOT NULL,
-                            nombre VARCHAR(100) NOT NULL,
-                            descripcion VARCHAR(255) NOT NULL,
-                            activo BOOLEAN DEFAULT TRUE,
-                            fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                        )
-                        """;
-                db.execQuery(sql);
-                // db.generateFieldsInfo("re_roles", 0); // Comentado para evitar FK violation
+        String sql = """
+                CREATE TABLE re_roles (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    codigo VARCHAR(50) UNIQUE NOT NULL,
+                    nombre VARCHAR(100) NOT NULL,
+                    descripcion VARCHAR(255) NOT NULL,
+                    activo BOOLEAN DEFAULT TRUE,
+                    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+                """;
 
+        if (db.crearTabla("re_roles", sql)) {
+            try {
+                // Generar metadata de campos
+                db.generateFieldsInfo("re_roles");
                 System.out.println("[ReCore] Tabla re_roles creada");
             } catch (Exception e) {
-                System.out.println("[ReCore] Error al crear tabla re_roles: " + e.getMessage());
+                System.err.println("[ReCore] Error al procesar metadata de re_roles: " + e.getMessage());
             }
         }
     }
@@ -114,31 +111,31 @@ public class UsuarioModule {
      * Crea la tabla re_usuarios_roles (permisos asociados a USUARIOS)
      */
     private void crearTablaUsuariosRoles() {
-        if (!db.existeTabla("re_usuarios_roles")) {
+        String sql = """
+                CREATE TABLE re_usuarios_roles (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    idusuario INT NOT NULL,
+                    idrol INT NOT NULL,
+                    fecha_asignacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    asignado_por INT,
+                    activo BOOLEAN DEFAULT TRUE,
+                    notas VARCHAR(255)
+                )
+                """;
+
+        if (db.crearTabla("re_usuarios_roles", sql)) {
             try {
-                String sql = """
-                        CREATE TABLE re_usuarios_roles (
-                            id INT AUTO_INCREMENT PRIMARY KEY,
-                            idusuario INT NOT NULL,
-                            idrol INT NOT NULL,
-                            fecha_asignacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                            asignado_por INT,
-                            activo BOOLEAN DEFAULT TRUE,
-                            notas VARCHAR(255)
-                        )
-                        """;
-                db.execQuery(sql);
-                // db.generateFieldsInfo("re_usuarios_roles", 0); // Comentado para evitar FK
-                // violation
-                // Crear indices por separado (compatible con H2)
+                // Crear foreign keys y constraints
                 db.addForeignKey("re_usuarios_roles", "idusuario", "re_usuarios", "id", false, false);
                 db.addForeignKey("re_usuarios_roles", "idrol", "re_roles", "id", false, false);
                 db.execQuery("CREATE UNIQUE INDEX unique_usuario_rol ON re_usuarios_roles (idusuario, idrol)");
-            } catch (Exception e) {
-                System.out.println("[ReCore] Constraints ya existen: " + e.getMessage());
-            }
 
-            System.out.println("[ReCore] Tabla re_usuarios_roles creada");
+                // Generar metadata de campos
+                db.generateFieldsInfo("re_usuarios_roles");
+                System.out.println("[ReCore] Tabla re_usuarios_roles creada");
+            } catch (Exception e) {
+                System.err.println("[ReCore] Error al procesar metadata de re_usuarios_roles: " + e.getMessage());
+            }
         }
     }
 

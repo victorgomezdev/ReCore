@@ -28,73 +28,69 @@ public class ArticulosModule {
 	}
 
 	private void crearTablaCategorias() {
-		if (!db.existeTabla("re_categorias")) {
-			try {
-				String sql = """
-						CREATE TABLE re_categorias (
-							id INT AUTO_INCREMENT PRIMARY KEY,
-							nombre VARCHAR(60) NOT NULL UNIQUE,
-							descripcion VARCHAR(255) NOT NULL,
-							activo TINYINT NOT NULL
-						)
-						""";
-				db.execQuery(sql);
+		String sql = """
+				CREATE TABLE re_categorias (
+					id INT AUTO_INCREMENT PRIMARY KEY,
+					nombre VARCHAR(60) NOT NULL UNIQUE,
+					descripcion VARCHAR(255) NOT NULL,
+					activo TINYINT NOT NULL
+				)
+				""";
 
+		if (db.crearTabla("re_categorias", sql)) {
+			try {
 				// Crea índices por separado (Compatible con H2)
 				db.execQuery("CREATE INDEX idx_categoria_nombre ON re_categorias (nombre)");
 				db.execQuery("CREATE INDEX idx_categoria_activo ON re_categorias (activo)");
 
-				// db.generateFieldsInfo("re_categorias", 0); // Comentado para evitar FK
-				// violation
-
+				// Generar metadata de campos
+				db.generateFieldsInfo("re_categorias");
 			} catch (Exception e) {
-				// Error al crear tabla
+				// Error al crear índices
 			}
 		}
 	}
 
 	private void crearTablaArticulos() {
-		if (!db.existeTabla("re_articulos")) {
-			try {
-				String sql = """
-						CREATE TABLE re_articulos (
-							id INT AUTO_INCREMENT PRIMARY KEY,
-							nombre VARCHAR(100) NOT NULL UNIQUE,
-							descripcion VARCHAR(255) NOT NULL,
-							precio DECIMAL(10, 6) NOT NULL,
-							activo TINYINT NOT NULL
-						)
-						""";
-				db.execQuery(sql);
+		String sql = """
+				CREATE TABLE re_articulos (
+					id INT AUTO_INCREMENT PRIMARY KEY,
+					nombre VARCHAR(100) NOT NULL UNIQUE,
+					descripcion VARCHAR(255) NOT NULL,
+					precio DECIMAL(12, 2) NOT NULL,
+					activo TINYINT NOT NULL
+				)
+				""";
 
+		if (db.crearTabla("re_articulos", sql)) {
+			try {
 				// Crea índices por separado (Compatible con H2)
 				db.execQuery("CREATE INDEX idx_articulo_nombre ON re_articulos (nombre)");
 				db.execQuery("CREATE INDEX idx_articulo_descripcion ON re_articulos (descripcion)");
 				db.execQuery("CREATE INDEX idx_articulo_precio ON re_articulos (precio)");
 				db.execQuery("CREATE INDEX idx_articulo_activo ON re_articulos (activo)");
 
-				// db.generateFieldsInfo("re_articulos", 0); // Comentado para evitar FK
-				// violation
+				// Generar metadata de campos
+				db.generateFieldsInfo("re_articulos");
 			} catch (Exception e) {
-				// Error al crear tabla
+				// Error al crear índices
 			}
 		}
 	}
 
 	private void crearTablaCategoriasArticulos() {
-		if (!db.existeTabla("re_categorias_articulos")) {
-			try {
-				String sql = """
-						CREATE TABLE re_categorias_articulos (
-							id INT AUTO_INCREMENT PRIMARY KEY,
-							idcategoria INT NOT NULL,
-							idarticulo INT NOT NULL,
-							activo TINYINT NOT NULL DEFAULT 1,
-							UNIQUE(idcategoria, idarticulo)
-						)
-						""";
-				db.execQuery(sql);
+		String sql = """
+				CREATE TABLE re_categorias_articulos (
+					id INT AUTO_INCREMENT PRIMARY KEY,
+					idcategoria INT NOT NULL,
+					idarticulo INT NOT NULL,
+					activo TINYINT NOT NULL DEFAULT 1,
+					UNIQUE(idcategoria, idarticulo)
+				)
+				""";
 
+		if (db.crearTabla("re_categorias_articulos", sql)) {
+			try {
 				// Crea índices por separado (Compatible con H2)
 				db.execQuery("CREATE INDEX idx_categoria_articulo_categoria ON re_categorias_articulos (idcategoria)");
 				db.execQuery("CREATE INDEX idx_categoria_articulo_articulo ON re_categorias_articulos (idarticulo)");
@@ -104,8 +100,10 @@ public class ArticulosModule {
 				db.addForeignKey("re_categorias_articulos", "idcategoria", "re_categorias", "id", false, false);
 				db.addForeignKey("re_categorias_articulos", "idarticulo", "re_articulos", "id", false, false);
 
+				// Generar metadata de campos
+				db.generateFieldsInfo("re_categorias_articulos");
 			} catch (Exception e) {
-				// Error al crear tabla
+				// Error al crear índices o FK
 			}
 		}
 	}

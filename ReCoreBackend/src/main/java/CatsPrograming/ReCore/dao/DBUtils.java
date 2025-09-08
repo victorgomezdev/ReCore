@@ -10,8 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Utilidades de base de datos para ReCore
@@ -324,6 +326,218 @@ public class DBUtils {
         }
         System.out.println("[generateFieldsInfo] Metadata de campos sincronizada para tabla: " + nombreTabla
                 + ", idquery: " + idQuery);
+    }
+
+    /**
+     * Crea una tabla y automáticamente la registra en re_queries
+     * 
+     * @param nombreTabla Nombre de la tabla a crear
+     * @param sql         SQL de creación de la tabla
+     * @return true si se creó exitosamente, false si ya existía o hubo error
+     */
+    public boolean crearTabla(String nombreTabla, String sql) {
+        // 1. Verificar que no exista la tabla
+        if (existeTabla(nombreTabla)) {
+            System.out.println("[crearTabla] La tabla " + nombreTabla + " ya existe");
+            return false;
+        }
+
+        try {
+            // 2. Crear la tabla
+            execQuery(sql);
+            System.out.println("[crearTabla] Tabla " + nombreTabla + " creada exitosamente");
+
+            // 3. Insertar en re_queries
+            insertarEnReQueries(nombreTabla);
+
+            return true;
+        } catch (Exception e) {
+            System.err.println("[crearTabla] Error al crear tabla " + nombreTabla + ": " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Inserta una tabla en re_queries con configuración por defecto
+     * 
+     * @param nombreTabla Nombre de la tabla
+     * @return ID del query creado, 0 si hay error
+     */
+    private int insertarEnReQueries(String nombreTabla) {
+        try {
+            // Verificar si ya existe un query para esta tabla
+            String sqlCheck = "SELECT id FROM re_queries WHERE table_name = ?";
+            Integer existingId = getEnteroNullable(sqlCheck, nombreTabla);
+            if (existingId != null) {
+                System.out.println(
+                        "[insertarEnReQueries] Ya existe query para " + nombreTabla + " con ID: " + existingId);
+                return existingId;
+            }
+
+            // Crear nombre amigable
+            String queryName = nombreTabla.replace("re_", "").replace("_", " ");
+            queryName = queryName.substring(0, 1).toUpperCase() + queryName.substring(1);
+
+            String sqlInsert = """
+                    INSERT INTO re_queries (idmenu, table_name, query_name, query_description, fields,
+                                          can_insert, can_edit, can_delete, debil, icon, checksum)
+                    VALUES (1, ?, ?, ?, '*', 1, 1, 1, 0, 'table', 0)
+                    """;
+
+            int queryId = insertAndGetID(sqlInsert, nombreTabla, queryName,
+                    "Query automático para " + nombreTabla);
+
+            System.out.println("[insertarEnReQueries] Query creado para " + nombreTabla + " con ID: " + queryId);
+            return queryId;
+
+        } catch (Exception e) {
+            System.err.println("[insertarEnReQueries] Error: " + e.getMessage());
+            return 0;
+        }
+    }
+
+    /**
+     * Genera o actualiza los metadatos de campos de una tabla.
+     * Detecta campos nuevos, eliminados y mantiene actualizado re_queries_fields.
+     * 
+     * @param nombreTabla Nombre de la tabla
+     */
+    public void generateFieldsInfo(String nombreTabla) {
+        if (!existeTabla(nombreTabla)) {
+            System.err.println("[generateFieldsInfo] La tabla no existe: " + nombreTabla);
+            return;
+        }
+
+        // Obtener o crear el query ID
+        int idQuery = obtenerOCrearQueryId(nombreTabla);
+        if (idQuery == 0) {
+            System.err.println("[generateFieldsInfo] No se pudo obtener/crear query para: " + nombreTabla);
+            return;
+        }
+
+        // Obtener campos actuales de la tabla
+        String sqlCampos = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE UPPER(TABLE_NAME) = UPPER(?) ORDER BY ORDINAL_POSITION";
+        List<Map<String, Object>> camposActuales = getList(sqlCampos, nombreTabla);
+
+        if (camposActuales.isEmpty()) {
+            System.err.println("[generateFieldsInfo] No se encontraron campos para: " + nombreTabla);
+            return;
+        }
+
+        // Obtener campos existentes en re_queries_fields
+        String sqlCamposExistentes = "SELECT field FROM re_queries_fields WHERE idquery = ?";
+        List<Map<String, Object>> camposExistentes = getList(sqlCamposExistentes, idQuery);
+
+        // Convertir a Sets para facilitar comparación
+        Set<String> camposNuevos = camposActuales.stream()
+                .map(campo -> (String) campo.get("COLUMN_NAME"))
+                .collect(java.util.stream.Collectors.toSet());
+
+        Set<String> camposViejos = camposExistentes.stream()
+                .map(campo -> (String) campo.get("field"))
+                .collect(java.util.stream.Collectors.toSet());
+
+        // Detectar campos eliminados
+        Set<String> camposEliminados = new HashSet<>(camposViejos);
+        camposEliminados.removeAll(camposNuevos);
+
+        // Detectar campos agregados
+        Set<String> camposAgregados = new HashSet<>(camposNuevos);
+        camposAgregados.removeAll(camposViejos);
+
+        // Eliminar campos que ya no existen
+        if (!camposEliminados.isEmpty()) {
+            String sqlDeleteCampo = "DELETE FROM re_queries_fields WHERE idquery = ? AND field = ?";
+            for (String campo : camposEliminados) {
+                execQuery(sqlDeleteCampo, idQuery, campo);
+                System.out.println("[generateFieldsInfo] Campo eliminado: " + campo);
+            }
+        }
+
+        // Agregar campos nuevos
+        if (!camposAgregados.isEmpty()) {
+            String sqlInsertCampo = "INSERT INTO re_queries_fields (idquery, field, show_name, is_required, is_editable, visible) VALUES (?, ?, ?, 0, 1, 1)";
+            for (String campo : camposAgregados) {
+                execQuery(sqlInsertCampo, idQuery, campo, campo);
+                System.out.println("[generateFieldsInfo] Campo agregado: " + campo);
+            }
+        }
+
+        System.out.println("[generateFieldsInfo] Metadata actualizada para " + nombreTabla +
+                " (+" + camposAgregados.size() + " -" + camposEliminados.size() + ")");
+    }
+
+    /**
+     * Obtiene el ID del query para una tabla, o lo crea si no existe
+     * 
+     * @param nombreTabla Nombre de la tabla
+     * @return ID del query, 0 si hay error
+     */
+    private int obtenerOCrearQueryId(String nombreTabla) {
+        try {
+            String sqlCheck = "SELECT id FROM re_queries WHERE table_name = ?";
+            Integer existingId = getEnteroNullable(sqlCheck, nombreTabla);
+            if (existingId != null) {
+                return existingId;
+            }
+
+            // Si no existe, crearlo
+            return insertarEnReQueries(nombreTabla);
+        } catch (Exception e) {
+            System.err.println("[obtenerOCrearQueryId] Error: " + e.getMessage());
+            return 0;
+        }
+    }
+
+    /**
+     * Obtiene un entero que puede ser null
+     * 
+     * @param sql    Query SQL
+     * @param params Parámetros
+     * @return Integer o null si no hay resultado
+     */
+    private Integer getEnteroNullable(String sql, Object... params) {
+        try {
+            return jdbcTemplate.queryForObject(sql, Integer.class, params);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
+     * Modifica una columna existente en una tabla
+     * 
+     * @param nombreTabla     Nombre de la tabla
+     * @param nombreColumna   Nombre de la columna
+     * @param nuevaDefinicion Nueva definición de la columna (ej: "DECIMAL(12,2) NOT
+     *                        NULL")
+     */
+    public void modificarColumna(String nombreTabla, String nombreColumna, String nuevaDefinicion) {
+        try {
+            // Verificar que la tabla y columna existan
+            if (!existeTabla(nombreTabla)) {
+                System.err.println("[modificarColumna] La tabla no existe: " + nombreTabla);
+                return;
+            }
+
+            String checkColumnSql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE UPPER(TABLE_NAME) = UPPER(?) AND UPPER(COLUMN_NAME) = UPPER(?)";
+            int columnExists = getEntero(checkColumnSql, nombreTabla, nombreColumna);
+
+            if (columnExists == 0) {
+                System.err.println("[modificarColumna] La columna no existe: " + nombreTabla + "." + nombreColumna);
+                return;
+            }
+
+            // Ejecutar ALTER TABLE
+            String sql = "ALTER TABLE " + nombreTabla + " ALTER COLUMN " + nombreColumna + " " + nuevaDefinicion;
+            execQuery(sql);
+            System.out.println("[modificarColumna] Columna modificada: " + nombreTabla + "." + nombreColumna + " -> "
+                    + nuevaDefinicion);
+
+        } catch (Exception e) {
+            System.err.println("[modificarColumna] Error modificando columna " + nombreTabla + "." + nombreColumna
+                    + ": " + e.getMessage());
+        }
     }
 
     /**

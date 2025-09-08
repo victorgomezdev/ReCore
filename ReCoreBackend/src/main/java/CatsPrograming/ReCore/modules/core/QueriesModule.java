@@ -39,25 +39,24 @@ public class QueriesModule {
 	}
 
 	private void crearTablaMenus() {
-		if (!db.existeTabla("re_menus")) {
-			try {
-				String sql = """
-							CREATE TABLE re_menus (
-								id INT AUTO_INCREMENT PRIMARY KEY,
-								nombre VARCHAR(60) NOT NULL,
-								icon VARCHAR(60) NOT NULL,
-								color VARCHAR(60) NOT NULL,
-								orden INT NOT NULL,
-								activo TINYINT NOT NULL
-							)
-						""";
+		String sql = """
+					CREATE TABLE re_menus (
+						id INT AUTO_INCREMENT PRIMARY KEY,
+						nombre VARCHAR(60) NOT NULL,
+						icon VARCHAR(60) NOT NULL,
+						color VARCHAR(60) NOT NULL,
+						orden INT NOT NULL,
+						activo TINYINT NOT NULL
+					)
+				""";
 
-				db.execQuery(sql);
-				// db.generateFieldsInfo("re_menus", 0); // No necesario para tabla de menús
+		if (db.crearTabla("re_menus", sql)) {
+			try {
+				// Generar metadata de campos
+				db.generateFieldsInfo("re_menus");
 				System.out.println("[ReCore] Tabla re_menus creada");
 			} catch (Exception e) {
-				System.err.println("[ReCore] Error al crear tabla re_menus: " + e.getMessage());
-				e.printStackTrace();
+				System.err.println("[ReCore] Error al procesar metadata de re_menus: " + e.getMessage());
 			}
 		}
 	}
@@ -66,69 +65,69 @@ public class QueriesModule {
 	 * Crea la tabla re_queries para gestionar tablas de manera dinámica
 	 */
 	private void crearTablaQuerys() {
-		if (!db.existeTabla("re_queries")) {
+		String sql = """
+				    CREATE TABLE re_queries (
+				        id INT AUTO_INCREMENT PRIMARY KEY,
+				        idmenu INT,
+				        table_name VARCHAR(60) NOT NULL,
+				        query_name VARCHAR(60) NOT NULL,
+				        query_description VARCHAR(60) NOT NULL,
+				        fields VARCHAR(700) NOT NULL,
+				        can_insert TINYINT NOT NULL,
+				        can_edit TINYINT NOT NULL,
+				        can_delete TINYINT NOT NULL,
+				        debil TINYINT NOT NULL,
+				        icon VARCHAR(60) NOT NULL,
+				        checksum INT NOT NULL
+				    )
+				""";
+
+		if (db.crearTabla("re_queries", sql)) {
 			try {
-				String sql = """
-						    CREATE TABLE re_queries (
-						        id INT AUTO_INCREMENT PRIMARY KEY,
-						        idmenu INT,
-						        table_name VARCHAR(60) NOT NULL,
-						        query_name VARCHAR(60) NOT NULL,
-						        query_description VARCHAR(60) NOT NULL,
-						        fields VARCHAR(700) NOT NULL,
-						        can_insert TINYINT NOT NULL,
-						        can_edit TINYINT NOT NULL,
-						        can_delete TINYINT NOT NULL,
-						        debil TINYINT NOT NULL,
-						        icon VARCHAR(60) NOT NULL,
-						        checksum INT NOT NULL
-						    )
-						""";
-				db.execQuery(sql);
-				// db.generateFieldsInfo("re_queries", 0); // No usar con idquery=0
 				// Crear índices por separado (compatible con H2)
-				db.execQuery("CREATE INDEX idx_re_queries_table ON re_queries (table)");
-				db.execQuery("CREATE INDEX idx_re_queries_queryname ON re_queries (query_name)");
+				db.execQuery("CREATE INDEX idx_re_queries_table ON re_queries (table_name)");
 				// Agregar foreign key de idmenu a re_menus(id)
 				db.addForeignKey("re_queries", "idmenu", "re_menus", "id", false, false);
+
+				// Generar metadata de campos
+				db.generateFieldsInfo("re_queries");
+				System.out.println("[ReCore] Tabla re_queries creada");
 			} catch (Exception e) {
 				System.err.println("[ReCore] Error al crear índices de la tabla re_queries: " + e.getMessage());
 			}
-
-			System.out.println("[ReCore] Tabla re_queries creada");
-
 		}
 	}
 
 	private void crearTablaFields() {
-		if (!db.existeTabla("re_queries_fields")) {
+		String sql = """
+				    CREATE TABLE re_queries_fields (
+				        id INT AUTO_INCREMENT PRIMARY KEY,
+						idquery INT NOT NULL,
+						field VARCHAR(60) NOT NULL,
+						show_name VARCHAR(60) NOT NULL,
+						is_required TINYINT DEFAULT 0,
+						password_field TINYINT DEFAULT NULL,
+						color_field TINYINT DEFAULT NULL,
+						rich_text TINYINT DEFAULT NULL,
+						is_editable TINYINT DEFAULT 0,
+						visible TINYINT DEFAULT 1,
+						ocultar_vacio TINYINT DEFAULT 0,
+						grupo VARCHAR(60),
+						field_help VARCHAR(255),
+						ancho INT DEFAULT NULL
+				    )
+				""";
+
+		if (db.crearTabla("re_queries_fields", sql)) {
 			try {
-				String sql = """
-						    CREATE TABLE re_queries_fields (
-						        id INT AUTO_INCREMENT PRIMARY KEY,
-								idquery INT NOT NULL,
-								field VARCHAR(60) NOT NULL,
-								show_name VARCHAR(60) NOT NULL,
-								is_required TINYINT DEFAULT 0,
-								password_field TINYINT DEFAULT NULL,
-								color_field TINYINT DEFAULT NULL,
-								rich_text TINYINT DEFAULT NULL,
-								is_editable TINYINT DEFAULT 0,
-								visible TINYINT DEFAULT 1,
-								ocultar_vacio TINYINT DEFAULT 0,
-								grupo VARCHAR(60),
-								field_help VARCHAR(255),
-								ancho INT DEFAULT NULL
-						    )
-						""";
-				db.execQuery(sql);
 				db.addForeignKey("re_queries_fields", "idquery", "re_queries", "id", false, false);
-				// db.generateFieldsInfo("re_queries_fields", 0); // No usar con idquery=0
+
+				// Generar metadata de campos
+				db.generateFieldsInfo("re_queries_fields");
+				System.out.println("[ReCore] Tabla re_queries_fields creada");
 			} catch (Exception e) {
 				System.err.println("[ReCore] Error al crear índices de la tabla re_queries_fields: " + e.getMessage());
 			}
-
-			System.out.println("[ReCore] Tabla re_queries_fields creada");
 		}
 	}
 

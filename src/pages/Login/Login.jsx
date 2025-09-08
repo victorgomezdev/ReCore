@@ -18,9 +18,8 @@ const LoginPage = () => {
 		const result = await window.FormMiddleware.submit('/api/auth/login', loginData);
 		
 		if (result.success) {
-			alert('Login exitoso! Persona ID: ' + result.data.personaId);
 			localStorage.setItem('token', result.data.token);
-			window.location.href = '/dashboard.html';
+			window.location.href = '/adminpanel';
 		}
 	};
 	

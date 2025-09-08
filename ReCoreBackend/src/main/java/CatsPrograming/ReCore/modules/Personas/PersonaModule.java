@@ -35,36 +35,35 @@ public class PersonaModule {
      * Crea la tabla re_personas SOLO para datos personales
      */
     private void crearTablaPersonas() {
-        if (!db.existeTabla("re_personas")) {
-            try {
-                String sql = """
-                        CREATE TABLE re_personas (
-                            id INT AUTO_INCREMENT PRIMARY KEY,
-                            nombre VARCHAR(100) NOT NULL,
-                            apellido VARCHAR(100) NOT NULL,
-                            dni VARCHAR(15) UNIQUE,
-                            cuit VARCHAR(15) UNIQUE,
-                            email VARCHAR(255),
-                            telefono VARCHAR(20),
-                            direccion VARCHAR(255),
-                            fecha_nacimiento DATE,
-                            fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                            notas VARCHAR(255)
-                        )
-                        """;
-                db.execQuery(sql);
-                // db.generateFieldsInfo("re_personas", 0); // Comentado para evitar FK
-                // violation
+        String sql = """
+                CREATE TABLE re_personas (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    nombre VARCHAR(100) NOT NULL,
+                    apellido VARCHAR(100) NOT NULL,
+                    dni VARCHAR(15) UNIQUE,
+                    cuit VARCHAR(15) UNIQUE,
+                    email VARCHAR(255),
+                    telefono VARCHAR(20),
+                    direccion VARCHAR(255),
+                    fecha_nacimiento DATE,
+                    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    notas VARCHAR(255)
+                )
+                """;
 
+        if (db.crearTabla("re_personas", sql)) {
+            try {
                 // Crear índices por separado (compatible con H2)
                 db.execQuery("CREATE INDEX idx_persona_email ON re_personas (email)");
                 db.execQuery("CREATE INDEX idx_dni ON re_personas (dni)");
                 db.execQuery("CREATE INDEX idx_fecha_registro ON re_personas (fecha_registro)");
-            } catch (Exception e) {
-                System.out.println("[ReCore] Índices ya existen: " + e.getMessage());
-            }
 
-            System.out.println("[ReCore] Tabla re_personas creada (datos personales + email)");
+                // Generar metadata de campos
+                db.generateFieldsInfo("re_personas");
+                System.out.println("[ReCore] Tabla re_personas creada (datos personales + email)");
+            } catch (Exception e) {
+                System.err.println("[ReCore] Error al procesar metadata de re_personas: " + e.getMessage());
+            }
         }
     }
 

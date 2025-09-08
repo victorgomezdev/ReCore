@@ -23,31 +23,30 @@ public class DireccionesModule {
 	}
 
 	private void crearTablaDirecciones() {
-		if (!db.existeTabla("re_direcciones")) {
-			try {
-				String sql = """
-						CREATE TABLE re_direcciones (
-							id INT AUTO_INCREMENT PRIMARY KEY,
-							idpersona INT,
-							calle VARCHAR(255) NOT NULL,
-							numero VARCHAR(10) NOT NULL,
-							ciudad VARCHAR(100) NOT NULL,
-							provincia VARCHAR(100) NOT NULL,
-							codigo_postal VARCHAR(10) NOT NULL,
-							geo_referencia VARCHAR(255) NOT NULL
-						)
-						""";
-				db.execQuery(sql);
-				// db.generateFieldsInfo("re_direcciones", 0); // Comentado para evitar FK
-				// violation
+		String sql = """
+				CREATE TABLE re_direcciones (
+					id INT AUTO_INCREMENT PRIMARY KEY,
+					idpersona INT,
+					calle VARCHAR(255) NOT NULL,
+					numero VARCHAR(10) NOT NULL,
+					ciudad VARCHAR(100) NOT NULL,
+					provincia VARCHAR(100) NOT NULL,
+					codigo_postal VARCHAR(10) NOT NULL,
+					geo_referencia VARCHAR(255) NOT NULL
+				)
+				""";
 
+		if (db.crearTabla("re_direcciones", sql)) {
+			try {
 				// Crear índices por separado (compatible con H2)
 				db.execQuery("CREATE INDEX idx_direccion_persona ON re_direcciones (idpersona)");
-			} catch (Exception e) {
-				System.out.println("[ReCore] Índices ya existen: " + e.getMessage());
-			}
 
-			System.out.println("[ReCore] Tabla re_direcciones creada (direcciones)");
+				// Generar metadata de campos
+				db.generateFieldsInfo("re_direcciones");
+				System.out.println("[ReCore] Tabla re_direcciones creada (direcciones)");
+			} catch (Exception e) {
+				System.err.println("[ReCore] Error al procesar metadata de re_direcciones: " + e.getMessage());
+			}
 		}
 	}
 }
