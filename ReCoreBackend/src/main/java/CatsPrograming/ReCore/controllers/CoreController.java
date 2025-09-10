@@ -3,10 +3,16 @@ package CatsPrograming.ReCore.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import CatsPrograming.ReCore.dao.DBUtils;
 import CatsPrograming.ReCore.services.Core.MenuService;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +26,9 @@ public class CoreController {
 
 	@Autowired
 	private MenuService menuService;
+
+	@Autowired
+	private DBUtils dbUtils;
 
 	/**
 	 * Obtiene todos los menús y sus tablas asociadas
@@ -57,5 +66,26 @@ public class CoreController {
 		public List<Map<String, Object>> getData() {
 			return data;
 		}
+	}
+
+	@GetMapping("/getTabla")
+	public ResponseEntity<?> getTabla(@RequestParam String tabla) {
+		// Aquí puedes validar el token y permisos
+		List<Map<String, Object>> data = dbUtils.getTabla(tabla, "", "id ASC");
+
+		Map<String, Object> response = new HashMap<>();
+
+		// Del primer registro, obtiene las claves (nombres de columnas)
+		List<String> keys = new ArrayList<>(data.get(0).keySet());
+		response.put("columns", keys);
+		response.put("data", data);
+
+		// Obtengo la query info de la tabla, para que ayude a crear formularios
+		// dinámicos
+		Map<String, Object> queryInfo = dbUtils.getQueryInfo(tabla);
+		response.put("queryInfo", queryInfo);
+		response.put("queryFields", dbUtils.getQueryFields((Integer) queryInfo.get("id")));
+
+		return ResponseEntity.ok(response);
 	}
 }

@@ -35,7 +35,7 @@ public class MenuDao implements IDao<Menu> {
 
 	private static final String SQL_DELETE = "DELETE FROM re_menus WHERE id = ?";
 
-	private static final String SQL_SELECT_ALL = "SELECT * FROM re_menus";
+	private static final String SQL_SELECT_ALL = "SELECT * FROM re_menus ORDER BY nombre DESC";
 
 	private static final String SQL_SELECT_WHERE = "SELECT * FROM re_menus WHERE ";
 
@@ -109,7 +109,7 @@ public class MenuDao implements IDao<Menu> {
 			return getAll();
 		}
 
-		Map<String, Object> clause = DBUtils.buildWhereClause(SQL_SELECT_WHERE, where);
+		Map<String, Object> clause = DBUtils.buildWhereClause(SQL_SELECT_WHERE, where, "nombre DESC");
 
 		try {
 			List<Map<String, Object>> results = db.getList(clause.get("sql").toString(), clause.get("params"));
@@ -131,7 +131,7 @@ public class MenuDao implements IDao<Menu> {
 		List<Map<String, Object>> resultado = new ArrayList<>();
 		try {
 			// Obtener todos los menús activos ordenados
-			String sqlMenus = "SELECT id, nombre, icon, color, orden FROM re_menus WHERE activo = 1 ORDER BY orden";
+			String sqlMenus = "SELECT id, nombre, icon, color, orden FROM re_menus WHERE activo = 1 ORDER BY nombre";
 			List<Map<String, Object>> menus = db.getList(sqlMenus);
 
 			// Para cada menú, obtener sus queries (tablas asociadas)

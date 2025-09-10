@@ -65,7 +65,7 @@ public class UsuarioModule {
                 )
                 """;
 
-        if (db.crearTabla("re_usuarios", sql)) {
+        if (db.crearTabla("re_usuarios", sql, "Configuración")) {
             try {
                 // Crea índices por separado (Compatible con H2)
                 db.execQuery("CREATE INDEX idx_usuario_email ON re_usuarios (email)");
@@ -96,7 +96,7 @@ public class UsuarioModule {
                 )
                 """;
 
-        if (db.crearTabla("re_roles", sql)) {
+        if (db.crearTabla("re_roles", sql, "Configuración")) {
             try {
                 // Generar metadata de campos
                 db.generateFieldsInfo("re_roles");
@@ -123,7 +123,7 @@ public class UsuarioModule {
                 )
                 """;
 
-        if (db.crearTabla("re_usuarios_roles", sql)) {
+        if (db.crearTabla("re_usuarios_roles", sql, "Configuración")) {
             try {
                 // Crear foreign keys y constraints
                 db.addForeignKey("re_usuarios_roles", "idusuario", "re_usuarios", "id", false, false);

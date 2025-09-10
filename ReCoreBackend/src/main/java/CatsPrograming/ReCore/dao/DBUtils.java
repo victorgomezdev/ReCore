@@ -271,136 +271,38 @@ public class DBUtils {
         }
     }
 
-    // Borra la foreign key de la tabla
     public void dropFk(String table, String fkName) {
-        System.out.println("Borrando foreign key " + table + "." + fkName + "...");
-        String sql = "ALTER TABLE " + table + " DROP FOREIGN KEY " + fkName + ";";
-        execQuery(sql);
-    }
-
-    // Determina si existe un FK en la tabla dada
-    public boolean existeFk(String table, String fkName) {
-        String sql = "SHOW CREATE TABLE " + table;
-        Map<String, Object> result = getResult(sql);
-        if (result == null || !result.containsKey("Create Table"))
-            return false;
-        String sqlCreate = result.get("Create Table").toString();
-        if (sqlCreate.contains("CONSTRAINT `" + fkName + "`"))
-            return true;
-        if (sqlCreate.contains("KEY `" + fkName + "`"))
-            return true;
-        return false;
-    }
-
-    /**
-     * Sincroniza la metadata de los campos de una tabla en la tabla
-     * re_queries_fields.
-     * Requiere el id de la query (idquery) y el nombre de la tabla física.
-     * Elimina la metadata previa y la regenera a partir de INFORMATION_SCHEMA.
-     */
-    public void generateFieldsInfo(String nombreTabla, int idQuery) {
-        if (!existeTabla(nombreTabla)) {
-            System.err.println("[generateFieldsInfo] La tabla no existe: " + nombreTabla);
-            return;
-        }
-
-        // Obtener los campos de la tabla
-        String sqlCampos = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE UPPER(TABLE_NAME) = UPPER(?) ORDER BY ORDINAL_POSITION";
-        List<Map<String, Object>> campos = getList(sqlCampos, nombreTabla);
-
-        if (campos.isEmpty()) {
-            System.err.println("[generateFieldsInfo] No se encontraron campos para la tabla: " + nombreTabla);
-            return;
-        }
-
-        // Eliminar metadata previa de la tabla en re_queries_fields
-        String sqlDelete = "DELETE FROM re_queries_fields WHERE idquery = ?";
-        execQuery(sqlDelete, idQuery);
-
-        // Insertar metadata básica de cada campo
-        String sqlInsert = "INSERT INTO re_queries_fields (idquery, field, show_name, is_required, is_editable, visible) VALUES (?, ?, ?, 0, 1, 1)";
-        for (Map<String, Object> campo : campos) {
-            String nombreCampo = (String) campo.get("COLUMN_NAME");
-            // Por defecto, show_name igual al nombre físico (puedes luego editarlo en UI)
-            execQuery(sqlInsert, idQuery, nombreCampo, nombreCampo);
-        }
-        System.out.println("[generateFieldsInfo] Metadata de campos sincronizada para tabla: " + nombreTabla
-                + ", idquery: " + idQuery);
-    }
-
-    /**
-     * Crea una tabla y automáticamente la registra en re_queries
-     * 
-     * @param nombreTabla Nombre de la tabla a crear
-     * @param sql         SQL de creación de la tabla
-     * @return true si se creó exitosamente, false si ya existía o hubo error
-     */
-    public boolean crearTabla(String nombreTabla, String sql) {
-        // 1. Verificar que no exista la tabla
-        if (existeTabla(nombreTabla)) {
-            System.out.println("[crearTabla] La tabla " + nombreTabla + " ya existe");
-            return false;
-        }
-
         try {
-            // 2. Crear la tabla
+            System.out.println("Borrando foreign key " + table + "." + fkName + "...");
+            String sql = "ALTER TABLE " + table + " DROP CONSTRAINT " + fkName; // Sin "FOREIGN KEY"
             execQuery(sql);
-            System.out.println("[crearTabla] Tabla " + nombreTabla + " creada exitosamente");
-
-            // 3. Insertar en re_queries
-            insertarEnReQueries(nombreTabla);
-
-            return true;
         } catch (Exception e) {
-            System.err.println("[crearTabla] Error al crear tabla " + nombreTabla + ": " + e.getMessage());
+            System.err.println("Error eliminando FK: " + e.getMessage());
+        }
+    }
+
+    public boolean existeFk(String table, String fkName) {
+        try {
+            String sql = """
+                    SELECT COUNT(*)
+                    FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
+                    WHERE UPPER(TABLE_NAME) = UPPER(?)
+                    AND UPPER(CONSTRAINT_NAME) = UPPER(?)
+                    AND CONSTRAINT_TYPE = 'FOREIGN KEY'
+                    """;
+            int count = getEntero(sql, table, fkName);
+            return count > 0;
+        } catch (Exception e) {
+            System.err.println("Error verificando FK " + fkName + " en tabla " + table + ": " + e.getMessage());
             return false;
         }
     }
 
     /**
-     * Inserta una tabla en re_queries con configuración por defecto
-     * 
-     * @param nombreTabla Nombre de la tabla
-     * @return ID del query creado, 0 si hay error
-     */
-    private int insertarEnReQueries(String nombreTabla) {
-        try {
-            // Verificar si ya existe un query para esta tabla
-            String sqlCheck = "SELECT id FROM re_queries WHERE table_name = ?";
-            Integer existingId = getEnteroNullable(sqlCheck, nombreTabla);
-            if (existingId != null) {
-                System.out.println(
-                        "[insertarEnReQueries] Ya existe query para " + nombreTabla + " con ID: " + existingId);
-                return existingId;
-            }
-
-            // Crear nombre amigable
-            String queryName = nombreTabla.replace("re_", "").replace("_", " ");
-            queryName = queryName.substring(0, 1).toUpperCase() + queryName.substring(1);
-
-            String sqlInsert = """
-                    INSERT INTO re_queries (idmenu, table_name, query_name, query_description, fields,
-                                          can_insert, can_edit, can_delete, debil, icon, checksum)
-                    VALUES (1, ?, ?, ?, '*', 1, 1, 1, 0, 'table', 0)
-                    """;
-
-            int queryId = insertAndGetID(sqlInsert, nombreTabla, queryName,
-                    "Query automático para " + nombreTabla);
-
-            System.out.println("[insertarEnReQueries] Query creado para " + nombreTabla + " con ID: " + queryId);
-            return queryId;
-
-        } catch (Exception e) {
-            System.err.println("[insertarEnReQueries] Error: " + e.getMessage());
-            return 0;
-        }
-    }
-
-    /**
-     * Genera o actualiza los metadatos de campos de una tabla.
-     * Detecta campos nuevos, eliminados y mantiene actualizado re_queries_fields.
-     * 
-     * @param nombreTabla Nombre de la tabla
+     * Sincroniza y actualiza la metadata de los campos de una tabla en
+     * re_queries_fields.
+     * Elimina campos que ya no existen, agrega nuevos y actualiza el tipo de campo.
+     * Si el campo existe, actualiza el tipo; si no, lo inserta.
      */
     public void generateFieldsInfo(String nombreTabla) {
         if (!existeTabla(nombreTabla)) {
@@ -415,8 +317,11 @@ public class DBUtils {
             return;
         }
 
-        // Obtener campos actuales de la tabla
-        String sqlCampos = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE UPPER(TABLE_NAME) = UPPER(?) ORDER BY ORDINAL_POSITION";
+        // Obtener campos actuales de la tabla (con tipo)
+        String sqlCampos = "SELECT COLUMN_NAME, DATA_TYPE\r\n" + //
+                "FROM INFORMATION_SCHEMA.COLUMNS\r\n" + //
+                "WHERE UPPER(TABLE_NAME) = UPPER(?)\r\n" + //
+                "ORDER BY ORDINAL_POSITION";
         List<Map<String, Object>> camposActuales = getList(sqlCampos, nombreTabla);
 
         if (camposActuales.isEmpty()) {
@@ -454,17 +359,124 @@ public class DBUtils {
             }
         }
 
-        // Agregar campos nuevos
+        // Agregar campos nuevos con tipo
         if (!camposAgregados.isEmpty()) {
-            String sqlInsertCampo = "INSERT INTO re_queries_fields (idquery, field, show_name, is_required, is_editable, visible) VALUES (?, ?, ?, 0, 1, 1)";
+            String sqlInsertCampo = "INSERT INTO re_queries_fields (idquery, field, show_name, tipo) VALUES (?, ?, ?, ?)";
             for (String campo : camposAgregados) {
-                execQuery(sqlInsertCampo, idQuery, campo, campo);
-                System.out.println("[generateFieldsInfo] Campo agregado: " + campo);
+                Map<String, Object> campoInfo = camposActuales.stream()
+                        .filter(c -> campo.equals(c.get("COLUMN_NAME")))
+                        .findFirst()
+                        .orElse(null);
+                Object tipoObj = campoInfo != null ? campoInfo.get("DATA_TYPE") : null;
+                String tipoCampo = tipoObj != null ? tipoObj.toString() : "";
+                execQuery(sqlInsertCampo, idQuery, campo, campo, tipoCampo);
+                System.out.println("[generateFieldsInfo] Campo agregado: " + campo + " tipo: " + tipoCampo);
             }
+        }
+
+        // Actualizar tipo de campo para los existentes
+        String sqlUpdateTipo = "UPDATE re_queries_fields SET tipo = ? WHERE idquery = ? AND field = ?";
+        for (String campo : camposNuevos) {
+            Map<String, Object> campoInfo = camposActuales.stream()
+                    .filter(c -> campo.equals(c.get("COLUMN_NAME")))
+                    .findFirst()
+                    .orElse(null);
+            Object tipoObj = campoInfo != null ? campoInfo.get("DATA_TYPE") : null;
+            String tipoCampo = tipoObj != null ? tipoObj.toString() : "";
+            execQuery(sqlUpdateTipo, tipoCampo, idQuery, campo);
         }
 
         System.out.println("[generateFieldsInfo] Metadata actualizada para " + nombreTabla +
                 " (+" + camposAgregados.size() + " -" + camposEliminados.size() + ")");
+    }
+
+    /**
+     * Crea una tabla y automáticamente la registra en re_queries
+     * 
+     * @param nombreTabla Nombre de la tabla a crear
+     * @param sql         SQL de creación de la tabla
+     * @return true si se creó exitosamente, false si ya existía o hubo error
+     */
+    public boolean crearTabla(String nombreTabla, String sql, String menuName) {
+        // 1. Verificar que no exista la tabla
+        if (existeTabla(nombreTabla)) {
+            System.out.println("[crearTabla] La tabla " + nombreTabla + " ya existe");
+            return false;
+        }
+
+        try {
+            // 2. Crear la tabla
+            execQuery(sql);
+            System.out.println("[crearTabla] Tabla " + nombreTabla + " creada exitosamente");
+
+            // 3. Insertar en re_queries
+            insertarEnReQueries(nombreTabla, menuName);
+
+            return true;
+        } catch (Exception e) {
+            System.err.println("[crearTabla] Error al crear tabla " + nombreTabla + ": " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Inserta una tabla en re_queries con configuración por defecto
+     * 
+     * @param nombreTabla Nombre de la tabla
+     * @return ID del query creado, 0 si hay error
+     */
+    private int insertarEnReQueries(String nombreTabla, String menuName) {
+        try {
+            // Verificar si ya existe un query para esta tabla
+            String sqlCheck = "SELECT id FROM re_queries WHERE table_name = ?";
+            Integer existingId = getEnteroNullable(sqlCheck, nombreTabla);
+            if (existingId != null) {
+                System.out.println(
+                        "[insertarEnReQueries] Ya existe query para " + nombreTabla + " con ID: " + existingId);
+                return existingId;
+            }
+
+            // Crear nombre amigable
+            String queryName = nombreTabla.replace("re_", "").replace("_", " ");
+            queryName = queryName.substring(0, 1).toUpperCase() + queryName.substring(1);
+
+            // Si vino un menu, busca su ID
+            int idmenu = 1; // Default menu ID
+
+            if (menuName != null && !menuName.isEmpty()) {
+                try {
+                    String sqlMenu = "SELECT id FROM re_menus WHERE nombre = ?";
+                    Map<String, Object> menuResult = getResult(sqlMenu, menuName);
+                    if (menuResult != null && menuResult.containsKey("id")) {
+                        idmenu = ((Number) menuResult.get("id")).intValue();
+                    } else {
+                        // Crear menú si no existe
+                        String sqlInsertMenu = "INSERT INTO re_menus (nombre, icon, color, orden, activo) VALUES (?, '📁', '#666666', 99, 1)";
+                        idmenu = insertAndGetID(sqlInsertMenu, menuName);
+                        System.out.println("[insertarEnReQueries] Menú creado: " + menuName + " (id: " + idmenu + ")");
+                    }
+                } catch (Exception e) {
+                    System.err.println(
+                            "[insertarEnReQueries] Error buscando/creando menú, usando default: " + e.getMessage());
+                    idmenu = 1;
+                }
+            }
+            String sqlInsert = """
+                    INSERT INTO re_queries (idmenu, table_name, query_name, query_description, fields,
+                                          can_insert, can_edit, can_delete, debil, icon, checksum)
+                    VALUES (?, ?, ?, ?, '*', 1, 1, 1, 0, 'table', 0)
+                    """;
+
+            int queryId = insertAndGetID(sqlInsert, idmenu, nombreTabla, queryName,
+                    "Query automático para " + nombreTabla);
+
+            System.out.println("[insertarEnReQueries] Query creado para " + nombreTabla + " con ID: " + queryId);
+            return queryId;
+
+        } catch (Exception e) {
+            System.err.println("[insertarEnReQueries] Error: " + e.getMessage());
+            return 0;
+        }
     }
 
     /**
@@ -482,7 +494,7 @@ public class DBUtils {
             }
 
             // Si no existe, crearlo
-            return insertarEnReQueries(nombreTabla);
+            return insertarEnReQueries(nombreTabla, "Root");
         } catch (Exception e) {
             System.err.println("[obtenerOCrearQueryId] Error: " + e.getMessage());
             return 0;
@@ -545,7 +557,7 @@ public class DBUtils {
      * campo1=valor1, campo2>valor2, campo3 LIKE 'abc%', campo4!=valor4
      * Soporta operadores: =, !=, <, >, <=, >=, LIKE
      */
-    public static Map<String, Object> buildWhereClause(String baseSql, String where) {
+    public static Map<String, Object> buildWhereClause(String baseSql, String where, String orderBy) {
         StringBuilder sql = new StringBuilder(baseSql);
         List<Object> parametros = new ArrayList<>();
 
@@ -588,9 +600,48 @@ public class DBUtils {
             parametros.add(valor);
             primero = false;
         }
+
+        // Agregar ORDER BY si se especifica
+        if (orderBy != null && !orderBy.trim().isEmpty()) {
+            sql.append(" ORDER BY ").append(orderBy);
+        }
+
         Map<String, Object> resultado = new HashMap<>();
         resultado.put("sql", sql.toString());
         resultado.put("params", parametros.toArray());
         return resultado;
+    }
+
+    public List<Map<String, Object>> getTabla(String tabla, String where, String orderBy) {
+        String baseSql = "SELECT * FROM " + tabla;
+        Map<String, Object> whereClause = buildWhereClause(baseSql, where, orderBy);
+        String sqlFinal = (String) whereClause.get("sql");
+        Object[] params = (Object[]) whereClause.get("params");
+        try {
+            return this.getList(sqlFinal, params);
+        } catch (Exception e) {
+            System.err.println("Error en getTabla: " + e.getMessage());
+            return List.of();
+        }
+    }
+
+    public Map<String, Object> getQueryInfo(String tabla) {
+        String baseSql = "SELECT * FROM re_queries WHERE table_name = ?";
+        try {
+            return this.getResult(baseSql, new Object[] { tabla });
+        } catch (Exception e) {
+            System.err.println("Error en getTablaSingle: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public List<Map<String, Object>> getQueryFields(Integer idquery) {
+        String sql = "SELECT * FROM re_queries_fields WHERE idquery = ?";
+        try {
+            return this.getList(sql, new Object[] { idquery });
+        } catch (Exception e) {
+            System.err.println("Error en getAllQueries: " + e.getMessage());
+            return List.of();
+        }
     }
 }

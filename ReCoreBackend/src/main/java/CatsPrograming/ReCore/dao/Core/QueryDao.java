@@ -108,7 +108,7 @@ public class QueryDao implements IDao<Query> {
 			return getAll();
 		}
 
-		Map<String, Object> clause = DBUtils.buildWhereClause(where, where);
+		Map<String, Object> clause = DBUtils.buildWhereClause(where, where, "");
 		try {
 			List<Map<String, Object>> results = db.getList(SQL_SELECT_WHERE + clause);
 			List<Query> queries = new ArrayList<>();

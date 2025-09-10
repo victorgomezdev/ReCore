@@ -42,4 +42,15 @@ public class MenuService {
 	public List<Map<String, Object>> obtenerMenu() {
 		return menuDao.obtenerMenu();
 	}
+
+	public Menu getMenuByName(String name) {
+		List<Menu> menus = menuDao.getWhere("nombre = '" + name + "'");
+		if (menus.isEmpty()) {
+			// Si no existe, lo crea
+			Menu nuevoMenu = new Menu(name, true, 1, "folder", "blue");
+			menuDao.insert(nuevoMenu);
+			menus = menuDao.getWhere("nombre = '" + name + "'");
+		}
+		return menus.get(0);
+	}
 }

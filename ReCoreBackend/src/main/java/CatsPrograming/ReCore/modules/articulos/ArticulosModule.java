@@ -37,7 +37,7 @@ public class ArticulosModule {
 				)
 				""";
 
-		if (db.crearTabla("re_categorias", sql)) {
+		if (db.crearTabla("re_categorias", sql, "Artículos")) {
 			try {
 				// Crea índices por separado (Compatible con H2)
 				db.execQuery("CREATE INDEX idx_categoria_nombre ON re_categorias (nombre)");
@@ -62,7 +62,7 @@ public class ArticulosModule {
 				)
 				""";
 
-		if (db.crearTabla("re_articulos", sql)) {
+		if (db.crearTabla("re_articulos", sql, "Artículos")) {
 			try {
 				// Crea índices por separado (Compatible con H2)
 				db.execQuery("CREATE INDEX idx_articulo_nombre ON re_articulos (nombre)");
@@ -89,7 +89,7 @@ public class ArticulosModule {
 				)
 				""";
 
-		if (db.crearTabla("re_categorias_articulos", sql)) {
+		if (db.crearTabla("re_categorias_articulos", sql, "Artículos")) {
 			try {
 				// Crea índices por separado (Compatible con H2)
 				db.execQuery("CREATE INDEX idx_categoria_articulo_categoria ON re_categorias_articulos (idcategoria)");

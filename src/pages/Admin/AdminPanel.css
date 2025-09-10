@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Mozilla+Headline:wdth,wght@81.7,200..700&display=swap');
-
-*{
+* {
 	font-size: 1rem;
 	font-family: "Mozilla Headline", sans-serif;
 	font-weight: 200;
@@ -32,21 +30,11 @@ body {
 	width: 25px;
 }
 
-.menu-lateral ul {
-	display: flex;
-	flex-direction: column;
-}
-
-.menu-lateral ul li {
-	min-width: 200px;
-	list-style: none;
-	padding: 10px;
-	cursor: pointer;
-	background-color: var(--primary-color);
-	margin: 1px;
-	text-align: left;
-}
-
 .toggle-container {
 	text-align: center;
+}
+
+.contenido {
+	width: 100%;
+	padding: 20px;
 }

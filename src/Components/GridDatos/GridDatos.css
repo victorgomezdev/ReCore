@@ -1,0 +1,56 @@
+.grid-datos {
+	width: 100%;
+}
+
+.grid-datos-header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.grid-datos-header-item {
+	background-color: var(--primary-color);
+	width: 100%;
+	border-left: 1px solid var(--primary-color);
+	padding: 10px;
+	cursor: pointer;
+}
+
+.grid-datos-header-item:first-child {
+	border-left: 1px solid var(--primary-color);
+	border-radius: 3px 0px 0px 3px;
+}
+
+.grid-datos-header-item:last-child {
+	border-right: 1px solid var(--primary-color);
+	border-radius: 0px 3px 3px 0px;
+}
+
+.grid-datos-body {
+	display: flex;
+	flex-direction: column;
+}
+
+.grid-datos-body-row {
+	background-color: var(--background);
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	text-align: left;
+	cursor: pointer;
+}
+
+.grid-datos-body-row:nth-child(even) {
+	background-color: var(--background-contrast);
+}
+
+.grid-datos-body-item {
+	width: 100%;
+	padding: 7px;
+}
+
+.INTEGER,
+.TINYINT,
+.DECIMAL {
+	text-align: right;
+}

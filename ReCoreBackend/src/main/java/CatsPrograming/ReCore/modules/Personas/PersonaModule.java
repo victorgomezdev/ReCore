@@ -51,7 +51,7 @@ public class PersonaModule {
                 )
                 """;
 
-        if (db.crearTabla("re_personas", sql)) {
+        if (db.crearTabla("re_personas", sql, "Personas")) {
             try {
                 // Crear índices por separado (compatible con H2)
                 db.execQuery("CREATE INDEX idx_persona_email ON re_personas (email)");

@@ -110,7 +110,7 @@ public class DireccionDao implements IDao<Direccion> {
 			return getAll();
 		}
 
-		Map<String, Object> clause = DBUtils.buildWhereClause(SQL_SELECT_WHERE, where);
+		Map<String, Object> clause = DBUtils.buildWhereClause(SQL_SELECT_WHERE, where, "id ASC");
 
 		try {
 			List<Map<String, Object>> results = db.getList(clause.get("sql").toString(), clause.get("params"));

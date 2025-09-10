@@ -138,7 +138,7 @@ public class ArticuloDao implements IDao<Articulo> {
 			return getAll();
 		}
 
-		Map<String, Object> clause = DBUtils.buildWhereClause(SQL_FIND_WHERE, where);
+		Map<String, Object> clause = DBUtils.buildWhereClause(SQL_FIND_WHERE, where, "nombre ASC");
 
 		try {
 			List<Map<String, Object>> results = db.getList(clause.get("sql").toString(), clause.get("params"));

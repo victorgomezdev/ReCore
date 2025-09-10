@@ -36,7 +36,7 @@ public class DireccionesModule {
 				)
 				""";
 
-		if (db.crearTabla("re_direcciones", sql)) {
+		if (db.crearTabla("re_direcciones", sql, "Personas")) {
 			try {
 				// Crear índices por separado (compatible con H2)
 				db.execQuery("CREATE INDEX idx_direccion_persona ON re_direcciones (idpersona)");

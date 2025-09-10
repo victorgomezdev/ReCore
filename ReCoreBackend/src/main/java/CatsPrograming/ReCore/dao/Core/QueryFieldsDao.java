@@ -106,7 +106,7 @@ public class QueryFieldsDao implements IDao<QueryFields> {
 	@Override
 	public List<QueryFields> getWhere(String where) {
 		QueryDao queryDao = new QueryDao();
-		Map<String, Object> clause = DBUtils.buildWhereClause(SQL_SELECT_WHERE, where);
+		Map<String, Object> clause = DBUtils.buildWhereClause(SQL_SELECT_WHERE, where, "");
 		List<QueryFields> queryFieldsList = new ArrayList<>();
 		try {
 			List<Map<String, Object>> results = db.getList(clause.get("sql").toString(), clause.get("params"));
