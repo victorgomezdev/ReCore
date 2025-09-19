@@ -1,0 +1,185 @@
+Lectura
+Sprint 3
+
+User Stories
+01
+
+#22: Realizar búsqueda
+Como usuario quiero poder realizar búsquedas de productos  para encontrar los resultados que mejor se adapten a lo que busco.
+Alta
+
+Criterios de aceptación
+Diseño del bloque de búsqueda:
+- El bloque buscador debe tener un  título claramente visible.
+- Debe incluir un parágrafo informativo o descriptor.
+Campos:
+- Fecha: Implementación de un calendario doble para permitir la selección de rango de fechas.
+- Incluir un botón claramente identificable para "Realizar búsqueda".
+Relevancia de los resultados: Los resultados de la búsqueda deben ser relevantes y precisos con respecto a los criterios ingresados por el usuario.
+Feedback interactivo: Al ingresar datos en el campo de búsqueda, se deben ofrecer sugerencias y autocompletar las palabras clave relevantes.
+Usabilidad del bloque de búsqueda:
+- El diseño debe ser intuitivo y fácil de usar.
+- Las etiquetas deben ser claras y sencillas para evitar confusiones.
+- La presentación de los resultados debe ser clara y estructurada.
+Mantener el diseño de la página principal: Al mostrar los resultados, se deben mantener las secciones de categorías y recomendaciones como están pre-establecidas en la página de inicio.
+
+
+
+#23: Visualizar disponibilidad
+Como usuario, quiero poder visualizar las fechas disponibles en la ficha del producto para poder acceder a la sección de reservas.
+Alta
+
+Criterios de aceptación
+
+Visualización de disponibilidad:
+En el detalle del producto que se desea reservar, se debe mostrar un calendario doble que destaque las fechas disponibles.
+Indicador de fechas ocupadas:
+Las fechas que ya tienen reservas realizadas deben ser fácilmente distinguibles. Esto puede lograrse mostrándolas en un color diferente o con algún indicador visual específico.
+Manejo de errores:
+Si ocurre un problema al obtener la información de las fechas disponibles, se debe mostrar un mensaje de error claro y conciso, indicando que no se puede obtener la información en ese momento.
+Se debe proporcionar una opción para que el usuario intente acceder a la información nuevamente más tarde.
+
+
+#24: Marcar como favorito
+Como usuario autenticado quiero poder marcar productos como favoritos desde la lista de productos del home para poder acceder a ellos posteriormente.
+Media
+
+Criterios de aceptación
+Visibilidad del botón "Favorito":
+Se debe mostrar claramente un botón o ícono que represente la acción de "marcar como favorito" en cada producto de la lista en el home.
+Acción con un clic:
+Los usuarios autenticados deben ser capaces de marcar un producto como favorito con un solo clic sobre dicho botón o ícono.
+Experiencia de usuario:
+La interacción debe ser intuitiva y fácil de usar, permitiendo que los usuarios marquen o desmarquen productos como favoritos sin dificultad ni confusión.
+Compatibilidad multi-dispositivo:
+La funcionalidad de marcado como favorito debe ser totalmente compatible y adaptada a diferentes dispositivos, incluyendo smartphones, tabletas y computadoras de escritorio.
+
+
+
+#25: Listar productos favoritos
+Como usuario autenticado, quiero poder acceder a mi lista de favoritos para ver los productos que marqué previamente.
+Media
+
+Criterios de aceptación
+La lista de productos favoritos del usuario debe estar accesible desde su cuenta de usuario o desde una sección específica y fácilmente identificable en el sitio web.
+Actualización en tiempo real:
+La lista de productos favoritos debe actualizar automáticamente conforme el usuario marca o desmarca productos como favoritos en otras secciones del sitio.
+Gestión de favoritos:
+Se debe permitir a los usuarios autenticados la opción de eliminar productos de su lista de favoritos directamente desde esta sección.
+Compatibilidad multi-dispositivo:
+La visualización y gestión de la lista de productos favoritos debe ser totalmente compatible y adaptada a diferentes dispositivos, incluyendo smartphones, tabletas y computadoras de escritorio.
+
+
+
+#26: Ver bloque de políticas del producto
+Como usuario quiero poder visualizar la política de uso de un producto para informarme sobre cuidados y precauciones.
+Media
+¿Prioridad alta?.DB
+
+Criterios de aceptación
+Dimensiones del bloque de políticas:
+El bloque que muestra las políticas debe cubrir el 100% del contenedor en el que se encuentra.
+Título del bloque:
+Debe existir un título claramente identificable para este bloque.
+Este título debe estar subrayado para destacar y darle importancia.
+Distribución de las políticas
+Las políticas deben estar distribuidas en columnas.
+Cada política individual debe contar con un título y una descripción detallada.
+¿Otro panel de backoffice o dentro del admin de propiedades? .DB
+
+#27: Redes: Compartir productos
+Como usuario, quiero poder compartir productos en las redes sociales para poder recomendarlos a otros usuarios.
+Baja
+¿Prioridad alta? No aplica en distintos rubros ¿o si? .DB
+
+Criterios de aceptación
+Acción de Compartir:
+Al hacer clic en el botón "compartir", se debe desencadenar una acción que muestre una ventana emergente para compartir el producto.
+Opciones de Redes Sociales:
+La ventana emergente debe ofrecer opciones para compartir el producto en diversas redes sociales, incluyendo pero no limitado a Facebook, Twitter e Instagram.
+Contenido para Compartir:
+Dentro de la ventana emergente, se debe mostrar:
+Una imagen clara y representativa del producto.
+Una descripción breve y concisa del producto.
+Un enlace directo a la página específica del producto en el sitio web.
+Personalización de Compartir:
+El usuario debe tener la opción de elegir específicamente en qué red social desea compartir el producto.
+Además, se debe proporcionar un campo o área donde el usuario pueda agregar o editar un mensaje personalizado que acompañe al contenido compartido.
+Integración y Redirección:
+Al seleccionar una red social y hacer clic en "compartir" (o equivalente), el sistema debe redireccionar o integrarse adecuadamente con la API de la red social seleccionada, asegurando que el contenido se comparta de manera efectiva y con el formato adecuado.
+
+Prototipo
+
+#28: Puntuar producto
+Como usuario que realizó una reserva quiero poder puntuar los productos con estrellas para dar mi opinión
+Baja
+
+Prototipo
+
+Criterios de aceptación
+Criterios de aceptación
+Los usuarios que hayan finalizado una reserva, pueden puntuar un producto.
+Visibilidad de la Sección de Valoraciones:
+La sección dedicada a las valoraciones o reseñas debe tener un lugar prominente en la página de detalles del producto, garantizando una fácil localización por parte del usuario.
+Funcionalidad de Puntuación para Usuarios Autenticados:
+Los usuarios autenticados deben poder valorar el producto usando un sistema de estrellas, donde 1 es la puntuación más baja y 5 la más alta.
+Visualización Detallada de Reseñas:
+Cada reseña publicada debe mostrar:
+La puntuación otorgada a través del sistema de estrellas.
+El nombre del usuario que realizó la valoración.
+La fecha de publicación de la reseña.
+Un comentario o descripción detallada, si el usuario decide proporcionarlo.
+Interacción de Usuarios Autenticados:
+Además de puntuar, los usuarios autenticados deben tener la opción de escribir una reseña detallada del producto para compartir su experiencia o impresiones.
+Puntuación Media Dinámica:
+La puntuación media del producto, basada en todas las valoraciones recibidas, debe actualizarse de forma automática y en tiempo real cada vez que un usuario proporcione una nueva valoración.
+Presentación Integral de la Puntuación:
+En la página de detalles del producto y en la lista de resultados de búsqueda, se debe mostrar:
+La puntuación media del producto, claramente visible.
+El número total de valoraciones que ha recibido el producto.
+Precisa de permisos del usuario a su ubicación .DB
+
+
+#29: Eliminar categoría
+Como administrador, quiero poder eliminar categorías que ya no se utilizarán para mantener el catálogo de productos organizado y actualizado.
+Baja
+
+Criterios de aceptación
+Acceso Intuitivo a la Funcionalidad de Eliminación:
+Desde el panel de administración, tanto del sitio web debe existir una opción clara y fácilmente identificable que permita eliminar categorías. La interfaz debe ser intuitiva y guiar al administrador a través del proceso sin confusión.
+Mecanismo de Confirmación Preventivo:
+Al seleccionar la opción de eliminar una categoría, antes de proceder con la acción, debe aparecer una alerta o ventana emergente solicitando la confirmación del administrador.
+Esta alerta debe ser clara en su mensaje, indicando específicamente cuál categoría está a punto de ser eliminada y cuáles podrían ser las consecuencias (por ejemplo, la eliminación de todos los productos asociados a esa categoría).
+Debe incluir opciones claras para "Confirmar" o "Cancelar" la eliminación, permitiendo al administrador decidir de forma consciente.
+¿Comportamiento ante usuarios no registrados? .DB
+
+Entregables
+02
+
+Documentación / bitácora
+01
+#ScrumMaster #Gestión
+Entregar documentación que contenga:
+Definición del proyecto: Solución que van a desarrollar.
+Scrum master
+éste es el rol que estás ocupando
+
+Planificación y ejecución de los tests
+02
+#Testing/QA  
+Planear casos de prueba basados en las historias de usuarios que existen en el Sprint.
+Ejecutar los casos de prueba.
+TL Testing
+éste es el rol que estás ocupando
+
+Actualizar repositorio 
+03
+#Desarrollo #Front #Back #BBDD #Infra
+Todo el código debe estar en el repositorio público a entregar al finalizar el desafío.
+TL Frontend
+TL Backend
+TL Infra
+TL BBDD
+estas ocupando todos éstos roles en este momento
+
+¡Muchas gracias!

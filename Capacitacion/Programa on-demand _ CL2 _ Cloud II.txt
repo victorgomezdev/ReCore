@@ -1,0 +1,117 @@
+﻿1
+Cloud Computing 
+Objetivos de aprendizaje 
+● Entender la cultura DevOps, su origen y cómo beneficia a las organizaciones. ● Conocer la importancia de la disciplina de infraestructura como código y las herramientas que pueden utilizarse para tal fin. 
+● Comprender la importancia de los pipelines en el ecosistema DevOps y cómo las tecnologías o prácticas adquiridas durante Infraestructura I (scripting, configuration management y Docker) pueden utilizarse como amalgama para las actividades ejecutadas en el contexto de un Pipeline. 
+● Definir la necesidad de monitoreo y entender por qué miramos a los sistemas de manera integral. Reconocer la diferencia entre el monitoreo de infraestructura y el monitoreo de aplicaciones y cómo monitorear el stack de manera integral. 
+Criterios de aprobación 
+● Realizar las actividades de Playground (100% de completitud). ● Aprobación de los checkpoints de conocimiento de cada módulo de aprendizaje. 
+● Aprobación del cuestionario final del curso. 
+  
+2
+Contenidos 
+Módulo 1 - Bienvenida 
+Te damos la bienvenida a nuestro curso 
+Clase 1 - Bienvenida 
+● Bienvenida al curso y presentación del host. 
+● Presentación del curso 
+● Recorrido sobre los módulos del curso y presentación del proyecto final. ● Cuestionario de autoevaluación 
+Clase 2 - Introducción a DevOps y AWS. 
+● Repaso sobre Docker 
+● ¿Qué es DevOps?: Su origen, filosofía y su impacto en la cultura organizacional. ● Introducción a los servicios de AWS y guía para configurar una cuenta de AWS. ● Instalación de AWS CLI en Windows. 
+● Instalación de AWS CLI en Linux/Mac. 
+Cuestionario 
+Módulo 2 - Implementación en Amazon ECS y ECR 
+Aprendizaje sobre Amazon ECS y ECR, dockerización de aplicaciones, y uso de ECS para el despliegue de contenedores. 
+Clase 3 - Introducción Amazon Elastic Container Service 
+● Introducción a Amazon Elastic Container Service (ECS). 
+● Comparando ECS con otros servicios similares. 
+● EC2 vs Fargate 
+Clase 4 - Introducción a Elastic Container Registry 
+● Dockerizando nuestra aplicación 
+● ¿Qué es una registry en docker? 
+  
+3
+● Creación de ECR y Autenticación 
+● Almacenamiento de imágenes en ECR 
+Clase 5 - Desplegando nuestra aplicación en Amazon ECS 
+● ECS Clusters 
+● ECS Tasks 
+● ECS Services 
+● Grupos de Seguridad 
+● Despliegue de una aplicación en ECS 
+● Borrando los recursos creados 
+Cuestionario 
+Módulo 3 - Infraestructura como Código 
+Utilización de Infraestructura como Código con AWS CloudFormation y Terraform para aprovisionamiento y la administración de infraestructura en AWS. 
+Clase 6 - Introducción a Infraestructura como Código 
+● Conceptos básicos 
+● Importancia y ventajas dentro de un equipo de trabajo 
+Clase 7 - Cloudformation 
+● Introducción a AWS Cloudformation 
+● Recorrido del servicio dentro de la consola de AWS 
+● Creamos nuestra primera plantilla. Sintaxis y tipos de archivos 
+● Despliegue de plantillas 
+● Actualización de las pilas de Cloudformation. Changeset 
+● Parámetros 
+● Mappings 
+● Condicionales 
+● Outputs 
+● Creación de un ECS Cluster 
+● Borramos nuestra pila en Cloudformation 
+  
+4
+Clase 8 - Terraform 
+● Introducción a Terraform 
+● Instalación de Terraform en Windows 
+● Instalación de Terraform en Linux/Mac 
+● Conceptos básicos. Tipos de archivos y el lenguaje HCL 
+● AWS Provider 
+● Creando VPC con Terraform 
+● Creando AWS ECR con Terraform 
+● Creando un cluster de AWS ECS 
+● Creando task definition en AWS ECS 
+● Creando un service para AWS ECS 
+● Autenticar un cluster ECS en AWS ECR 
+● Outputs 
+● Declarando inputs variables 
+● Tipos de datos para inputs variables 
+● Tipos de constructores 
+● Inputs locales 
+● Funciones 
+● Módulos 
+● Borrando infraestructura creada con Terraform 
+Cuestionario 
+Módulo 4 - CI/CD 
+Explorar las posibilidades de automatizar procesos con GitHub Actions y AWS CodePipeline 
+Clase 9 - Conceptos Básicos 
+● Fundamentos de Continuous Integration y Continuous Deployment (CI/CD) ● Importancia de la automatización dentro de un equipo de trabajo ● Etapas de un flujo de trabajo CI/CD 
+Clase 10 - Github Actions 
+● Introducción a GitHub Actions 
+● Costos al utilizar GitHub Actions 
+● Configuración en un repositorio 
+● Estructura básica de un workflow 
+● Nuestro primer workflow 
+  
+5
+● Desarrollando un pipeline de despliegue 
+● Uso de variables y secretos 
+● Explorando el marketplace 
+● Integrando nuestro pipeline con AWS 
+● Uso de reusables workflows 
+Cuestionario 
+Módulo 5 - Monitoreo 
+Introducción a AWS CloudWatch para monitoreo, uso de logs y configuración de alarmas para la infraestructura en AWS. 
+Clase 11 - Cloudwatch 
+● Introducción a AWS CloudWatch 
+● Técnicas para el monitoreo de métricas y el uso de logs en la infraestructura de AWS 
+● Configuración de alarmas y notificaciones como técnica de observabilidad sobre la infraestructura en AWS 
+Cuestionario 
+Módulo 6 - Cierre del Curso 
+Aplicación de un uso práctico end-to-end 
+Clase 12 - Proyecto Final 
+● Desarrollo de un proyecto integral que incluya todos los conceptos aprendidos en el curso. 
+● Integración del contenido del curso en un flujo de trabajo completo de DevOps, desde la creación de infraestructura hasta el despliegue y monitoreo. 
+Cuestionario Final 
+  
+6

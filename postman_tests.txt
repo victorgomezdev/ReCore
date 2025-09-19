@@ -1,0 +1,103 @@
+ENDPOINTS DE USUARIOS - RECORE2
+==========================
+
+Base URL: http://localhost:8080/api/usuarios
+
+1. CREAR USUARIO
+---------------
+Método: POST
+URL: http://localhost:8080/api/usuarios
+Body (JSON):
+{
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "email": "juan.perez@example.com",
+    "password": "contraseña123",
+    "esAdmin": false
+}
+
+2. ACTUALIZAR USUARIO
+--------------------
+Método: PUT
+URL: http://localhost:8080/api/usuarios/{id}
+Ejemplo: http://localhost:8080/api/usuarios/1
+Body (JSON):
+{
+    "nombre": "Juan Carlos",
+    "apellido": "Pérez",
+    "email": "juan.perez@example.com",
+    "password": "contraseña123",
+    "esAdmin": false
+}
+
+3. BUSCAR USUARIO POR ID
+-----------------------
+Método: GET
+URL: http://localhost:8080/api/usuarios/{id}
+Ejemplo: http://localhost:8080/api/usuarios/1
+
+4. LISTAR TODOS LOS USUARIOS (CON PAGINACIÓN)
+-------------------------------------------
+Método: GET
+URL: http://localhost:8080/api/usuarios?pagina=0&tamanio=10
+Parámetros opcionales:
+- pagina: número de página (por defecto 0)
+- tamanio: cantidad de elementos por página (por defecto 10)
+
+5. ELIMINAR USUARIO
+------------------
+Método: DELETE
+URL: http://localhost:8080/api/usuarios/{id}
+Ejemplo: http://localhost:8080/api/usuarios/1
+
+RESPUESTAS ESPERADAS
+===================
+
+Éxito:
+{
+    "exito": true,
+    "mensaje": null,
+    "datos": {
+        "id": 1,
+        "nombre": "Juan",
+        "apellido": "Pérez",
+        "email": "juan.perez@example.com",
+        "esAdmin": false,
+        "fechaCreacion": "2025-09-16T10:00:00",
+        "fechaModificacion": "2025-09-16T10:00:00"
+    }
+}
+
+Error:
+{
+    "exito": false,
+    "mensaje": "Mensaje de error específico",
+    "datos": null
+}
+
+Respuesta Paginada:
+{
+    "exito": true,
+    "mensaje": null,
+    "datos": [
+        {
+            "id": 1,
+            "nombre": "Juan",
+            "apellido": "Pérez",
+            "email": "juan.perez@example.com",
+            "esAdmin": false,
+            "fechaCreacion": "2025-09-16T10:00:00",
+            "fechaModificacion": "2025-09-16T10:00:00"
+        }
+    ],
+    "paginaActual": 0,
+    "totalPaginas": 1,
+    "totalElementos": 1,
+    "elementosPorPagina": 10
+}
+
+NOTAS:
+- Asegúrate de que MySQL esté corriendo y la base de datos recore2 esté creada
+- La aplicación debe estar ejecutándose en el puerto 8080
+- Los campos fechaCreacion y fechaModificacion se generan automáticamente
+- El password se almacena en texto plano (en un ambiente real debería estar encriptado)

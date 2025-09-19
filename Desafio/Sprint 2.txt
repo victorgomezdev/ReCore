@@ -1,0 +1,159 @@
+Planning
+Sprint 2
+
+Meta del Sprint
+Desarrollar la estructura básica del login y registro de usuario, así cómo implementar el detalle de producto.
+-Meta de Sprint 1 .DB
+-
+
+01
+User Stories
+
+#12: Categorizar productos
+Como administrador, quiero poder asignar categorías a los productos para organizar el catálogo y facilitar la búsqueda de productos por parte de los clientes.
+
+Alta
+
+Criterios de aceptación
+Que se pueda asignar una categoría a un producto ya creado desde el panel de administración del sitio web de manera fácil e intuitiva.
+Que se pueda asignar una categoría a productos nuevos desde “Registrar producto” o “Editar producto”
+
+
+
+#13: Registrar usuario
+Como usuario anónimo, quiero poder registrarme en el sitio para poder acceder a funcionalidades extras.
+Alta
+
+Criterios de aceptación
+Proporcionar información precisa y válida durante el proceso de registro, como nombre, apellido, dirección de correo electrónico, contraseña.
+Validar que los campos de nombre, apellido, la dirección de correo electrónico  y contraseña del usuario cumplan con reglas para prevenir errores en los datos proporcionados.
+Proporcionar una experiencia de usuario intuitiva y fácil de usar durante todo el proceso de registro.
+
+#14: Identificar usuario
+Como usuario, quiero poder iniciar sesión en mi cuenta para acceder a información personal y realizar reservas de manera más fácil.
+Alta
+
+Criterios de aceptación
+Iniciar sesión en la cuenta del usuario utilizando una dirección de correo electrónico y una contraseña válidas.
+Mostrar un mensaje de error claro y útil en caso de que el usuario proporcione información de inicio de sesión incorrecta.
+Permitir al usuario acceder a la información personal y las funcionalidades disponibles después de iniciar sesión.
+Cuando el usuario está identificado mostrar su nombre, un avatar de letras con las iniciales del nombre de usuario.
+
+#15: Cerrar sesión
+Como usuario autenticado, quiero poder cerrar sesión para poder navegar el sitio anónimamente.
+Alta
+
+Criterios de aceptación
+Debajo del avatar debe estar la opción “Cerrar sesión”
+Permitir al usuario cerrar sesión de manera segura cuando haya terminado de usar su cuenta.
+Asegurarse de que el cierre de sesión sea efectivo y que el usuario no pueda acceder a las funcionalidades disponibles solo para usuarios autenticados después de cerrar la sesión.
+Que se permita al usuario continuar navegando el sitio web como usuario anónimo después de cerrar la sesión.
+
+#16: Identificar administrador 
+Como administrador, quiero poder otorgar a un usuario el permiso de administrador para que colabore con la gestión del sitio.
+Alta
+Considero que esta historia de usuario es de prioridad baja .DB
+
+Criterios de aceptación
+
+Asignar a un usuario como administrador para que pueda acceder a secciones de administración.
+Permitir añadir o quitar los permisos de administrador desde un listado de usuario registrado.
+Garantizar que el permiso se aplique de manera efectiva y que los usuarios solo puedan realizar acciones que tengan permitidas.
+Dos niveles de permisos .DB 
+
+#17: Administrar característica de producto
+
+Como administrador quiero poder añadir, editar y eliminar las características de un producto para mantener actualizada la información del producto
+Media
+Considero que esta historia de usuario es de prioridad baja .DB
+
+Criterios de aceptación
+En el panel de administración existe la opción ”Administrar características”
+Se visualiza el listado de las características registradas con la opción de editar y eliminar.
+Existe un botón “Añadir nueva” que permite registrar una nueva característica indicando su nombre e ícono asociado.
+Añadir en la opción de añadir o editar producto la posibilidad de asociar una o más características.
+Dos niveles de permisos .DB 
+
+#18: Visualizar características al producto 
+Como usuario quiero poder visualizar el bloque características en el detalle de un producto para saber con qué características cuenta.
+
+Media
+
+Criterios de aceptación
+Crear un bloque que tenga el título “Características”.
+Debajo del título listar todas las características.
+Cada característica debe tener un icono asociado.
+El bloque debe ser responsivo a los diferentes tipos de dispositivos.
+
+
+Criterios de aceptación
+
+#19: Notificación: Confirmación de registro de usuario
+Como usuario en proceso de registro quiero recibir un correo electrónico para asegurarme de que el registro fue exitoso.
+
+Ésta user story es opcional y un desafío a qué investigues y desarrolles una solución, si no podes o no queres hacerlo no te preocupes, no será contemplada en la evaluación del desarrollo de éste desafío
+DESAFÍO OPCIONAL
+
+Criterios de aceptación
+El correo electrónico de confirmación se envía inmediatamente después de que el usuario complete el registro exitosamente.
+El correo electrónico incluye un mensaje claro y fácil de entender que confirma el registro del usuario.
+El correo electrónico incluye el nombre de usuario y la dirección de correo electrónico del usuario para que puedan confirmar que la información ingresada es correcta.
+El correo electrónico incluye un enlace para que el usuario pueda iniciar sesión en su cuenta recién creada.
+Si el correo electrónico no llega a la bandeja de entrada del usuario, se proporciona una opción para que el usuario pueda solicitar que se reenvíe el correo electrónico de confirmación.
+Ésta user story es opcional y un desafío a qué investigues y desarrolles una solución, si no podes o no queres hacerlo no te preocupes, no será contemplada en la evaluación del desarrollo de éste desafío
+DESAFÍO OPCIONAL
+
+#20: Crear sección de categorías
+Como usuario quiero poder filtrar por una categoría para solo ver los productos que me interesan.
+Baja
+
+Criterios de aceptación
+Visualizar una lista de categorías de productos en una sección de filtrado  con los resultados de búsqueda.
+Mostrar claramente la cantidad de productos que cumplen con los filtros aplicados y la cantidad total de productos en la lista de resultados de búsqueda.
+La capacidad de seleccionar una o varias categorías para filtrar los productos en función de las necesidades del usuario.
+Permitir al usuario eliminar los filtros aplicados y volver a la lista de productos original.
+Asegurarse de que la funcionalidad de filtrado sea compatible con diferentes tipos de navegadores y dispositivos, incluyendo dispositivos móviles y tabletas.
+
+
+#21: Agregar categoría
+
+Como administrador, quiero crear nuevas categorías de productos para poder organizarlos y hacer más fácil la navegación para los clientes.
+
+
+Baja
+
+Criterios de aceptación
+La categoría tiene como los atributo un título, una descripción y una imagen representativa.
+Debe incluirse en el panel de administración con la opción "Agregar categoría".
+
+
+Entregables
+02
+
+Documentación / bitácora
+01
+#ScrumMaster #Gestión
+Entregar documentación que contenga:
+Definición del proyecto: Solución que van a desarrollar.
+Scrum master
+éste es el rol que estás ocupando
+
+Planificación y ejecución de los tests
+02
+#Testing/QA  
+Planear casos de prueba basados en las historias de usuarios que existen en el Sprint.
+Ejecutar los casos de prueba.
+TL Testing
+éste es el rol que estás ocupando
+
+Actualizar repositorio 
+03
+#Desarrollo #Front #Back #BBDD #Infra
+TL Frontend
+TL Backend
+TL Infra
+TL BBDD
+Todo el código debe estar en el repositorio público a entregar al finalizar el desafío.
+estas ocupando todos éstos roles en este momento
+
+¡Muchas gracias!

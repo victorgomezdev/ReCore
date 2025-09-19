@@ -1,0 +1,208 @@
+﻿1
+Testing y calidad de software 
+Objetivos de aprendizaje 
+● Conocer y comprender la importancia del testing y la calidad del software. ● Comprender y profundizar acerca del ciclo de vida del proceso testing. ● Comprender y ejercitar diferentes técnicas de prueba. 
+● Crear y ejecutar casos de pruebas de manera adecuada. 
+● Comprender cómo reportar errores y la importancia de los mismos. ● Conocer los diferentes niveles y tipos de prueba para determinar la conveniencia de su utilización. 
+● Conocer y dominar herramientas de automatización que faciliten y agilicen el proceso de pruebas de calidad de software. 
+Criterios de aprobación 
+● Realizar las actividades de Playground (100% de completitud). ● Aprobación de los checkpoints de conocimiento de cada módulo de aprendizaje. 
+● Aprobación del cuestionario final del curso. 
+  
+2
+Contenidos 
+Módulo 1 - Bienvenida 
+Te damos la bienvenida a nuestro curso y haremos un test de autoevaluación de conocimientos. 
+Clase 1 - Bienvenida al curso 
+● Presentación 
+Módulo 2 - Principios del testing de software, gestión de las pruebas y defectos 
+Este módulo se centra en conocer los principios fundamentales que gobiernan el proceso de testing, así como la gestión integral de los defectos encontrados a lo largo de su ciclo de vida. 
+A lo largo de las clases, se abordarán diversos aspectos cruciales del testing, desde sus orígenes hasta las técnicas y estrategias más eficaces. 
+Clase 2 - El Testing de software y sus inicios 
+● Hablemos un poco sobre historia 
+● ¿Qué es calidad de software? 
+Clase 3 - Los 7 principios del Testing 
+● Explorando los 7 principios del Testing 
+Clase 4 - Defectos y su gestión 
+● ¿Qué es un defecto? 
+● Errores, defectos y fallas 
+● Causa Raíz 
+● Ciclo de vida de un defecto 
+● Gestión de defectos 
+● Tipos de defectos 
+Clase 5 - Las pruebas de software y sus tipos ● Las pruebas y sus objetivos 
+  
+3
+● Pruebas y depuración 
+● Pruebas funcionales 
+● Pruebas no funcionales 
+● Pruebas asociadas al cambio 
+Clase 6 - Niveles de pruebas 
+● Pruebas de componente 
+● Pruebas de integración 
+● Pruebas de sistemas 
+● Pruebas de aceptación 
+Clase 7 - Técnicas de prueba 
+● Pruebas de caja negra 
+● Pruebas de caja blanca 
+● Pruebas basadas en la experiencia del tester 
+Clase 8 - Procesos de las pruebas 
+● Planificación 
+● Monitoreo y control 
+● Análisis 
+● Diseño 
+● Implementación 
+● Ejecución 
+● Finalización de las pruebas 
+● Elaboración de reportes 
+● Roles en el testing 
+● Trazabilidad entre la Base de Prueba y el Testware 
+● Habilidades genéricas requeridas para las pruebas 
+● Independencia de las pruebas 
+Clase 9 - Checkpoint de conocimientos 
+Primera validación de conocimientos. 
+Módulo 3: Pruebas Web y Mobile 
+Estudiaremos las complejidades y estrategias únicas para la realización de pruebas en entornos web y móviles. 
+  
+4
+Clase 10 - Pruebas en Aplicaciones Web 
+● Introducción a las pruebas en aplicaciones web 
+● Automatización de flujos de trabajo en aplicaciones web 
+● Uso de las DevTools 
+● Logs en el browser 
+● Tomar capturas de pantalla y video 
+Clase 11 - Pruebas de Rendimiento en Sitios Web 
+● Comprender la importancia de las pruebas de rendimiento 
+● Herramientas y métricas para evaluar el rendimiento web 
+● Escenarios de prueba para simular cargas y evaluar la capacidad de respuesta 
+Clase 12 - Pruebas en Aplicaciones Móviles 
+● Introducción a las pruebas en aplicaciones móviles 
+● Estrategias para pruebas en dispositivos Android e iOS 
+● Tomar capturas de pantalla y video para pruebas móviles 
+● Logs en el dispositivo 
+Clase 13 - Pruebas de Experiencia del Usuario (UX) 
+● Evaluación de la experiencia del usuario en aplicaciones web y móviles ● Uso de herramientas para medir la usabilidad y la accesibilidad ● Estrategias para mejorar la experiencia del usuario mediante pruebas 
+Clase 14 - Checkpoint de conocimientos Segunda validación de conocimientos. 
+  
+5
+Módulo 4: Introducción al API Testing 
+Este módulo proporciona una sólida base en el emocionante mundo del API Testing, un componente esencial en el desarrollo de software moderno. Desde entender los conceptos básicos del backend de una aplicación hasta explorar API y protocolos. 
+Clase 15 - Introducción al API Testing 
+● ¿Qué es el backend en una aplicación? 
+● Conceptos básicos de API 
+● Importancia del API Testing en el desarrollo de software 
+● Herramientas y estrategias para pruebas en API 
+Clase 16 - Tipos de API y Protocolos 
+● REST vs SOAP 
+● Validación de datos JSON 
+● Técnicas de validación para XML 
+● Protocolos comunes en API (HTTP, HTTPS) 
+Clase 17 - Status Code y Solicitudes HTTP 
+● Status Code ¿Qué nos dicen? 
+● Solicitudes GET 
+● Solicitudes POST 
+● Solicitudes PUT y PATCH 
+● Solicitudes DELETE 
+● Otras Solicitudes 
+Clase 18 - Introducción a Postman 
+● Instalación y configuración 
+● Interfaz de usuario 
+● Creación de espacios de trabajo 
+● Creación de Solicitudes GET 
+● Creación de Solicitudes POST 
+● Creación de Solicitudes PUT 
+● Creación de Solicitudes DELETE 
+● Identificación de errores en respuestas 
+● Creación de colecciones 
+● Creación de entornos 
+  
+6
+Clase 19 - Manejo avanzado de Postman 
+● ¿Qué es Newman? 
+● Assertions 
+● Método de autenticación con API Keys 
+● Método de autenticación OAuth 
+● Manejo de secrets 
+● Uso de la plataforma Postman para colaboración 
+Clase 20 - Checkpoint de contenidos 
+Cuarta validación de contenidos. 
+Módulo 5: Automatización de pruebas 
+Exploramos el mundo de la automatización de pruebas, desde la comprensión de los fundamentos hasta la implementación de estrategias avanzadas y de entrega continua. 
+Clase 21 - Introducción a la Automatización de pruebas 
+● ¿Qué es la automatización de pruebas? 
+● Herramientas para automatización de pruebas 
+● ¿Quién automatiza las pruebas? 
+● Tipos de framework de automatización 
+● Automatización de pruebas en CI/CD 
+Clase 22 - Codeando Pruebas Unitarias 
+● ¿Qué es Test Driven Development? 
+● TDD vs DDT 
+● Instalación de nuestro entorno y librerías 
+● ¿Qué es Pytest? 
+● Creando primeros tests con Pytest 
+● Manejo de buenas prácticas en el código 
+● Manejo de reportes 
+● Organizar y modularizar código 
+● CI/CD con Azure DevOps 
+  
+7
+Clase 23 - Fundamentos de Java para Automation testing 
+● La programación para testers 
+● Configuramos nuestro ambiente de trabajo 
+● Sintaxis básica de Java: variables, operadores, estructuras de control ● Programación orientada a objetos (POO) en Java 
+● Manejo de excepciones en Java 
+Clase 24 - Introducción a Selenium Webdriver 
+● Orígenes de Selenium 
+● ¿Qué es Selenium Webdriver? 
+● La importancia de aprender Selenium 
+● Descarga e instalación de Selenium WebDriver 
+Clase 25 - Nuestro primer proyecto en Selenium Webdriver 
+● Tu primer test automatizado en Selenium 
+● Estrategias para encontrar elementos en Selenium 
+● Uso de selectores CSS y XPath 
+● Interacción con múltiples ventanas o pestañas del navegador 
+● Manipulación de elementos web con Selenium 
+● Uso de esperas explícitas e implícitas 
+● Manejo de Pop-ups y Alertas 
+● Assertions 
+● Manejo de JUnit 
+● Manejo de Allure 
+Clase 26 - Selenium Webdriver Avanzado 
+● Patrones de Diseño de Automatización 
+● Implementación de Page Object Model (POM) 
+● Estrategias de organización de código 
+● BDD y Selenium 
+Clase 27 - Checkpoint de contenidos 
+Cuarta validación de contenidos 
+  
+8
+Módulo 6: Cierre del curso 
+En este emotivo cierre, nos sumergimos en algunas anécdotas valiosas del mundo del testing, compartiendo experiencias significativas que enriquecerán tu perspectiva como tester. Además, recibirás recomendaciones prácticas para aplicar en tu entorno laboral, destacando la importancia de las habilidades blandas en el éxito profesional. 
+Clase 28 - Consideraciones finales 
+● Algunas anécdotas como tester 
+● Recomendaciones en tu entorno real de trabajo 
+● No pierdas de vistas tus habilidades blandas 
+Módulo 7: Cuestionario final 
+Clase 29 - Checkpoint de contenidos 
+Quinta validación de contenidos. 
+  
+9
+Material de referencia 
+● Pruebas de Software 
+○ https://es.sstqb.com/downloads 
+● Postman 
+○ https://learning.postman.com/docs/publishing-your-api/documenting-yo ur-api/ 
+● Java 
+○ https://docs.oracle.com/en/java/ 
+● Python 
+○ https://docs.python.org/es/3/ 
+● Pytest 
+○ https://docs.pytest.org/en/7.1.x/contents.html 
+● Selenium Webdriver 
+○ https://www.selenium.dev/documentation/ 
+● JUnit 
+○ https://junit.org/junit5/docs/current/user-guide/ 
+● Allure 
+○ https://testng.org/doc/documentation-main.html 
+  
+10

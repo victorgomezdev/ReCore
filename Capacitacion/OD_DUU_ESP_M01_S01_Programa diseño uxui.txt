@@ -1,0 +1,69 @@
+﻿1
+Diseño UX / UI 
+Objetivos de aprendizaje 
+● Aprender los pilares básicos del diseño centrado en las personas. ● Conocer la diferencia entre diseño UX, UI y cómo aplicarlos en el desarrollo de productos. 
+● Conocer las bases del diseño visual y de interacción. 
+Criterios de aprobación 
+● Realizar las actividades de Playground (100% de completitud). ● Aprobación de los checkpoints de conocimiento de cada módulo de aprendizaje. 
+● Aprobación del cuestionario final del curso. 
+  
+2
+Contenidos 
+Módulo 1 - Bienvenida 
+Te damos la bienvenida a nuestro curso y haremos un test de autoevaluación de conocimientos. 
+Clase 1 - Presentación 
+● Programa del curso 
+● Presentación del curso 
+● Cuestionario de autoevaluación 
+Módulo 2 - Introducción al Diseño UX/UI 
+Este módulo aborda la introducción a las bases de la experiencia de usuario. Por qué es estratégico y cómo se relaciona con las otras áreas de trabajo. 
+Clase 2 - Experiencia de usuario 
+● Diseño de experiencias de usuario 
+● Diseño centrado en el usuario (DCU) 
+● Introducción a UX, UI y IxD 
+Clase 3 - Primeros pasos 
+● Brief. Qué es, qué no es y para qué sirve 
+● Divergencia y convergencia para pensar ideas 
+● Introducción al diseño de interacción. Interfaces 
+Clase 4 - Checkpoint de conocimientos 
+● Primera validación de conocimientos 
+Módulo 3 - Diseño de Interacción 
+En este módulo nos adentramos en la construcción de una interfaz digital. Se comenzará a prototipar nuestro producto, en base al brief y las ideas priorizadas. Se trabajará con sistemas, patrones y elementos de diseño para favorecer la mejor experiencia posible. 
+  
+3
+Clase 5 - Arquitectura de la información 
+● Organización del contenido. Card sorting y Tree testing. Mapa de sitio ● Task flows y User flows 
+● UX writing 
+Clase 6 - Prototipado y diseño UI 
+● Prototipado en baja, media y alta fidelidad 
+● Sistemas de diseño. Wireframes 
+● Patrones de navegación e interacción: Android + iOS como referentes ● Figma como herramienta de prototipado 
+● Componentes UI 
+● Diseño visual: Jerarquía, tipografía, colorimetría y principios de diseño 
+Clase 7 - Checkpoint de conocimientos 
+Segunda validación de conocimientos 
+  
+4
+Módulo 4 - Validación y handoff 
+Este módulo nos presenta el concepto de usabilidad junto con las herramientas necesarias para poder validar los prototipos creados. Por último, se pondrá foco en la transferencia de los entregables para ser implementados por los equipos de desarrollo. 
+Clase 8 - Validación 
+● Validar y evaluar los diseños 
+● Herramientas de testeos. Evaluación heurística 
+● Pruebas de usabilidad 
+Clase 9 - Handoff 
+● Cómo optimizar el handoff entre equipos 
+● Handoff en Figma 
+Clase 10 - ¡Bonus Tracks! 
+● Motion UI 
+● Accesibilidad 
+Clase 11 - Checkpoint de conocimientos 
+Tercera validación de conocimientos 
+  
+5
+Módulo 5 - Cierre del curso 
+Cierre del curso con una evaluación integral de los conocimientos trabajados 
+Clase 12 - Despedida 
+● Cierre del curso 
+● Evaluación integral 
+  
+6

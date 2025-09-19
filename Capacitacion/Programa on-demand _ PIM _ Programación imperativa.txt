@@ -1,0 +1,176 @@
+﻿1
+Programación Imperativa con JavaScript 
+Objetivos de aprendizaje 
+Al finalizar el curso, el estudiante será capaz de generar programas que resuelvan conflictos de su cotidiano y tener las nociones para expandir sus capacidades cuando las necesite. De esta forma, no solo podrá replicar lo aprendido si no también tendrá las herramientas para incorporar nuevos conocimientos. 
+Criterios de aprobación 
+● Realizar las actividades de Playground (100% de completitud). ● Aprobación de los checkpoints de conocimiento de cada módulo de aprendizaje. 
+● Aprobación del cuestionario final del curso. 
+  
+2
+Contenidos 
+Módulo 1 - Bienvenida 
+Te damos la bienvenida a nuestro curso y haremos un test de autoevaluación de conocimientos. 
+Clase 1 - Bienvenida 
+● Programa del curso 
+● Presentación del curso 
+● Cuestionario de autoevaluación 
+Módulo 2 - Pensamiento computacional 
+Fomentar el desarrollo de las habilidades vinculadas al pensamiento computacional, permitiendo a los participantes identificar y aplicar la lógica necesaria para resolver problemas y diseñar algoritmos de manera efectiva. 
+Clase 2 - Pensando como la computadora 
+● Pensamiento computacional 
+● Diagramas de flujo 
+● Paradigmas de programación 
+Clase 3 - Checkpoint de conocimientos 
+Validación de conocimientos del primer módulo. 
+Módulo 3 - Introducción a JavaScript 
+Comienza la etapa en la que vamos a conocer el entorno de trabajo y las estructuras más elementales y básicas de la programación. Estos elementos son usados por la mayoría de los lenguajes más populares (C, C++, C#, JAVA, Python, JS, etc) por lo que aprenderlas y dominarlas es absolutamente necesario. 
+  
+3
+Clase 4 - Conociendo el entorno de desarrollo: Node y JavaScript 
+● Guías de Instalación (Visual Studio Code y Node.js) 
+○ Instalación de herramientas Windows 
+○ Instalación de herramientas Linux 
+○ Instalación de herramientas MacOS 
+● Visual Studio Code 
+○ Entorno 
+○ Crear un archivo 
+○ Extensiones y atajos 
+● Más sobre Node.js 
+○ Arquitectura 
+○ Verificación de Instalación 
+Clase 5 - Primeros pasos en JavaScript 
+● Variables y tipos de Datos 
+○ Tipos de variables 
+○ Declaración de una variable 
+○ Asignación de un valor 
+○ Declaración con var, let o const 
+○ Tipos de datos simples (string, number, boolean) 
+○ Tipos de datos especiales (null, undefined, etc...) 
+Clase 6 - Trabajando con funciones 
+● Operadores Matemáticos 
+○ Asignación 
+○ Aritméticos 
+○ Concatenación 
+● Funciones 
+○ Declaración y estructura de funciones expresadas y declaradas ○ Invocación 
+○ Scope 
+  
+4
+Clase 7 - Aplicación de Habilidades Adquiridas ● Construimos una calculadora 
+Clase 8 - Operando Lógicamente 
+● Retomando Operadores. 
+○ De comparación. 
+○ Lógicos (AND, OR y NOT) 
+○ True & False Como Conceptos 
+Clase 9 - Controlando el flujo de la aplicación 
+● If / Else 
+○ Componentes de un if (if, else, else if) 
+○ Funcionamiento de un if 
+● Condicionales múltiples y anidados 
+● If Ternario 
+○ Estructura básica 
+○ Instancias de utilización 
+● Switch 
+○ estructura básica 
+○ agrupamiento de casos 
+○ bloque default 
+Clase 10 - Checkpoint de conocimientos Validación de conocimientos del segundo módulo. 
+  
+5
+Módulo 4 - JavaScript intermedio 
+En esta etapa, avanzaremos en nuestra comprensión del lenguaje, centrándonos en tipos de datos más complejos, como cadenas de texto, matrices y objetos literales. Exploraremos cómo trabajar con estas estructuras de datos, realizar iteraciones y gestionarlas de manera dinámica. 
+Además, nos adentraremos en el sistema de módulos de Node, donde comprenderemos su aplicación para la persistencia de datos en nuestras aplicaciones. 
+Clase 11 - Strings y arrays: Trabajando con colecciones 
+● Intro arrays 
+○ Estructura 
+○ Posiciones dentro de un array 
+○ longitud de un array 
+● Métodos de arrays 
+○ .push() 
+○ .pop() 
+○ .shift() 
+○ .unshift() 
+○ .join() 
+○ .indexOf() 
+○ .lastIndexOf() 
+○ .includes() 
+● Métodos de strings 
+○ length 
+○ indexOf() 
+○ slice() 
+○ split() 
+○ replace() 
+  
+6
+Clase 12 - Ciclos: Repetir...repetir...repetir 
+● While / do while 
+○ Estructura básica (while y do while) 
+○ Funcionamiento 
+● For loop 
+○ Estructura básica 
+○ Funcionamiento 
+Clase 13 - Combinando conceptos 
+● Estructura repetitiva combinada con estructura condicional 
+● Estructura condicional combinada con estructura repetitiva 
+Clase 14 - Literalmente: Objetos y Viernes 13! (JSON) 
+● Objetos Literales 
+○ Estructura básica 
+○ Propiedades 
+○ Métodos 
+○ Ejecución de un método 
+○ Trabajando dentro del objeto - this 
+● JSON 
+○ JSON vs Objeto Literal 
+○ JSON.parse() 
+○ JSON.stringify() 
+Clase 15 - Desarrollo y Aplicación de Competencias 
+● Inicio de proyecto integrador 
+● Continuidad del proyecto integrador 
+● Persistencia del proyecto en JSON 
+Clase 16 - Checkpoint de conocimientos Validación de conocimientos del cuarto módulo. 
+  
+7
+Módulo 5 - JavaScript avanzado 
+Finalizamos el curso aplicando los conocimientos adquiridos a lo largo de dos proyectos prácticos. Durante este proceso, exploraremos herramientas que nos ayudarán a desarrollar un código más eficiente y sostenible a largo plazo. 
+Clase 17 - Matrices 
+● Definición, casos de uso y Doble for 
+● Recorrer matrices 
+● Filtrar dentro de matrices 
+Clase 18 - Avanzando con funciones 
+● Arrow Functions 
+○ Declaración y estructura 
+● Callbacks 
+○ Callbacks anónimos y definidos 
+Clase 19 - Arrays y más arrays 
+● Métodos de arrays Avanzados 
+○ map() 
+○ filter() 
+○ reduce() 
+○ foreach() 
+● Más métodos de arrays 
+○ slice() 
+○ splice() 
+○ sort() 
+○ find() 
+Clase 20 - Implementación Avanzada de Conocimientos I 
+● Desarrollo de una aplicación completa utilizando lo aprendido hasta el momento. 
+  
+8
+Clase 21 - Implementación Avanzada de 
+Conocimientos II 
+● Desarrollo de una aplicación completa utilizando lo aprendido hasta el momento. 
+Clase 22 - Checkpoint de conocimientos Validación de conocimientos del quinto módulo. 
+Módulo 6 - Algoritmos 
+Como parte final veremos buenas prácticas del lenguaje y temas adicionales con los que pueden seguir su camino de aprendizaje del lenguaje por su cuenta. 
+Clase 23 - Métodos de ordenación 
+● Bubble sort 
+Clase 24 - Algoritmos de búsqueda 
+● Linear search 
+● Binary search 
+Clase 25 - Checkpoint de conocimientos Validación de conocimientos del sexto módulo. 
+Módulo 7 - Cierre del curso 
+Clase 26 - Cierre del curso 
+● Cuestionario final 
+● Saludo de despedida 
+  
+9

@@ -1,0 +1,116 @@
+﻿1
+Programación orientada a objetos en JAVA 
+Objetivos de aprendizaje 
+Este curso permitirá que el estudiante adquiera las bases y desarrolle la capacidad de programar trabajos en todas las ramas del desarrollo de software, desde la perspectiva del paradigma orientado a objetos. También le va a permitir comprender y analizar los diferentes desafíos que enfrentan los actuales equipos de trabajo al momento de desarrollar. 
+Los conceptos se aplicarán en el lenguaje de programación JAVA, uno de los más utilizados para desarrollos en empresas IT hoy en día y el conocimiento de patrones de diseño que resultan fundamentales al momento de diseñar un software. 
+Criterios de aprobación 
+● Realizar las actividades de Playground (100% de completitud). ● Aprobación de los checkpoints de conocimiento de cada módulo de aprendizaje. 
+● Aprobación del cuestionario final del curso. 
+  
+2
+Contenidos 
+Módulo 1 - Bienvenida 
+Te damos la bienvenida a nuestro curso y haremos un test de autoevaluación de conocimientos. 
+Clase 1 - Bienvenida 
+● Programa del curso 
+● Presentación del curso 
+● Autoevaluación de conocimientos 
+Módulo 2 - Introducción a la programación orientada a objetos 
+Clase 2 - ¿Qué es Java? 
+● ¿Qué es JAVA? 
+● Bases de JAVA sin objetos 
+● Tipos de datos primitivos 
+● Firma de un método 
+Clase 3 - Introducción a JAVA 
+● Scanner 
+Clase 4 - Objetos y UML 
+● ¿Qué es un objeto? 
+● Objeto vs. instancia 
+● Variables y métodos de clase 
+  
+3
+Clase 5 - Clases 
+● Nuestra primera clase en JAVA 
+● Getters y Setters 
+● creando objetos con el scanner 
+Clase 6 - Checkpoint de conocimientos 
+Primera validación de conocimientos. 
+Módulo 3 - Programación orientada a objetos en JAVA 
+Clase 7 - Relaciones entre clases 
+● Relación de asociación 
+Clase 8 - Relación de Herencia 
+● Herencia POO 
+● Herencia JAVA 
+● Polimorfismo 
+● Casteo 
+● Clase Object 
+● Herencia con asociación UML 
+● Herencia con asociación codigo 
+Clase 9 - Clases abstractas 
+● Clases Abstractas 
+● Sobrecarga vs. Sobrescritura 
+  
+4
+Clase 10 - Interface 
+● ¿Qué es una Interface? 
+● Interface en UML 
+● Interface en código 
+● Interface comparable 
+Clase 11 - Práctica Integradora 
+● Práctica Integradora UML 
+● Práctica Integradora código 
+Clase 12 - Colecciones 
+● Tipos de colecciones 
+● Array vs. Sets 
+● Sort 
+● Mapas 
+Clase 13 - Excepciones 
+● ¿Que es una excepción? 
+● try-catch 
+● ¿Cómo tirar una excepción? 
+Clase 14 - Práctica integradora 
+● Colecciones y Excepciones UML 
+● Colecciones y Excepciones código 
+  
+5
+Clase 15 - Principio SOLID 
+● ¿Qué es el principio SOLID? 
+● El Principio de responsabilidad única (Single Responsibility Principle) ● El Principio Abierto-Cerrado (Open-Closed Principle) 
+● El Principio Abierto-Cerrado (Open-Closed Principle) 
+● El Principio de sustitución de Liskov (Liskov Substitution Principle) ● El Principio de segregación de interfaz (Interface Segregation Principle) ● El Principio de inversión de dependencia (Dependency Inversion Principle) 
+Clase 16 - Checkpoint de conocimientos Segunda validación de conocimientos. 
+Módulo 4 - Patrones de diseño 
+Clase 17 - Patrones de diseño 
+● ¿Qué es un patrón de diseño? 
+● Patrón Factory y Singleton 
+● Patrón Factory y Singleton uml y código 
+● Patrón Factory y Singleton uml y código 
+Clase 18 - Patrón State 
+● ¿Qué es el patrón State? 
+● UML Patrón State 
+● Código Patrón State 
+Clase 19 - Patrón Composite 
+● ¿Qué es el patrón Composite? 
+● UML Patrón Composite 
+● Codigo Patrón Composite 
+  
+6
+Clase 20 - Integración 
+● Integración UML 
+● Integración - Código 
+● Integración - Buenas prácticas 
+Clase 21 - Patrón Observer 
+● ¿Qué es el patrón Observer? 
+● UML Patrón Observer 
+● Código Patrón Observer 
+Clase 22 - Patrón Strategy 
+● ¿Qué es el patrón Strategy? 
+● UML Patrón Strategy 
+● Código Patrón Strategy 
+Clase 23 - Checkpoint de conocimientos Tercera validación de conocimientos. 
+Módulo 6 - Cierre del curso 
+Clase 24 - Cierre del curso 
+● Cuestionario final 
+● Saludo de despedida 
+  
+7

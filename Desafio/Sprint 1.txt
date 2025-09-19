@@ -1,0 +1,198 @@
+Bienvenidos al Desafío 
+Profesional
+
+Importante
+El proyecto debe contener un enfoque destinado a una aplicación de reservas como ser Hoteles, Vuelos, Alquileres de Moda, Autos con el fin de manejar disponibilidades de los servicios.
+El mismo debe ser desarrollado con un Backend con Java Spring Boot para realizar un API robusta que sirva de información a junto a un Frontend con React.
+¡Pueden elegir el nombre y la identidad del sitio!
++
+
+Planning
+Sprint 1
+
+Meta
+Desarrollar la estructura básica del sitio y agregar funcionalidades de registro, visualización y eliminación de productos.
+-Meta de Sprint 1 .DB
+-
+
+User Stories
+01
+
+#1: Colocar encabezado
+Como usuario, quiero un encabezado que muestre el logo de la aplicación y una barra para facilitar la navegación en el sitio.
+Alta
+
+Criterios de aceptación
+El header debe ocupar el 100% de la pantalla en todas las páginas de la aplicación.
+El header debe estar fijo en la parte superior de la página, incluso al hacer scroll, para que siempre sea visible y accesible para el usuario.
+El header debe ser consistente en todas las páginas de la aplicación y debe ser fácil de usar y entender para el usuario.
+El header debe ser optimizado para diferentes dispositivos y resoluciones de pantalla.
+Dentro del header debe existir un bloque alineado a la izquierda que contenga el logotipo y el lema de la empresa.
+Al hacer clic en el logotipo o el lema, el usuario debe ser redirigido a la página principal de la aplicación. Dentro del header debe existir un bloque alineado a la derecha que contenga dos botones: “Crear cuenta” e “Iniciar sesión” (Sin funcionalidad).
+¡Pueden elegir el nombre y la identidad del sitio!
+
+Header
+Esto solo es una referencia visual
+
+#2: Definir el cuerpo del sitio
+Como administrador, quiero que el color de fondo del sitio web esté en armonía con la identidad de marca de la empresa para mejorar la estética y la coherencia visual de la aplicación.
+Alta
+
+Criterios de aceptación
+El Main debe tener un color de background que corresponda a la identidad de marca.
+El Main debe ocupar el 100 % del alto de la pantalla.
+El Main debe ser optimizado para diferentes dispositivos y resoluciones de pantalla.
+Se debe visualizar las tres secciones o bloques:  buscador, categorías y recomendaciones de los productos.
+
+Main
+
+#3: Registrar producto
+Como administrador, quiero poder agregar nuevos productos para mantener actualizado el catálogo de productos disponibles.
+Alta
+
+Criterios de aceptación
+El producto debe visualizarse en el listado de productos. (Relacionada con historia #4)
+El panel de administración debe contener un botón  "Agregar producto".
+La página de "Agregar producto" debe incluir campos para ingresar información relevante del producto, como nombre, descripción e imagen.
+Se debe poder subir una o más imágenes del producto.
+Se debe poder guardar el producto y este debe ser agregado correctamente a la base de datos del sitio.
+Si se intenta agregar un producto con un nombre que ya existe, se debe mostrar un mensaje de error indicando que el nombre ya está en uso.
+
+
+
+
+#4: Visualizar productos en el home
+Como usuario, quiero ver una lista de productos aleatorios en el home cuando ingreso por primera vez para obtener referencias de productos que encontraré.
+Alta
+
+Criterios de aceptación
+Se deben mostrar como máximo 10 productos aleatorios.
+Los productos no deben repetirse.
+Se deben distribuir en 2 columnas y 5 filas como máximo. 
+Garantizar que la lista de productos aleatorios sea verdaderamente aleatoria, sin repetir productos y sin seguir un patrón previsible
+
+#5: Visualizar detalle de producto
+Como usuario, quiero poder ingresar en el detalle del producto para conocer datos básicos de éste. 
+Alta
+
+Criterios de aceptación
+Visualizar un bloque de header el cual deberá cubrir el 100 % del ancho de la pantalla.
+El título del producto deben estar alineados a la izquierda.
+La flecha para volver atrás debe estar alineada a la derecha.
+En el body debe estar el texto descriptivo del producto y sus imágenes.
+
+#6: Visualizar galería de imágenes
+Como usuario quiero poder visualizar una galería de Imágenes del producto para tener una idea clara de cómo se ve y facilitar mi decisión de reserva.
+
+Alta
+
+Criterios de aceptación
+Debe presentar un bloque al 100 % del ancho del contenedor que incluye 5 imágenes.
+La imagen principal debe estar posicionada en la mitad izquierda del bloque de imágenes.
+En la versión desktop, una grilla de 2 filas y 2 columnas debe estar en la mitad derecha del bloque donde se visualizarán las 4 imágenes restantes. 
+El bloque debe incluir en su región inferior derecha el texto “Ver más”, el cual, permitirá acceder a un componente para ver todas las imágenes disponibles del producto.
+La galería debe ser responsiva a los diferentes dispositivos como mobile y tablet.
+
+#7: Colocar pie de página
+Como usuario, quiero un footer en la aplicación para poder ver información relevante de la empresa.
+
+Baja
+
+Criterios de aceptación
+Se debe crear un footer que ocupe el 100% del ancho de la pantalla y que esté ubicado en el pie de página en todas las páginas de la aplicación.
+Dentro del footer, debe existir un bloque alineado a la izquierda que contenga el isologotipo de la empresa, el año y el copyright correspondiente.
+El footer debe ser optimizado para diferentes dispositivos y resoluciones de pantalla.
+El isologotipo, el año y el copyright deben ser legibles y estar diseñados de acuerdo con la identidad visual de la empresa.
+
+Footer
+
+#8: Paginar productos
+Como usuario, quiero ver resultados limitados en el home para ver el contenido de forma ordenada.
+
+Baja
+
+Criterios de aceptación
+Dividir el listado de productos en páginas de no más de 10 productos.
+Mostrar un contador de páginas funcional que permita la navegación entre las mismas.
+Mostrar un botón o enlace para que el usuario pueda ir hacia atrás, hacia delante o al inicio del listado de productos.
+
+#9: Panel de administración
+Como administrador quiero poder ingresar a las funciones de administración de mi negocio de forma simple para gestionarlo. 
+
+Media
+
+Criterios de aceptación
+Debe existir una url /administración para acceder al panel
+Se visualiza un menú con todas las funciones desarrolladas para la administración.
+No debe ser responsive. Si se desea ingresar al panel desde un dispositivo móvil, debe mostrarse un mensaje que no está disponible.
+
+#10: Listar productos
+Como administrador, quiero poder visualizar una lista de productos disponibles para poder gestionarlos con facilidad.
+
+Media
+
+Criterios de aceptación
+En el panel de administración debe existir un botón "Lista de productos".
+En la página “Lista de productos” se deben listar todos los productos disponibles en el sitio.
+Debe existir las columna: “Id”, “Nombre” y “Acciones”
+
+#11: Eliminar producto
+Como administrador, quiero poder eliminar un producto para mantener una lista actualizada y precisa de los productos disponibles.
+
+Baja
+
+Criterios de aceptación
+En el listado de productos (Panel de administración) por cada producto debe existir la acción “Eliminar producto”.
+Al presionar “Eliminar producto” debe aparecer un mensaje de confirmación.
+Si se acepta la eliminación del producto el mismo debe eliminarse en la base de datos.
+El producto eliminado no debe mostrarse en listado de productos.
+Si no se acepta la acción de eliminar producto, no se deben realizar cambios.
+
+Entregables
+02
+
+Documentación / bitácora
+01
+#ScrumMaster #Gestión
+Entregar documentación que contenga:
+Definición del proyecto: Solución que van a desarrollar.
+Scrum master
+éste es el rol que estás ocupando
+
+Diseño de identidad de marca
+02
+#UX/UI #IdentidadDeMarca
+Diseñar logo de la marca.
+Seleccionar paleta de colores de identidad.
+Ref. UX/UI
+éste es el rol que estás ocupando
+
+Diseño de identidad de marca
+02
+#UX/UI #IdentidadDeMarca
+Diseñar logo de la marca.
+Seleccionar paleta de colores de identidad.
+Ref. UX/UI
+Ejemplo de como se presenta una paleta de color.
+éste es el rol que estás ocupando
+ entre tres y siete colores distintos en una única combinación o paleta
+
+Planificación y ejecución de los tests
+03
+#Testing/QA  
+Planear casos de prueba basados en las historias de usuarios que existen en el Sprint.
+Ejecutar los casos de prueba.
+TL Testing
+éste es el rol que estás ocupando
+
+Actualizar repositorio 
+04
+#Desarrollo #Front #Back #BBDD #Infra
+Todo el código debe estar en el repositorio público a entregar al finalizar el desafío.
+TL Frontend
+TL Backend
+TL Infra
+TL BBDD
+estas ocupando todos éstos roles en este momento
+
+¡Muchas gracias!

@@ -1,0 +1,121 @@
+﻿1
+JAVA con Spring Boot 
+Objetivos de aprendizaje 
+Implementar un backend implica conocer un stack de tecnologías amplio, generalmente no es suficiente con conocer el lenguaje. este curso daremos inicio al camino del conocimiento. Incorporaremos JAVA como lenguaje de backend y comenzaremos a descubrir la lógica detrás de las aplicaciones. 
+Criterios de aprobación 
+● Realizar las actividades de Playground (100% de completitud). ● Aprobación de los checkpoints de conocimiento de cada módulo de aprendizaje. 
+● Aprobación del cuestionario final del curso. 
+  
+2
+Contenidos 
+Módulo 1 - Bienvenida 
+Te damos la bienvenida a nuestro curso y haremos un test de autoevaluación de conocimientos. 
+Clase 1 - Bienvenida 
+● Programa del curso 
+● Presentación del curso 
+● Cuestionario de autoevaluación 
+Módulo 2 - Spring Boot 
+Clase 2 - Introducción 
+● Herramientas y Frameworks que vamos a usar 
+● Protocolo HTTP 
+● Frameworks vs. Librerías 
+● Spring vs. Spring Boot 
+● Anotaciones 
+Clase 3 - Patrón MVC 
+● Modelo Vista Controlador 
+● Ventajas MVC 
+● DispatcherServlet 
+● Spring MVC y Spring Boot MVC -Parámetros 
+● Spring MVC y Spring Boot MVC - Anotaciones 
+Clase 4 - Capa presentación 
+● Tecnologías de vista 
+● Implementación 
+  
+3
+Clase 5 - Checkpoint de conocimientos 
+● Primera validación de conocimientos. 
+Módulo 3 - APIs 
+Clase 6 - API REST - Parte 1 
+● Qué es una API Restful 
+● Que es un endpoint 
+● API REST / RESTFul 
+● Métodos HTTP 
+● JSON 
+● Anotaciones en el controller 
+● Instalación Postman 
+● Implementación 
+Clase 7 - API REST - Parte 2 
+● Response Entity 
+● Implementación 
+Clase 8 - Consumo de APIs 
+● Invocando una API desde la vista - AJAX 
+● Invocando una API desde la vista - FETCH 
+● Implementación 
+Clase 9 - Checkpoint de conocimientos 
+● Segunda validación de conocimientos. 
+  
+4
+Módulo 4 - Backend avanzado 
+Clase 10 - Inyección de dependencias 
+● Inyección de Dependencias 
+● Control de inversión 
+● Anotaciones - Autowired, Qualifier y Bean 
+● Implementación 
+Clase 11 - ORM 
+● ORM 
+● JPA - Hibernate 
+● Spring Data 
+● Spring Data - Anotaciones 
+● Configurando Hibernate con Spring Data 
+● Implementación 
+Clase 12 - Spring Data - Hibernate 
+● Mapeo Relaciones 
+● Tipo de relaciones 
+● Fetch Type, Cascade y JoinColumn 
+● Data Transfer Object 
+● Implementación 
+Clase 13 - HQL 
+● Hibernate Query Language 
+● Consulta con Spring Data JPA 
+● Implementación 
+  
+5
+Clase 14 - Manejo de excepciones 
+● Excepciones 
+● Excepciones en Java 
+● Manejo de Excepciones en Java con Spring Boot 
+● Implementación 
+Clase 15 - Checkpoint de conocimientos ● Tercera validación de conocimientos. 
+Módulo 5: Seguridad y buenas prácticas 
+Clase 16 - Seguridad 
+● Spring Security - Introducción 
+● Configuración de Spring Security - Primer parte 
+● Autenticación de APIs basada en tokens con Spring Security y JWT ● Json Web Token 
+● Json Web Token - Cookies y Sessions 
+● Spring Security - Arquitectura 
+● Configuración de Spring Security - Segunda parte 
+● Implementación 
+Clase 17 - Pruebas de integración 
+● Pruebas de Integración - Introducción 
+● Pruebas de Integración 
+● Pruebas de Integración vs. Pruebas Unitarias 
+● Prueba de Integración con Spring Boot 
+● Implementación 
+  
+6
+Clase 18 - Documentación 
+● Swagger 
+● Swagger OpenApi 
+● Implementación 
+Clase 19 - Sistemas distribuidos 
+● Microservicios - Introducción 
+● Arquitectura de Microservicios 
+● Tipos de comunicación entre Microservicios 
+● Ventajas y desventajas 
+Clase 20 - Checkpoint de conocimientos ● Cuarta validación de conocimientos. 
+Módulo 6: Cierre del curso 
+Clase 21 - Cierre del curso 
+● Cuestionario final 
+● Saludo de despedida 
+  
+7

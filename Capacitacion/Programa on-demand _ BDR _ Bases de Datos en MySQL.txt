@@ -1,0 +1,90 @@
+﻿1
+Bases de datos en MySQL 
+Objetivos de aprendizaje 
+● Desarrollar el pensamiento analítico en la gestión de datos y comprender la trayectoria entre el requerimiento y su implementación física. 
+● Configurar una base de datos relacional para que obtenga su mayor performance en grandes volúmenes de datos. 
+● Acceder a la información con el lenguaje propio de la herramienta, de manera tal que los resultados obtenidos sean confiables y seguros. 
+● Optimizar el uso de los datos, de forma que el volumen de los mismos no sea un impedimento en los tiempos de proceso. 
+● Reconocer la forma correcta del tratamiento de la información, a fin de no entorpecer el acceso de otros usuarios simultáneamente. 
+Criterios de aprobación 
+● Realizar las actividades de Playground (100% de completitud). ● Aprobación de los checkpoints de conocimiento de cada módulo de aprendizaje. 
+● Aprobación del cuestionario final del curso. 
+  
+2
+Contenidos 
+Módulo 1 - Bienvenida 
+Te damos la bienvenida a nuestro curso y haremos un test de autoevaluación de conocimientos. 
+Sección 1 - Bienvenida 
+● Bienvenida 
+● Instalar el motor de base de datos Workbench. 
+● Cuestionario inicial. 
+Módulo 2 - Introducción a bases de datos Identificar qué es una base de datos y sus ventajas. 
+Sección 2 - Introducción a base de datos ● ¿Qué es una base de datos? 
+Sección 3 - Arquitectura de bases de datos ● Modelo cliente-servidor 
+● Motores de bases de datos 
+Módulo 3 - Modelado de bases de datos 
+Sección 4 - Modelo de datos 
+● Modelo físico y lógico 
+Sección 5- Entidades 
+● ¿Qué son las entidades? ¿Cómo detectarlas? 
+  
+3
+Sección 6 - Datos 
+● ¿Cuáles son los tipos de datos existentes? 
+Sección 7 - Relaciones 
+● ¿Cómo establecer relaciones entre las distintas entidades? 
+Sección 8 - DER 
+● Generar un diagrama de entidad relación a partir de las entidades detectadas ● Cardinalidad/obligatoriedad 
+● Integridad referencial 
+Cuestionario 
+Módulo 4 - SQL 
+Módulo enfocado en el aprendizaje práctico de sentencias SQL. 
+Sección 9 - Onboarding MySQL Workbench ● Creación de la conexión 
+● Navegación 
+● Instalación de la base de datos de ejemplo 
+Sección 10 - Introducción a DDL y DML 
+Crear, modificar o eliminar base de datos, tablas y tuplas, realizar filtros y consultas, dar formatos a los conjuntos de resultados y conocer cómo se procesan las consultas. 
+Sección 11 - DDL e Intro a DML 
+● Create, alter y drop tablas 
+● Insert, update, delete de registro o tupla 
+  
+4
+Sección 12 - DML Simple 
+● Select, from y where 
+● Between y like 
+● Limit y offset 
+● Alias 
+Sección 13 - DML - queries agregadas 
+● Sentencias de agrupamiento max, min, sum, count y avg 
+● Having 
+● Group by 
+Sección 14 - DML - Joins 
+● Inner join 
+● Right join 
+● Left join 
+Sección 15 - Manipulación de datos 
+● Funciones. 
+● Vistas. 
+Cuestionario 
+Módulo 5 - Buenas prácticas y optimización Comprender que las buenas prácticas te permitirán optimizar tus consultas y ganar performance en la ejecución. 
+Sección 16 - Buenas prácticas en sintaxis SQL ● Optimizaciones en la sintaxis SQL 
+  
+5
+Sección 17 - Orden de ejecución de una query ● Optimizaciones en la sintaxis SQL 
+Sección 18 - Índices 
+Cuestionario 
+Módulo 6 - Stored procedures 
+Sección 19 - Stored procedures 
+Poder distinguir los beneficios del uso de los stored procedures. 
+● Estructura 
+● Creación 
+● Eliminación 
+● Modificación 
+● Invocación 
+Cuestionario 
+Módulo 8: Cierre del curso 
+Sección 21 - Cierre 
+● Cierre 
+● Cuestionario final 
+  
+6

@@ -1,0 +1,122 @@
+﻿1
+JavaScript para DOM 
+Fundamentación 
+El desarrollo Front End abarca el conjunto de tecnologías que se emplean para desarrollar los componentes de un sitio Web que interactúan con el usuario, y es por ello que se suele decir que están del lado del cliente. 
+En este curso estaremos acercando a los estudiantes las herramientas y habilidades necesarias para sumar interactividad a la capa que previamente estructuraron gracias a HTML y CSS. Con ello, podrán capturar tanto datos como eventos para que los usuarios puedan interactuar con el sitio de manera dinámica. 
+Objetivos de aprendizaje 
+Se espera que los estudiantes puedan: 
+● Aprender los recursos que JavaScript tiene para manipular elementos HTML dentro de un sitio web. 
+● Conocer y utilizar las herramientas para poder crear una validación del lado del cliente y, a su vez, enviar feedback al usuario en base a sus respuestas. ● Comprender el asincronismo dentro de JavaScript y entender su aplicación en el consumo de APIs. 
+Criterios de aprobación 
+● Realizar las actividades de Playground (100% de completitud). ● Aprobación de los checkpoints de conocimiento de cada módulo de aprendizaje. 
+● Aprobación del cuestionario final del curso. 
+  
+2
+Contenidos 
+Módulo 1 - Bienvenida 
+Te damos la bienvenida a nuestro curso y haremos un test de autoevaluación de conocimientos. 
+Clase 1 - Bienvenida 
+● Programa del curso 
+● Presentación del curso 
+● Cuestionario de autoevaluación 
+Módulo 2 - JavaScript en la Web 
+Clase 2 - Introducción 
+● Introducción a JavaScript 
+● Instalaciones y requerimientos 
+Clase 3 - DOM 
+● Incorporando JavaScript a HTML 
+● Alert, prompt y confirm 
+● Repaso Array y Object 
+● DOM Document Object Model 
+● DOM querySelector y form 
+Clase 4 - Eventos 
+● Eventos 
+● Eventos de teclado 
+  
+3
+Clase 5 - Manipulación del DOM 
+● Manipular nodos en el DOM 
+● Manipulando nodos 
+● Agregar y quitar clases 
+● Agregar y quitar atributos 
+● Agregar y quitar estilos 
+● BOM Browser Object Model 
+Clase 6 - Cookies 
+● Cookies 
+Clase 7 - Checkpoint de contenidos 
+● Primera validación de conocimientos. 
+Módulo 3 - APIs 
+Clase 8 - Introducción a APIs 
+● APIs 
+● Geolocalización 
+● Form Validation 
+● Mensaje de error personalizado 
+● History API 
+Clase 9 - Almacenamiento 
+● LocalStorage 
+● SessionStorage 
+● Borrar o limpiar almacenamiento 
+  
+4
+Clase 10 - Consola 
+● Consola 
+Clase 11 - Timers 
+● Timers 
+Clase 12 - Checkpoint de conocimientos ● Segunda validación de conocimientos. 
+Módulo 4 - Proyectos 
+Clase 13 - Proyecto de validación de formularios ● Construimos la validación de un formulario 
+Clase 14 - Proyecto de Login 
+● Desarrollamos el un login de una plataforma 
+Módulo 5 - JavaScript asincrónico 
+Clase 15 - JavaScript asincrónico 
+● JSON 
+● API REST 
+● Callbacks 
+● Funciones asincrónicas 
+Clase 16 - Promesas 
+● Promesas 
+● Promise All 
+  
+5
+Clase 17 - Manejo de JS asincrónico 
+● Primer acercamiento a Fetch 
+● Async/Await 
+● Manejo de errores 
+● Apuntes de manejo de errores 
+Clase 18 - Checkpoint de conocimientos ● Tercera validación de conocimientos. 
+Módulo 6 - JavaScript avanzado 
+Clase 19 - Buenas prácticas 
+● Apunte de buenas prácticas 
+Clase 20 - Funciones avanzadas 
+● Spread Operator en Arrays 
+● Spread Operator en Objetos 
+● Set 
+Clase 21 - Expresiones regulares 
+● Expresiones regulares | Regex 
+  
+6
+Clase 22 - Objetos en JavaScript 
+● POO 
+● POO - Clases 
+● POO - Usando el DOM 
+● POO - Herencia 
+● POO - Encapsulamiento 
+Clase 23 - Módulos 
+● Módulos 
+● Módulos puestos en práctica 
+Clase 24 - Checkpoint de conocimientos ● Cuarta validación de conocimientos. 
+Módulo 7 - Proyectos avanzados 
+Clase 25 - App de clima 
+● Desarrollamos una aplicación para ver el clima 
+Clase 26 - Red social 
+● Desarrollamos una red social básica 
+Clase 27 - Actualización de un proyecto 
+● Tomamos un proyecto ya iniciado y realizamos ajustes con los nuevos conocimientos adquiridos en este curso 
+  
+7
+Módulo 8 - Cierre del curso 
+Clase 28 - Cierre del curso 
+● Cuestionario final 
+● Saludo de despedida 
+  
+8

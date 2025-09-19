@@ -1,0 +1,183 @@
+﻿1
+Introducción al Backend en JAVA 
+Objetivos de aprendizaje 
+Implementar un backend implica conocer un stack de tecnologías amplio, generalmente no es suficiente con conocer el lenguaje. este curso daremos inicio al camino del conocimiento. Incorporaremos JAVA como lenguaje de backend y comenzaremos a descubrir la lógica detrás de las aplicaciones. 
+Criterios de aprobación 
+● Realizar las actividades de Playground (100% de completitud). ● Aprobación de los checkpoints de conocimiento de cada módulo de aprendizaje. 
+● Aprobación del cuestionario final del curso. 
+  
+2
+Contenidos 
+Módulo 1 - Bienvenida 
+Te damos la bienvenida a nuestro curso y haremos un test de autoevaluación de conocimientos. 
+Clase 1 - Bienvenida 
+● Programa del curso 
+● Presentación del curso 
+● Cuestionario de autoevaluación 
+Módulo 2 - Introducción 
+Clase 2 - Conocimientos necesarios 
+● Bienvenida (Intro a la materia) 
+● Que es el Backend 
+● Introducción a Test Unitarios y Test de Integración 
+● Annotations 
+● Assertions - I Parte 
+● Assertions - II Parte 
+● TU: Beneficios y Principio FIRST 
+● Arquitectura JUnit 
+● Cómo configurar la librería de Junit 
+● Ejercicio - Consigna 
+● Ejercicio - Clase Person 
+● Ejercicio - Clase Group 
+● Ejercicio - Clase Test 
+● Test Parametrizados 
+  
+3
+Módulo 3 - Acceso a datos 
+Clase 3 - Logging (trazas y debug) 
+● Introducción al logue 
+● Niveles de registro 
+● Instalación Log4J 
+● Crear archivo de configuración Log4J 
+● Ejercicio - Consigna 
+● Ejercicio - Crear clase promedio 
+● Ejercicio - Crear clase Main} 
+Clase 4 - Acceso a base de datos 
+● Introducción 
+● Uso y funcionamiento de un driver JDBC 
+● Uso y funcionamiento de un driver JDBC - Implementación en el código ● Que es H2 y sus características 
+● Acceso a Base de Datos - Configuración de la librería 
+● Acceso a Base de Datos - Conexión a la Base de datos 
+● Acceso a Base de Datos - Órdenes a la Base de datos 
+● Acceso a Base de Datos - Consultas a la Base de datos 
+● Acceso a Base de Datos - Creación de constantes 
+● Acceso a Base de Datos - Eliminar valores de la Base de datos ● Acceso a Base de Datos - Logging 
+  
+4
+Clase 5 - Consultas y transacciones sobre la base de datos 
+● Statement vs. PreparedStatement 
+● Consultas y Transacciones 
+● Transacciones 
+● PreparedStatement - Creación de clase e inserción de valores ● PreparedStatement - Efectuar una transacción aumentando el saldo ● PreparedStatement - Forzar una excepción y generar un rollback ● Uniendo conceptos - Introducción 
+● Uniendo conceptos - Modelar entidad odontólogo 
+● Uniendo conceptos - Conexión a la base de datos 
+● Uniendo conceptos - Creación de Tabla 
+● Uniendo conceptos - Inserción de valores 
+● Uniendo conceptos - Consultar datos de la tabla 
+● Uniendo conceptos - Actualizar algún dato de la tabla 
+● Uniendo conceptos - Consultar solo una fila en la base de datos ● Uniendo conceptos - Borrar una fila de la BD 
+● Uniendo conceptos - Chequear que se eliminó el registro 
+● Uniendo conceptos - Agregar Logs 
+  
+5
+Clase 6 - Patrón DAO (Data Access Object) 
+● Introducción 
+● Data Access Object 
+● Presentación en UML 
+● Presentación en código 
+● Creación de proyecto 
+● Creación de interfaz y clases - 1 
+● Creación de interfaz y clases - 2 
+● Creación de interfaz y clases - 3 
+● Clase service 
+● Conexión a BD 
+● Implementación método save 
+● Implementación método findById 
+● Implementación método update 
+● Implementación método delete 
+● Implementación método findAll 
+● Clase main 
+● Test con Junit 
+Clase 7 - Maven 
+● Introducción 
+● Maven, qué es? 
+● Implementación 
+● Uniendo código 
+Clase 8 - Serialización de objetos y E/S archivos 
+● Introducción Serialización de objetos 
+● Serialización implementación I 
+● Serialización implementación II 
+● Clase Buffered 
+  
+6
+Clase 9 - Check point de contenidos 
+Primera validación de conocimientos. 
+Módulo 4 - Framework para el desarrollo ágil de aplicaciones 
+Clase 10 - Introducción a spring boot 
+● Protocolo HTTP 
+● Frameworks vs. Librerías 
+● Que puede hacer Spring 
+● Spring vs. Spring Boot 
+● Spring Initializr 
+● Annotations y clase Main 
+● Spring Boot - Primer proyecto 
+Clase 11 - Inyección de dependencias 
+● Estructura de los proyectos en Aplicaciones Empresariales 
+● Introducción a Inyección de Dependencias 
+● Inyección de Dependencias 
+● Control de Inversión (ID) 
+● Implementación - Creación de proyecto con Spring Initializr 
+● Implementación - Clase Controller 
+  
+7
+Clase 12 - ORM 
+● Capa de datos 
+● ORM 
+● JPA 
+● Spring Data JPA y Anotaciones 
+● ORM - Implementación I 
+● ORM - Implementación II 
+● ORM - Implementación III 
+● ORM - Implementación IV 
+● ORM - Implementación V 
+● Configurando Hibernate con Spring Boot 
+● ORM - Implementación VI 
+● Postman 
+● Probando Postman 
+● ORM - Implementación VII 
+● ORM - Implementación VIII 
+● ORM - Implementación IX 
+● ORM - Implementación X 
+● ORM - Implementación XI 
+● ORM - Implementación XII 
+● ORM - Implementación XIII 
+● ORM - Implementación XIV 
+● ORM - Implementación XV 
+● ORM - Implementación XVI 
+  
+8
+Clase 12 - Spring data - Hibernate 
+● Mapeo de Relaciones 
+● Relación UNO a UNO 
+● Relación UNO a MUCHOS 
+● Relación MUCHOS a MUCHOS 
+● Fetch Type 
+● Cascade 
+● JoinColumn 
+● Implementación 
+● Relación @OneToOne 
+● Implementación - FetchType 
+Clase 13 - Spring data - Hibernate 
+● Mapeo de Relaciones 
+● Relación UNO a UNO 
+● Relación UNO a MUCHOS 
+● Relación MUCHOS a MUCHOS 
+● Fetch Type 
+● Cascade 
+● JoinColumn 
+● Implementación 
+● Relación @OneToOne 
+● Implementación - FetchType 
+  
+9
+Clase 14 - HQL 
+● Que es HQL 
+● Sintaxis 
+● Sintaxis de la consulta HQL 
+● Implementación I 
+● Implementación II 
+Módulo 5: Cierre del curso 
+Clase 28 - Cierre del curso 
+● Cuestionario final 
+● Saludo de despedida 
+  
+10
