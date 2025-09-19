@@ -96,8 +96,248 @@ Respuesta Paginada:
     "elementosPorPagina": 10
 }
 
+
+ENDPOINTS DE PRODUCTOS - RECORE2
+==========================
+
+Base URL: http://localhost:8080/api/productos
+
+1. CREAR PRODUCTO
+---------------
+Método: POST
+URL: http://localhost:8080/api/productos
+Body (JSON):
+{
+    "nombre": "Laptop Gaming",
+    "descripcion": "Laptop para gaming de alta gama",
+    "precio": 1299.99,
+    "categoria": {
+        "id": 1
+    }
+}
+
+2. ACTUALIZAR PRODUCTO
+--------------------
+Método: PUT
+URL: http://localhost:8080/api/productos/{id}
+Ejemplo: http://localhost:8080/api/productos/1
+Body (JSON):
+{
+    "nombre": "Laptop Gaming Pro",
+    "descripcion": "Laptop para gaming profesional de alta gama",
+    "precio": 1499.99,
+    "categoria": {
+        "id": 1
+    }
+}
+
+3. BUSCAR PRODUCTO POR ID
+-----------------------
+Método: GET
+URL: http://localhost:8080/api/productos/{id}
+Ejemplo: http://localhost:8080/api/productos/1
+
+4. LISTAR TODOS LOS PRODUCTOS (CON PAGINACIÓN)
+-------------------------------------------
+Método: GET
+URL: http://localhost:8080/api/productos/listarTodos?pagina=0&tamanio=10
+Parámetros opcionales:
+- pagina: número de página (por defecto 0)
+- tamanio: cantidad de elementos por página (por defecto 10)
+
+5. ELIMINAR PRODUCTO
+------------------
+Método: DELETE
+URL: http://localhost:8080/api/productos/{id}
+Ejemplo: http://localhost:8080/api/productos/1
+
+6. BUSCAR PRODUCTOS POR CATEGORÍA (CON PAGINACIÓN)
+------------------------------------------------
+Método: GET
+URL: http://localhost:8080/api/productos/buscarPorCategoria/{categoriaId}?pagina=0&tamanio=10
+Ejemplo: http://localhost:8080/api/productos/buscarPorCategoria/1
+Parámetros opcionales:
+- pagina: número de página (por defecto 0)
+- tamanio: cantidad de elementos por página (por defecto 10)
+
+7. BUSCAR PRODUCTOS POR NOMBRE QUE CONTIENE TEXTO (CON PAGINACIÓN)
+----------------------------------------------------------------
+Método: GET
+URL: http://localhost:8080/api/productos/buscarPorNombreContiene/{nombre}?pagina=0&tamanio=10
+Ejemplo: http://localhost:8080/api/productos/buscarPorNombreContiene/Tablet
+Parámetros opcionales:
+- pagina: número de página (por defecto 0)
+- tamanio: cantidad de elementos por página (por defecto 10)
+
+8. BUSCAR PRODUCTOS POR RANGO DE PRECIO (CON PAGINACIÓN)
+------------------------------------------------------
+Método: GET
+URL: http://localhost:8080/api/productos/buscarPorRangoPrecio?precioMin=100&precioMax=500&pagina=0&tamanio=10
+Parámetros requeridos:
+- precioMin: precio mínimo
+- precioMax: precio máximo
+Parámetros opcionales:
+- pagina: número de página (por defecto 0)
+- tamanio: cantidad de elementos por página (por defecto 10)
+
+RESPUESTAS ESPERADAS PARA PRODUCTOS
+==================================
+
+Éxito (Producto individual):
+{
+    "exito": true,
+    "mensaje": null,
+    "datos": {
+        "id": 1,
+        "nombre": "Tablet Pro",
+        "descripcion": "Tablet de última generación",
+        "precio": 599.99,
+        "categoria": {
+            "id": 1,
+            "titulo": "Electrónicos",
+            "descripcion": "Dispositivos electrónicos",
+            "imagen": "electronicos.jpg"
+        },
+        "fechaCreacion": "2025-09-16T15:54:05",
+        "fechaModificacion": "2025-09-16T15:54:05"
+    }
+}
+
+Respuesta Paginada (Lista de productos):
+{
+    "exito": true,
+    "mensaje": null,
+    "datos": [
+        {
+            "id": 1,
+            "nombre": "Tablet Pro",
+            "descripcion": "Tablet de última generación",
+            "precio": 599.99,
+            "categoria": {
+                "id": 1,
+                "titulo": "Electrónicos",
+                "descripcion": "Dispositivos electrónicos",
+                "imagen": "electronicos.jpg"
+            },
+            "fechaCreacion": "2025-09-16T15:54:05",
+            "fechaModificacion": "2025-09-16T15:54:05"
+        }
+    ],
+    "paginaActual": 0,
+    "totalPaginas": 4,
+    "totalElementos": 40,
+    "elementosPorPagina": 10
+}
+
+Error:
+{
+    "exito": false,
+    "mensaje": "Mensaje de error específico",
+    "datos": null
+}
+
+NOTAS IMPORTANTES:
+- Todos los endpoints de productos están funcionando correctamente
+- La serialización JSON con Hibernate está configurada para evitar problemas de lazy loading
+- Los endpoints de búsqueda incluyen paginación para mejor rendimiento
+- El precio se almacena como BigDecimal con precisión de 12 dígitos y 6 decimales
+- La relación con categoría es lazy loading pero está configurada para serialización JSON
+
 NOTAS:
 - Asegúrate de que MySQL esté corriendo y la base de datos recore2 esté creada
 - La aplicación debe estar ejecutándose en el puerto 8080
 - Los campos fechaCreacion y fechaModificacion se generan automáticamente
-- El password se almacena en texto plano (en un ambiente real debería estar encriptado)
+- El password se almacena en texto plano (en un ambiente real debería estar encriptado) (JWT)
+
+
+ENDPOINTS DE CATEGORÍAS - RECORE2
+==========================
+
+Base URL: http://localhost:8080/api/categorias
+
+1. CREAR CATEGORÍA
+---------------
+Método: POST
+URL: http://localhost:8080/api/categorias
+Body (JSON):
+{
+    "titulo": "Deportes",
+    "descripcion": "Artículos deportivos y equipamiento",
+    "imagen": "deportes.jpg"
+}
+
+2. ACTUALIZAR CATEGORÍA
+--------------------
+Método: PUT
+URL: http://localhost:8080/api/categorias/{id}
+Ejemplo: http://localhost:8080/api/categorias/1
+Body (JSON):
+{
+    "titulo": "Deportes y Fitness",
+    "descripcion": "Artículos deportivos, equipamiento y accesorios de fitness",
+    "imagen": "deportes_fitness.jpg"
+}
+
+3. BUSCAR CATEGORÍA POR ID
+-----------------------
+Método: GET
+URL: http://localhost:8080/api/categorias/{id}
+Ejemplo: http://localhost:8080/api/categorias/1
+
+4. LISTAR TODAS LAS CATEGORÍAS (CON PAGINACIÓN)
+-------------------------------------------
+Método: GET
+URL: http://localhost:8080/api/categorias/listarTodos?pagina=0&tamanio=10
+Parámetros opcionales:
+- pagina: número de página (por defecto 0)
+- tamanio: cantidad de elementos por página (por defecto 10)
+
+5. ELIMINAR CATEGORÍA
+------------------
+Método: DELETE
+URL: http://localhost:8080/api/categorias/{id}
+Ejemplo: http://localhost:8080/api/categorias/1
+
+RESPUESTAS ESPERADAS
+===================
+
+Éxito:
+{
+    "exito": true,
+    "mensaje": null,
+    "datos": {
+        "id": 1,
+        "titulo": "Deportes",
+        "descripcion": "Artículos deportivos y equipamiento",
+        "imagen": "deportes.jpg",
+        "fechaCreacion": "2025-09-19T10:00:00",
+        "fechaModificacion": "2025-09-19T10:00:00"
+    }
+}
+
+Error:
+{
+    "exito": false,
+    "mensaje": "Mensaje de error específico",
+    "datos": null
+}
+
+Respuesta Paginada:
+{
+    "exito": true,
+    "mensaje": null,
+    "datos": [
+        {
+            "id": 1,
+            "titulo": "Deportes",
+            "descripcion": "Artículos deportivos y equipamiento",
+            "imagen": "deportes.jpg",
+            "fechaCreacion": "2025-09-19T10:00:00",
+            "fechaModificacion": "2025-09-19T10:00:00"
+        }
+    ],
+    "paginaActual": 0,
+    "totalPaginas": 1,
+    "totalElementos": 1,
+    "elementosPorPagina": 10
+}
