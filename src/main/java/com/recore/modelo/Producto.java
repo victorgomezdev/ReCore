@@ -3,6 +3,7 @@ package com.recore.modelo;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Módulo 4 - Backend avanzado
@@ -26,6 +27,10 @@ public class Producto extends EntidadBase {
     @JoinColumn(name = "idcategoria")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Categoria categoria;
+
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "producto"})
+    private List<Imagen> imagenes;
 
     // Constructor por defecto
     public Producto() {
@@ -61,5 +66,13 @@ public class Producto extends EntidadBase {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public List<Imagen> getImagenes() {
+        return imagenes;
+    }
+
+    public void setImagenes(List<Imagen> imagenes) {
+        this.imagenes = imagenes;
     }
 }
