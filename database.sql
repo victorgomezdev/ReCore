@@ -43,6 +43,8 @@ CREATE TABLE
 		nombre VARCHAR(100) NOT NULL,
 		descripcion VARCHAR(500),
 		precio DECIMAL(12, 6),
+		puntuacion_promedio DECIMAL(3, 2) DEFAULT 0.0,
+		total_puntuaciones INT DEFAULT 0,
 		fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 		fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 		FOREIGN KEY (idcategoria) REFERENCES categorias (id) ON DELETE SET NULL
