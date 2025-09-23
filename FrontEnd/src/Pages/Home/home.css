@@ -1,0 +1,17 @@
+.contenido-container {
+	background-image: url('../../assets/background.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	min-height: calc(100vh);
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-size: 24px;
+	/* Ajustado para que no quede debajo del header fijo */
+	box-sizing: border-box;
+	position: relative;
+	z-index: 1;
+}
